@@ -12,7 +12,16 @@
 		       "navigationBarTitleText": "贴一贴卡片钱包"
 		   }
 		}
-	],
+	    ,{
+            "path" : "pages/cardDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

@@ -8,7 +8,7 @@
 				</view>
 				<text class="text-style" style="font-weight: bold; font-size: 50upx;">{{ money }}</text>
 			</view>
-			<image class="img-bg" src="../../static/RMB_v3.png" mode="widthFix"/>
+			<image class="img-bg" src="@/static/RMB_v3.png" mode="widthFix"/>
 		</view>
 		<view class="intro-block">
 			<view class="intro-text">
@@ -22,31 +22,31 @@
 		<view class="button-list">
 			<button class="button-style2">
 				<view class="button-content">
-					<image class="button-icon" src="../../static/topup_v2.png" mode="scaleToFill" />
+					<image class="button-icon" src="@/static/topup_v2.png" mode="scaleToFill" />
 					<text>钱包充值</text>
 				</view>
 			</button>
 			<button class="button-style1">
 				<view class="button-content">
-					<image class="button-icon" src="../../static/bank_v2.png" mode="scaleToFill" />
+					<image class="button-icon" src="@/static/bank_v2.png" mode="scaleToFill" />
 					<text>银行存储</text>
 				</view>
 			</button>
 			<button class="button-style2">
 				<view class="button-content">
-					<image class="button-icon" src="../../static/wallet.png" mode="scaleToFill" />
+					<image class="button-icon" src="@/static/wallet.png" mode="scaleToFill" />
 					<text>开立钱包</text>
 				</view>
 			</button>
 			<button class="button-style1" @tap="navi_identifyCard">
 				<view class="button-content">
-					<image class="button-icon" src="../../static/card.png" mode="scaleToFill" />
+					<image class="button-icon" src="@/static/card.png" mode="scaleToFill" />
 					<text>识别软卡</text>
 				</view>
 			</button>
 			<button class="button-style2">
 				<view class="button-content">
-					<image class="button-icon" src="../../static/trans_v2.png" mode="scaleToFill" />
+					<image class="button-icon" src="@/static/trans_v2.png" mode="scaleToFill" />
 					<text>交易明细</text>
 				</view>
 			</button>
@@ -67,12 +67,28 @@
 			}
 		},
 		onShow(){
-			/*this.$request('http://10.2.1.157:8888/digitalWallet/getUserInfo?id=0021002193008888', {}).then(res => {
-				this.walletName = res.data.userInfo.nickName + '\n'
-				this.walletID = res.data.userInfo.dwId
-			})*/
-			this.$request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
+			/*this.$request.request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
 				this.wallet = res.data.userInfo
+			})*/
+			/*this.$request.getWallet('0021002193008888').then(res => {
+				console.log("onShow_res: ")
+				console.log(res)
+				this.wallet = res.data.userInfo	
+			})*/
+			/*this.$request.get('getUserInfo?id=0021002193008888').then(res => {
+				console.log('onShow')
+				console.log(res)
+				this.wallet = res.data.userInfo
+			})*/
+			/*this.$request.getWallet('0021002193008888').then(res => {
+				console.log(res)
+				this.wallet = res.data.userInfo
+			})*/
+			
+			this.$request.getWallet('0021002193008888', {}).then(res => {
+				// console.log("onShow")
+				this.wallet = res.data.userInfo
+				// console.log(this.wallet)	
 			})
 		},
 		methods: {
@@ -84,7 +100,7 @@
 				}
 				else {
 					this.imageSrc = "../../static/1.png"
-					this.$request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
+					this.$request.request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
 						this.money = parseFloat(this.wallet.amount).toFixed(2)
 					})
 				}
@@ -121,5 +137,5 @@
 </script>
 
 <style lang="scss">
-	@import url("../../common/uni.css");
+	@import url("@/common/uni.css");
 </style>

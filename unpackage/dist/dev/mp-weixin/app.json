@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/identifyCard/identifyCard"
+    "pages/identifyCard/identifyCard",
+    "pages/cardDetail"
   ],
   "subPackages": [],
   "window": {
