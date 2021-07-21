@@ -5,6 +5,12 @@
 			"style": {
 				"navigationBarTitleText": "首页"
 			}
+		},
+		{
+		   "path" : "pages/identifyCard/identifyCard",
+		   "style" : {
+		       "navigationBarTitleText": "贴一贴卡片钱包"
+		   }
 		}
 	],
 	"globalStyle": {

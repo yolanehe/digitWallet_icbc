@@ -38,7 +38,7 @@
 					<text>开立钱包</text>
 				</view>
 			</button>
-			<button class="button-style1">
+			<button class="button-style1" @tap="navi_identifyCard">
 				<view class="button-content">
 					<image class="button-icon" src="../../static/card.png" mode="scaleToFill" />
 					<text>识别软卡</text>
@@ -106,6 +106,15 @@
 						console.log('failed')
 					}
 				})
+			},
+			navi_identifyCard(){
+			    console.log("navi_identifyCard")
+			    uni.navigateTo({
+			        url:"/pages/identifyCard/identifyCard",
+			        success:res =>{},
+			        fail:() =>{},
+			        complete:() => {}
+			    });
 			}
 		}
 	}

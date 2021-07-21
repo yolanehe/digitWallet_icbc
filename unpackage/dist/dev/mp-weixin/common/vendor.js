@@ -7998,9 +7998,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!***********************************************************************!*\
-  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages.json ***!
-  \***********************************************************************/
+/*!**************************************************!*\
+  !*** E:/environment/digitWallet_icbc/pages.json ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8141,9 +8141,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 11 */
-/*!******************************************************************************!*\
-  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/common/request.js ***!
-  \******************************************************************************/
+/*!*********************************************************!*\
+  !*** E:/environment/digitWallet_icbc/common/request.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8185,9 +8185,9 @@ request;exports.default = _default;
 /* 16 */,
 /* 17 */,
 /* 18 */
-/*!*************************************************************************!*\
-  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/2.png ***!
-  \*************************************************************************/
+/*!****************************************************!*\
+  !*** E:/environment/digitWallet_icbc/static/2.png ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
