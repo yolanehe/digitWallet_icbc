@@ -2,7 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/identifyCard/identifyCard",
-    "pages/cardDetail"
+    "pages/topUpAccountWallet/topUpAccountWallet"
   ],
   "subPackages": [],
   "window": {
@@ -11,5 +11,6 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

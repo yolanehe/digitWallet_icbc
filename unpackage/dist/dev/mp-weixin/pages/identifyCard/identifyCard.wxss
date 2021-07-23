@@ -19,7 +19,7 @@
 	/* margin-left: auto; */
 	/* margin-right: auto; */
 	/* margin-bottom: 200rpx; */
-	
+
 	/*border: 1upx solid black; */
 }
 .text-area {
@@ -33,7 +33,7 @@
 .title {
 	font-size: 35rpx;
 	color: black;
-	
+
 	margin-top: 30rpx;
 }
 

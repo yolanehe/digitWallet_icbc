@@ -20,7 +20,7 @@
 			</view>
 		</view>
 		<view class="button-list">
-			<button class="button-style2">
+			<button class="button-style2" @tap="navi_topUpAccountWallet">
 				<view class="button-content">
 					<image class="button-icon" src="@/static/topup_v2.png" mode="scaleToFill" />
 					<text>钱包充值</text>
@@ -55,8 +55,9 @@
 </template>
 
 <script>	
-	import imageSrc from "../../static/2.png"
-
+	import imageSrc from "@/static/2.png"
+	import Config from '@/common/config.js'
+	
 	export default {
 		data() {
 			return {
@@ -64,42 +65,23 @@
 				imageSrc: imageSrc,
 				wallet: {},
 				money: '***',
+				token: Config.getToken(),
 			}
 		},
 		onShow(){
-			/*this.$request.request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
-				this.wallet = res.data.userInfo
-			})*/
-			/*this.$request.getWallet('0021002193008888').then(res => {
-				console.log("onShow_res: ")
-				console.log(res)
-				this.wallet = res.data.userInfo	
-			})*/
-			/*this.$request.get('getUserInfo?id=0021002193008888').then(res => {
-				console.log('onShow')
-				console.log(res)
-				this.wallet = res.data.userInfo
-			})*/
-			/*this.$request.getWallet('0021002193008888').then(res => {
-				console.log(res)
-				this.wallet = res.data.userInfo
-			})*/
-			
-			this.$request.getWallet('0021002193008888', {}).then(res => {
-				// console.log("onShow")
-				this.wallet = res.data.userInfo
-				// console.log(this.wallet)	
+			this.$request.getWallet(this.token, {}).then(res => {
+				this.wallet = res.userInfo
 			})
 		},
 		methods: {
 			displayDetail() {
 				this.display = !this.display
 				if (this.display) {
-					this.imageSrc = "../../static/2.png"
+					this.imageSrc = require("@/static/2.png")
 					this.money = "***"
 				}
 				else {
-					this.imageSrc = "../../static/1.png"
+					this.imageSrc = require("@/static/1.png")
 					this.$request.request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
 						this.money = parseFloat(this.wallet.amount).toFixed(2)
 					})
@@ -110,7 +92,7 @@
 			},
 			clipContent() {
 				uni.setClipboardData({
-					data:this.walletID,
+					data:this.wallet.dwId,
 					success:function(){
 						uni.getClipboardData({
 						    success: function (res) {
@@ -118,20 +100,29 @@
 						    }
 						});
 					},
-					fail: () => {
-						console.log('failed')
+					fail: (err) => {
+						console.log('failed: ' , err)
 					}
 				})
 			},
 			navi_identifyCard(){
 			    console.log("navi_identifyCard")
 			    uni.navigateTo({
-			        url:"/pages/identifyCard/identifyCard",
+			        url: "/pages/identifyCard/identifyCard",
 			        success:res =>{},
 			        fail:() =>{},
 			        complete:() => {}
 			    });
-			}
+			}, 
+			navi_topUpAccountWallet(){
+			    console.log("navi_topUpAccountWallet")
+			    uni.navigateTo({
+			        url: "/pages/topUpAccountWallet/topUpAccountWallet",
+			        success:res =>{},
+			        fail:() =>{},
+			        complete:() => {}
+			    });
+			},
 		}
 	}
 </script>
