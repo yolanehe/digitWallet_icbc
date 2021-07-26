@@ -130,34 +130,106 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var tkiFloatKeyboard = function tkiFloatKeyboard() {__webpack_require__.e(/*! require.ensure | components/tki-float-keyboard/tki-float-keyboard */ "components/tki-float-keyboard/tki-float-keyboard").then((function () {return resolve(__webpack_require__(/*! @/components/tki-float-keyboard/tki-float-keyboard.vue */ 46));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  components: {
+    tkiFloatKeyboard: tkiFloatKeyboard },
+
+  data: function data() {
+    return {
+      money: 0,
+      money_format: '' };
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    outputcents: function outputcents(amount) {
+      amount = Math.round((amount - Math.floor(amount)) * 100);
+      return amount < 10 ? '.0' + amount : '.' + amount;
+    },
+    outputdollars: function outputdollars(number) {
+      if (number.length <= 3)
+      return number == '' ? '0' : number;else
+      {
+        var mod = number.length % 3;
+        var output = mod == 0 ? '' : number.substring(0, mod);
+
+        for (var i = 0; i < Math.floor(number.length / 3); i++) {
+          if (mod == 0 && i == 0)
+          output += number.substring(mod + 3 * i, mod + 3 * i + 3);else
+
+          output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+        }
+
+        console.log('outputdollars', output);
+
+        return output;
+      }
+    },
+    toThousands: function toThousands(number) {
+      number = number + "";
+      number = number.replace(/\,/g, "");
+
+      if (isNaN(number) || number == "") return "";
+
+      number = Math.round(number * 100) / 100;
+
+      if (number < 0) {
+        return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
+      } else
+      {
+        return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
+      }
+
+    },
+    onKeyInput: function onKeyInput(event) {
+      if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
+        uni.showToast({
+          title: '输入不合法' });
+
+
+        this.money = 0;
+        this.money_format = '';
+      } else
+      {
+        this.money = parseFloat(event.target.value).toFixed(2);
+        this.money_format = this.toThousands(event.target.value);
+
+        // console.log(this.money)
+        // console.log(this.money_format)
+      }
+    },
+    deleteMoney: function deleteMoney() {
+      this.money = 0;
+      this.money_format = '';
+      // console.log(this.money)
+      // console.log(this.money_format)
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
