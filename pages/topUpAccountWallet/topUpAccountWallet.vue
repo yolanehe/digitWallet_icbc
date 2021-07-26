@@ -19,6 +19,7 @@
 				<image class="delete_icon" src="@/static/delete.png" mode="aspectFit" @tap="deleteMoney"/>
 			</view> 
 		</view>
+		<button class="button-style2">下一步</button>
 	</view>
 </template>
 
@@ -147,13 +148,13 @@
 	}
 	.transfer_input {
 		// border: 1upx solid red;
-		border: 1rpx dotted grey;
+		border: 2rpx dashed grey;
 		border-radius: 10rpx;
 		
-		padding-top: 30rpx;
-		padding-bottom: 30rpx;
+		padding-top: 25rpx;
+		padding-bottom: 40rpx;
 		
-		margin-top: 30rpx;
+		margin-top: 50rpx;
 		margin-left: 20rpx;
 		margin-right: 20rpx;
 		margin-bottom: 30rpx;
