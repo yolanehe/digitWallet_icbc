@@ -82,9 +82,11 @@
 				}
 				else {
 					this.imageSrc = require("@/static/1.png")
-					this.$request.request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
+					/*this.$request.request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
 						this.money = parseFloat(this.wallet.amount).toFixed(2)
-					})
+					})*/
+					// this.$request.request()
+					this.money = parseFloat(this.wallet.amount).toFixed(2)
 				}
 			},
 			displayImgSrc() {
@@ -106,7 +108,6 @@
 				})
 			},
 			navi_identifyCard(){
-			    console.log("navi_identifyCard")
 			    uni.navigateTo({
 			        url: "/pages/identifyCard/identifyCard",
 			        success:res =>{},
@@ -115,14 +116,13 @@
 			    });
 			}, 
 			navi_topUpAccountWallet(){
-			    console.log("navi_topUpAccountWallet")
 			    uni.navigateTo({
 			        url: "/pages/topUpAccountWallet/topUpAccountWallet",
 			        success:res =>{},
 			        fail:() =>{},
 			        complete:() => {}
 			    });
-			},
+			}
 		}
 	}
 </script>

@@ -130,41 +130,58 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var tkiFloatKeyboard = function tkiFloatKeyboard() {__webpack_require__.e(/*! require.ensure | components/tki-float-keyboard/tki-float-keyboard */ "components/tki-float-keyboard/tki-float-keyboard").then((function () {return resolve(__webpack_require__(/*! @/components/tki-float-keyboard/tki-float-keyboard.vue */ 46));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default =
 {
-  components: {
-    tkiFloatKeyboard: tkiFloatKeyboard },
-
   data: function data() {
     return {
-      money: 0,
-      money_format: '' };
+      money: '',
+      accounts: [{
+        "image": "@/static/icbc.png",
+        "ID": "6212 **** 6282" },
+      {
+        "image": "@/static/ccb.png",
+        "ID": "6200 **** 3333" },
+      {
+        "image": "@/static/abc.png",
+        "ID": "4404 **** 6262" },
+      {
+        "image": "@/static/icbc.png",
+        "ID": "6277 **** 3333" }] };
+
 
   },
   methods: {
@@ -213,22 +230,17 @@ __webpack_require__.r(__webpack_exports__);
           title: '输入不合法' });
 
 
-        this.money = 0;
-        this.money_format = '';
+        this.money = '';
       } else
       {
         this.money = parseFloat(event.target.value).toFixed(2);
-        this.money_format = this.toThousands(event.target.value);
-
-        // console.log(this.money)
-        // console.log(this.money_format)
       }
     },
     deleteMoney: function deleteMoney() {
-      this.money = 0;
-      this.money_format = '';
-      // console.log(this.money)
-      // console.log(this.money_format)
+      this.money = '';
+    },
+    picker_change: function picker_change(event) {
+      console.log(this.accounts);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

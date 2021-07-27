@@ -14,25 +14,42 @@
 		<view class="transfer_input">
 			<text class="transfer_input_text">充入金额</text>
 			<view class="transfer_input_view">
-				<image class="money_icon" src="@/static/rmb_logo_black.png" mode="aspectFill"/>
-				<input class="transfer_input_style" placeholder="请输入金额" placeholder-style="font-size: 40rpx; margin-bottom: 10rpx;" type="number" confirm-type="done" @blur="onKeyInput" v-model="money_format"/>
-				<image class="delete_icon" src="@/static/delete.png" mode="aspectFit" @tap="deleteMoney"/>
+				<image class="icon" src="@/static/rmb_logo_black.png" mode="aspectFill"/>
+				<input class="transfer_input_style" placeholder="请输入金额" placeholder-style="font-size: 40rpx; margin-bottom: 10rpx;" type="digit" confirm-type="done" @blur="onKeyInput" v-model="money"/>
+				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney"/>
 			</view> 
+		</view>
+		<view class="picker_unit">
+			<text class="picker_text">交易卡卡号</text>
+			<picker class="account_picker" mode="selector" :range="accounts" :range-key="'ID'" :value="index" @change="picker_change">
+				<view class="select_unit">
+					<image class="icon" :src="accounts[index].image" mode="aspectFit" />
+					<text class="picker_text">{{ accounts[index].ID }}</text>
+				</view>
+			</picker>
 		</view>
 		<button class="button-style2">下一步</button>
 	</view>
 </template>
 
 <script>
-	import tkiFloatKeyboard from '@/components/tki-float-keyboard/tki-float-keyboard.vue'
 	export default {
-		components: {
-			tkiFloatKeyboard
-		},
 		data() {
 			return {
-				money: 0,
-				money_format: '',
+				money: '',
+				accounts: [{
+					"image": "@/static/icbc.png",
+					"ID": "6212 **** 6282"
+				}, {
+					"image": "@/static/ccb.png",
+					"ID": "6200 **** 3333"
+				}, {
+					"image": "@/static/abc.png",
+					"ID": "4404 **** 6262"
+				}, {
+					"image": "@/static/icbc.png",
+					"ID": "6277 **** 3333"
+				}]
 			}
 		},
 		methods: {
@@ -81,22 +98,17 @@
 						title: '输入不合法',
 					})
 					
-					this.money = 0
-					this.money_format = ''
+					this.money = ''
 				}
 				else {
 					this.money = parseFloat(event.target.value).toFixed(2)
-					this.money_format = this.toThousands(event.target.value)
-					
-					// console.log(this.money)
-					// console.log(this.money_format)
 				}
 			},
 			deleteMoney() {
-				this.money = 0
-				this.money_format = ''
-				// console.log(this.money)
-				// console.log(this.money_format)
+				this.money = ''
+			},
+			picker_change(event) {
+				console.log(this.accounts)
 			}
 		}
 	}
@@ -173,14 +185,8 @@
 		justify-content: flex-start;
 		align-items: center;
 	}
-	.money_icon {
-		// border: 1rpx solid red;
-		
-		width: 50rpx;
-		height: 50rpx;
-	}
-	.delete_icon {
-		// border: 1rpx solid red;
+	.icon {
+		border: 1rpx solid red;
 		
 		width: 50rpx;
 		height: 50rpx;
@@ -201,5 +207,28 @@
 		margin-right: 10rpx;
 		
 		width: 100%;
+	}
+	.account_picker {
+		border: 1rpx solid blue;
+	}
+	.picker_unit {
+		border: 1rpx solid black;
+		
+		padding-left: 20rpx;
+		padding-right: 20rpx;
+		
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.select_unit {
+		border: 1rpx solid red;
+		
+		display: flex;
+	}
+	.picker_text {
+		border: 1rpx solid pink;
+		
+		font-size: 36rpx;
 	}
 </style>

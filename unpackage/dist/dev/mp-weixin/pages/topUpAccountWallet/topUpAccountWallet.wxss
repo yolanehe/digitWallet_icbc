@@ -293,14 +293,8 @@
 	-webkit-align-items: center;
 	        align-items: center;
 }
-.money_icon {
-	/* border: 1rpx solid red; */
-	
-	width: 50rpx;
-	height: 50rpx;
-}
-.delete_icon {
-	/* border: 1rpx solid red; */
+.icon {
+	border: 1rpx solid red;
 	
 	width: 50rpx;
 	height: 50rpx;
@@ -321,5 +315,41 @@
 	margin-right: 10rpx;
 	
 	width: 100%;
+}
+.account_picker {
+	border: 1rpx solid blue;
+}
+.picker_unit {
+	border: 1rpx solid black;
+	
+	padding-left: 20rpx;
+	padding-right: 20rpx;
+	
+	display: -webkit-box;
+	
+	display: -webkit-flex;
+	
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.select_unit {
+	border: 1rpx solid red;
+	
+	display: -webkit-box;
+	
+	display: -webkit-flex;
+	
+	display: flex;
+}
+.picker_text {
+	border: 1rpx solid pink;
+	
+	font-size: 36rpx;
 }
 
