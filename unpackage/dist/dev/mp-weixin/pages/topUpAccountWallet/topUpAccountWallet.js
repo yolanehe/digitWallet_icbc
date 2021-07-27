@@ -97,6 +97,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.getImageSrc()
+
+  var l0 = _vm.__map(_vm.accounts, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var m1 = _vm.showHidden
+      ? _vm.getAccountIcon(_vm.accounts[index].image)
+      : null
+    return {
+      $orig: $orig,
+      m1: m1
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -130,7 +153,44 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _config = _interopRequireDefault(__webpack_require__(/*! @/common/config.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -164,22 +224,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var _default =
-{
-  data: function data() {
-    return {
-      money: '',
-      accounts: [{
-        "image": "@/static/icbc.png",
-        "ID": "6212 **** 6282" },
+//
+//
+var _default = { data: function data() {return { money: '', showHidden: false, accounts: [{ "image": "icbc", "ID": "6212 **** 6282" }, { "image": "ccb", "ID": "6200 **** 3333" }, { "image": "abc", "ID": "4404 **** 6262" }, { "image": "icbc", "ID": "6277 **** 3333" }, { "image": "icbc", "ID": "6212 **** 6282" }, { "image": "ccb", "ID": "6200 **** 3333" }, { "image": "abc", "ID": "4404 **** 6262" }, { "image": "icbc", "ID": "6277 **** 3333" }, { "image": "icbc", "ID": "6212 **** 6282" }, { "image": "ccb", "ID": "6200 **** 3333" },
       {
-        "image": "@/static/ccb.png",
-        "ID": "6200 **** 3333" },
-      {
-        "image": "@/static/abc.png",
+        "image": "abc",
         "ID": "4404 **** 6262" },
       {
-        "image": "@/static/icbc.png",
+        "image": "icbc",
         "ID": "6277 **** 3333" }] };
 
 
@@ -217,30 +269,63 @@ var _default =
       number = Math.round(number * 100) / 100;
 
       if (number < 0) {
-        return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(number) - 0);
-      } else
-      {
+        return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(
+        number) - 0);
+      } else {
         return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
       }
 
     },
-    onKeyInput: function onKeyInput(event) {
+    formatInput: function formatInput(event) {var _this = this;
       if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
-        uni.showToast({
-          title: '输入不合法' });
-
-
         this.money = '';
       } else
       {
-        this.money = parseFloat(event.target.value).toFixed(2);
+        if (event.target.value > _config.default.getMAXMoney()) {
+          uni.showToast({
+            title: '输入超过最大值',
+            icon: 'error',
+            duration: 2000,
+            mask: true,
+            success: function success() {
+              _this.money = '';
+            } });
+
+        } else
+        {
+          this.money = parseFloat(event.target.value).toFixed(2);
+        }
+      }
+    },
+    checkInput: function checkInput(event) {var _this2 = this;
+      if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
+        uni.showToast({
+          title: '输入不合法',
+          icon: 'error',
+          duration: 2000,
+          mask: true,
+          success: function success() {
+            _this2.money = '';
+          } });
+
       }
     },
     deleteMoney: function deleteMoney() {
       this.money = '';
     },
-    picker_change: function picker_change(event) {
-      console.log(this.accounts);
+    getImageSrc: function getImageSrc() {
+      if (this.showHidden) {
+        return __webpack_require__(/*! @/static/up.png */ 50);
+      } else
+      {
+        return __webpack_require__(/*! @/static/down.png */ 51);
+      }
+    },
+    clickPickAccounts: function clickPickAccounts() {
+      this.showHidden = !this.showHidden;
+    },
+    getAccountIcon: function getAccountIcon(src) {
+      return __webpack_require__(52)("./" + src + ".png");
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

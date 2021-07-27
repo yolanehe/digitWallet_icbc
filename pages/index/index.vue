@@ -82,10 +82,6 @@
 				}
 				else {
 					this.imageSrc = require("@/static/1.png")
-					/*this.$request.request({method: 'GET', url: 'getUserInfo?id=0021002193008888'}).then(res => {
-						this.money = parseFloat(this.wallet.amount).toFixed(2)
-					})*/
-					// this.$request.request()
 					this.money = parseFloat(this.wallet.amount).toFixed(2)
 				}
 			},

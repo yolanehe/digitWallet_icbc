@@ -2,8 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/identifyCard/identifyCard",
-    "pages/topUpAccountWallet/topUpAccountWallet",
-    "pages/request/request"
+    "pages/topUpAccountWallet/topUpAccountWallet"
   ],
   "subPackages": [],
   "window": {
