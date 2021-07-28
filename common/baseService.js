@@ -17,7 +17,7 @@ class BaseService {
 		}, data);
 	}
 
-	static request = (opts, data = {}) => {
+	static request = (opts, data = {}) => {         
 		return new Promise((resolve, reject) => {
 			console.log('request')
 			// console.log(opts)

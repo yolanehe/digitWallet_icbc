@@ -20,11 +20,11 @@ class Service extends BaseService {
 		return this.get(url, data)
 	}
 	
-	static getAccounts = (data) => {
-		let url = 'digitalWallet/getCardsInfo'
+	// static getAccounts = (data) => {
+	// 	let url = 'digitalWallet/getCardsInfo'
 	
-		return this.get(url, data)
-	}
+	// 	return this.get(url, data)
+	// }
 	
 	static pwdConfirm = (data) => {
 		let url = 'digitalWallet/getCardsInfo'

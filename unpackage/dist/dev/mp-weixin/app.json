@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/identifyCard/identifyCard",
     "pages/topUpAccountWallet/topUpAccountWallet",
-    "pages/carddetail/carddetail"
+    "pages/carddetail/carddetail",
+    "pages/success/success",
+    "pages/fail/fail"
   ],
   "subPackages": [],
   "window": {
