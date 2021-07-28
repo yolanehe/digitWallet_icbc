@@ -8,7 +8,7 @@
 				</view>
 				<text class="text-style" style="font-weight: bold; font-size: 50upx;">{{ money }}</text>
 			</view>
-			<image class="img-bg" src="@/static/RMB_v3.png" mode="widthFix"/>
+			<image class="img-bg" src="@/static/RMB_v3.png" mode="widthFix" />
 		</view>
 		<view class="intro-block">
 			<view class="intro-text">
@@ -54,10 +54,9 @@
 	</view>
 </template>
 
-<script>	
+<script>
 	import imageSrc from "@/static/2.png"
-	import Config from '@/common/config.js'
-	
+
 	export default {
 		data() {
 			return {
@@ -65,12 +64,12 @@
 				imageSrc: imageSrc,
 				wallet: {},
 				money: '***',
-				token: Config.getToken(),
 			}
 		},
-		onShow(){
-			this.$request.getWallet(this.token, {}).then(res => {
+		onShow() {
+			this.$request.getWallet().then(res => {
 				this.wallet = res.userInfo
+				console.log(res)
 			})
 		},
 		methods: {
@@ -79,8 +78,7 @@
 				if (this.display) {
 					this.imageSrc = require("@/static/2.png")
 					this.money = "***"
-				}
-				else {
+				} else {
 					this.imageSrc = require("@/static/1.png")
 					this.money = parseFloat(this.wallet.amount).toFixed(2)
 				}
@@ -90,34 +88,34 @@
 			},
 			clipContent() {
 				uni.setClipboardData({
-					data:this.wallet.dwId,
-					success:function(){
+					data: this.wallet.dwId,
+					success: function() {
 						uni.getClipboardData({
-						    success: function (res) {
-						        console.log(res.data);
-						    }
+							success: function(res) {
+								console.log(res.data);
+							}
 						});
 					},
 					fail: (err) => {
-						console.log('failed: ' , err)
+						console.log('failed: ', err)
 					}
 				})
 			},
-			navi_identifyCard(){
-			    uni.navigateTo({
-			        url: "/pages/identifyCard/identifyCard",
-			        success:res =>{},
-			        fail:() =>{},
-			        complete:() => {}
-			    });
-			}, 
-			navi_topUpAccountWallet(){
-			    uni.navigateTo({
-			        url: "/pages/topUpAccountWallet/topUpAccountWallet",
-			        success:res =>{},
-			        fail:() =>{},
-			        complete:() => {}
-			    });
+			navi_identifyCard() {
+				uni.navigateTo({
+					url: "/pages/identifyCard/identifyCard",
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			navi_topUpAccountWallet() {
+				uni.navigateTo({
+					url: "/pages/topUpAccountWallet/topUpAccountWallet",
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
 		}
 	}

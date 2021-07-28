@@ -115,7 +115,7 @@ class NFCIdentify {
 			let aid = ab2hex(callback.id);
 			console.log('aid:', aid);
 			
-			service.getCardIdentification(this.token, aid).then(res => {
+			service.getCardIdentification(aid).then(res => {
 				console.log('getCardIdentification: ', res)
 			})
 			

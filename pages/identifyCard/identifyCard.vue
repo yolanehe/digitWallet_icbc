@@ -32,11 +32,12 @@
 				if (!this.timer) {
 					this.count = 0;
 					this.timer = setInterval(() => {
-						if (this.count >= 0 && this.count < TIME_COUNT) {
+						if (this.count >= 0 && this.count <= TIME_COUNT) {
 							this.count++;
 							if (this.count == 5) {
+								console.log(this.count)
 								uni.navigateTo({
-									url: "/pages/new/new",
+									url: "/pages/carddetail/carddetail",
 									success: res => {},
 									fail: () => {},
 									complete: () => {}

@@ -57,7 +57,6 @@
 				account_index: 0,
 				money: '',
 				showHidden: false,
-				token: Config.getToken(),
 				bankCode: Config.getBankCode(),
 				/*accounts: [{
 					"code": "105",
@@ -96,12 +95,14 @@
 					"code": "105",
 					"accId": "6277 **** 3333"
 				}]*/
-				account: [],
+				accounts: [],
 			}
 		},
-		onLoad() {
-			this.$request.getAccount(this.token, {}).then(res => {
-				this.account = res.cardInfo
+		onShow() {
+			this.$request.getAccounts().then(res => {
+				console.log(res)
+				this.accounts = res.cardList
+				
 			})
 		},
 		methods: {
