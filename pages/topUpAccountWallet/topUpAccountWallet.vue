@@ -58,43 +58,6 @@
 				money: '',
 				showHidden: false,
 				bankCode: Config.getBankCode(),
-				/*accounts: [{
-					"code": "105",
-					"accId": "6212 **** 6282"
-				}, {
-					"code": "102",
-					"accId": "6200 **** 3333"
-				}, {
-					"code": "102",
-					"accId": "4404 **** 6262"
-				}, {
-					"code": "102",
-					"accId": "6277 **** 3333"
-				}, {
-					"code": "104",
-					"accId": "6212 **** 6282"
-				}, {
-					"code": "103",
-					"accId": "6200 **** 3333"
-				}, {
-					"code": "102",
-					"accId": "4404 **** 6262"
-				}, {
-					"code": "103",
-					"accId": "6277 **** 3333"
-				}, {
-					"code": "105",
-					"accId": "6212 **** 6282"
-				}, {
-					"code": "102",
-					"accId": "6200 **** 3333"
-				}, {
-					"code": "104",
-					"accId": "4404 **** 6262"
-				}, {
-					"code": "105",
-					"accId": "6277 **** 3333"
-				}]*/
 				accounts: [],
 			}
 		},
@@ -102,7 +65,6 @@
 			this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.cardList
-				
 			})
 		},
 		methods: {
@@ -201,7 +163,11 @@
 				this.$refs.numberPad.open()
 			},
 			closeChange(event) {
-				console.log(event)
+				console.log('event:', event)
+				this.$request.pwdConfirm({'accId': this.accounts[this.account_index].accId, 
+					'pwd': event}).then(res => {
+						console.log(res)
+				})
 			},
 		}
 	}

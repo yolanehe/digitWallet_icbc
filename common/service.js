@@ -26,9 +26,14 @@ class Service extends BaseService {
 		return this.get(url, data)
 	}
 	
+	static pwdConfirm = (data) => {
+		let url = 'digitalWallet/getCardsInfo'
+		
+		return this.post(url, data)
+	}
+	
 	static getCardInfo = (cardId, data) => {
-		let url = 'card/getCardInfo?cardId=' + cardId 
-		console.log(url)
+		let url = 'card/getCardInfo?cardId=' + cardId
 		
 		return this.post(url, data)
 	}

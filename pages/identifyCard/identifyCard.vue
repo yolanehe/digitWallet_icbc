@@ -28,7 +28,7 @@
 		methods: {
 			countDown() {
 				let _this = this;
-				const TIME_COUNT = 5;
+				const TIME_COUNT = 3;
 				if (!this.timer) {
 					this.count = 0;
 					this.timer = setInterval(() => {
@@ -46,7 +46,6 @@
 						} else {
 							clearInterval(this.timer);
 							this.timer = null;
-
 						}
 					}, 1000);
 				}
