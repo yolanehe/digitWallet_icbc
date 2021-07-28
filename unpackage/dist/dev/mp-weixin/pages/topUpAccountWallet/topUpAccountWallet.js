@@ -102,7 +102,7 @@ var render = function() {
   var l0 = _vm.__map(_vm.accounts, function(item, index) {
     var $orig = _vm.__get_orig(item)
 
-    var m1 = _vm.showHidden ? _vm.getAccountIcon(item.code) : null
+    var m1 = _vm.showHidden ? _vm.getAccountIcon(item.bankCode) : null
     return {
       $orig: $orig,
       m1: m1
@@ -197,6 +197,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _config = _interopRequireDefault(__webpack_require__(/*! @/common/config.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -242,34 +243,44 @@ var _config = _interopRequireDefault(__webpack_require__(/*! @/common/config.js 
 //
 //
 //
-var _default = { data: function data() {return { account_index: 0, money: '', showHidden: false, token: _config.default.getToken(), bankCode: _config.default.getBankCode(), accounts: [{ "code": "105", "ID": "6212 **** 6282" }, { "code": "102", "ID": "6200 **** 3333" }, { "code": "102", "ID": "4404 **** 6262" }, { "code": "102", "ID": "6277 **** 3333" }, { "code": "104", "ID": "6212 **** 6282" }, { "code": "103", "ID": "6200 **** 3333" }, { "code": "102", "ID": "4404 **** 6262" }, { "code": "103", "ID": "6277 **** 3333" }, { "code": "105", "ID": "6212 **** 6282" }, { "code": "102", "ID": "6200 **** 3333" }, { "code": "104", "ID": "4404 **** 6262" }, { "code": "105", "ID": "6277 **** 3333" }] };
-
-
-  },
-  methods: {
-    outputcents: function outputcents(amount) {
-      amount = Math.round((amount - Math.floor(amount)) * 100);
-      return amount < 10 ? '.0' + amount : '.' + amount;
-    },
-    outputdollars: function outputdollars(number) {
-      if (number.length <= 3)
-      return number == '' ? '0' : number;else
-      {
-        var mod = number.length % 3;
-        var output = mod == 0 ? '' : number.substring(0, mod);
-
-        for (var i = 0; i < Math.floor(number.length / 3); i++) {
-          if (mod == 0 && i == 0)
-          output += number.substring(mod + 3 * i, mod + 3 * i + 3);else
-
-          output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
-        }
-
-        console.log('outputdollars', output);
-
-        return output;
-      }
-    },
+//
+var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure | components/numberJpan/numberJpan */ "components/numberJpan/numberJpan").then((function () {return resolve(__webpack_require__(/*! @/components/numberJpan/numberJpan.vue */ 76));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { 'number-jpan': numberJpan }, data: function data() {return { account_index: 0, money: '', showHidden: false, token: _config.default.getToken(), bankCode: _config.default.getBankCode(), /*accounts: [{
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "105",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6212 **** 6282"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "102",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6200 **** 3333"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "102",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "4404 **** 6262"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "102",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6277 **** 3333"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "104",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6212 **** 6282"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "103",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6200 **** 3333"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "102",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "4404 **** 6262"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "103",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6277 **** 3333"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "105",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6212 **** 6282"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "102",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6200 **** 3333"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "104",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "4404 **** 6262"
+                                                                                                                                                                                                                                                                                                                                                                                                           }, {
+                                                                                                                                                                                                                                                                                                                                                                                                           	"code": "105",
+                                                                                                                                                                                                                                                                                                                                                                                                           	"accId": "6277 **** 3333"
+                                                                                                                                                                                                                                                                                                                                                                                                           }]*/account: [] };}, onLoad: function onLoad() {var _this = this;this.$request.getAccount(this.token, {}).then(function (res) {_this.account = res.cardInfo;});}, methods: { outputcents: function outputcents(amount) {amount = Math.round((amount - Math.floor(amount)) * 100);return amount < 10 ? '.0' + amount : '.' + amount;}, outputdollars: function outputdollars(number) {if (number.length <= 3) return number == '' ? '0' : number;else {var mod = number.length % 3;var output = mod == 0 ? '' : number.substring(0, mod);for (var i = 0; i < Math.floor(number.length / 3); i++) {if (mod == 0 && i == 0) output += number.substring(mod + 3 * i, mod + 3 * i + 3);else output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);}console.log('outputdollars', output);return output;}},
     toThousands: function toThousands(number) {
       number = number + "";
       number = number.replace(/\,/g, "");
@@ -286,7 +297,7 @@ var _default = { data: function data() {return { account_index: 0, money: '', sh
       }
 
     },
-    formatInput: function formatInput(event) {var _this = this;
+    formatInput: function formatInput(event) {var _this2 = this;
       if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
         this.money = '';
       } else {
@@ -297,7 +308,7 @@ var _default = { data: function data() {return { account_index: 0, money: '', sh
             duration: 2000,
             mask: true,
             success: function success() {
-              _this.money = '';
+              _this2.money = '';
             } });
 
         } else {
@@ -305,7 +316,7 @@ var _default = { data: function data() {return { account_index: 0, money: '', sh
         }
       }
     },
-    checkInput: function checkInput(event) {var _this2 = this;
+    checkInput: function checkInput(event) {var _this3 = this;
       if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
         uni.showToast({
           title: '输入不合法',
@@ -313,7 +324,7 @@ var _default = { data: function data() {return { account_index: 0, money: '', sh
           duration: 2000,
           mask: true,
           success: function success() {
-            _this2.money = '';
+            _this3.money = '';
           } });
 
       }
@@ -339,6 +350,10 @@ var _default = { data: function data() {return { account_index: 0, money: '', sh
     },
     buttonClick: function buttonClick() {
       console.log(this.accounts[this.account_index]);
+      this.$refs.numberPad.open();
+    },
+    closeChange: function closeChange(event) {
+      console.log(event);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

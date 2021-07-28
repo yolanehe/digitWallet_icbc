@@ -32,21 +32,26 @@
 		<radio-group class="account_list" v-for="(item,index) in accounts" :key="index"
 			v-if="showHidden">
 			<view style="display: flex; align-items: center;">
-				<image class="account_icon" :src="getAccountIcon(item.code)" mode="aspectFit" />
-				<text class="picker_text">{{ item.ID }}</text>
+				<image class="account_icon" :src="getAccountIcon(item.bankCode)" mode="aspectFit" />
+				<text class="picker_text">{{ item.accId }}</text>
 			</view>
 			<view>
-				<radio :value="item.ID" :checked="index == account_index" @click="radioIndexChange(index)"/>
+				<radio :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
 			</view>
 		</radio-group>
 		<button class="button-style2" @click="buttonClick()">下一步</button>
+		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入银行卡密码" />
 	</view>
 </template>
 
 <script>
 	import Config from '@/common/config.js'
+	import numberJpan from '@/components/numberJpan/numberJpan.vue'
 
 	export default {
+		components: {
+			'number-jpan': numberJpan
+		},
 		data() {
 			return {
 				account_index: 0,
@@ -54,44 +59,50 @@
 				showHidden: false,
 				token: Config.getToken(),
 				bankCode: Config.getBankCode(),
-				accounts: [{
+				/*accounts: [{
 					"code": "105",
-					"ID": "6212 **** 6282"
+					"accId": "6212 **** 6282"
 				}, {
 					"code": "102",
-					"ID": "6200 **** 3333"
+					"accId": "6200 **** 3333"
 				}, {
 					"code": "102",
-					"ID": "4404 **** 6262"
+					"accId": "4404 **** 6262"
 				}, {
 					"code": "102",
-					"ID": "6277 **** 3333"
+					"accId": "6277 **** 3333"
 				}, {
 					"code": "104",
-					"ID": "6212 **** 6282"
+					"accId": "6212 **** 6282"
 				}, {
 					"code": "103",
-					"ID": "6200 **** 3333"
+					"accId": "6200 **** 3333"
 				}, {
 					"code": "102",
-					"ID": "4404 **** 6262"
+					"accId": "4404 **** 6262"
 				}, {
 					"code": "103",
-					"ID": "6277 **** 3333"
+					"accId": "6277 **** 3333"
 				}, {
 					"code": "105",
-					"ID": "6212 **** 6282"
+					"accId": "6212 **** 6282"
 				}, {
 					"code": "102",
-					"ID": "6200 **** 3333"
+					"accId": "6200 **** 3333"
 				}, {
 					"code": "104",
-					"ID": "4404 **** 6262"
+					"accId": "4404 **** 6262"
 				}, {
 					"code": "105",
-					"ID": "6277 **** 3333"
-				}]
+					"accId": "6277 **** 3333"
+				}]*/
+				account: [],
 			}
+		},
+		onLoad() {
+			this.$request.getAccount(this.token, {}).then(res => {
+				this.account = res.cardInfo
+			})
 		},
 		methods: {
 			outputcents(amount) {
@@ -186,6 +197,10 @@
 			},
 			buttonClick() {
 				console.log(this.accounts[this.account_index])
+				this.$refs.numberPad.open()
+			},
+			closeChange(event) {
+				console.log(event)
 			},
 		}
 	}

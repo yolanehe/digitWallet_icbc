@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "充钱包",
   "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "usingComponents": {
+    "number-jpan": "/components/numberJpan/numberJpan"
+  }
 }

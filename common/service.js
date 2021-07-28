@@ -13,6 +13,12 @@ class Service extends BaseService{
 		
 		return this.post(url, token, data)
 	}
+	
+	static getAccounts = (token, data) => {
+		let url = 'digitalWallet/getCardsInfo'
+		
+		return this.get(url, token, data)
+	}
 }
 
 export default Service
