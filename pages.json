@@ -7,48 +7,43 @@
 			}
 		},
 		{
-		   "path" : "pages/identifyCard/identifyCard",
-		   "style" : {
-		       "navigationBarTitleText": "贴一贴卡片钱包"
-		   }
-		}
-        ,{
-            "path" : "pages/topUpAccountWallet/topUpAccountWallet",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "充钱包",
-                "enablePullDownRefresh": false
-            }
-            
-        },
-		{
-		    "path" : "pages/carddetail/carddetail",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
+			"path": "pages/identifyCard/identifyCard",
+			"style": {
+				"navigationBarTitleText": "贴一贴卡片钱包"
+			}
+		}, {
+			"path": "pages/topUpAccountWallet/topUpAccountWallet",
+			"style": {
+				"navigationBarTitleText": "充钱包",
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/success/success",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
+			"path": "pages/carddetail/carddetail",
+			"style": {
+				"navigationBarTitleText": "软卡详情",
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/fail/fail",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
+			"path": "pages/success/success",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/fail/fail",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		
 		}
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

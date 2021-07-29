@@ -33,7 +33,7 @@
 			v-if="showHidden">
 			<view style="display: flex; align-items: center;">
 				<image class="account_icon" :src="getAccountIcon(item.bankCode)" mode="aspectFit" />
-				<text class="picker_text">{{ item.accId }}</text>
+				<text class="picker_text">{{ item.accId.substr(0, 4) + ' **** ' +  item.accId.substr(16, 4)}}</text>
 			</view>
 			<view>
 				<radio :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
@@ -164,9 +164,8 @@
 			},
 			closeChange(event) {
 				console.log('event:', event)
-				this.$request.pwdConfirm({'accId': this.accounts[this.account_index].accId, 
-					'pwd': event}).then(res => {
-						console.log(res)
+				this.$request.walletRecharge(this.accounts[this.account_index].accId, event).then(res => {
+					console.log(res)
 				})
 			},
 		}

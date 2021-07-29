@@ -11,7 +11,7 @@
 		<view class="title2">
 			<text class="text-style4">交易记录</text>
 			<picker @change="Change" :range="array">
-				<label class="text-style5">{{array[index]}}</label>	
+				<label class="text-style5">{{array[index]}}</label>
 				<image class="image-style2" src="@/static/down_v2.png" mode="aspectFit"></image>
 			</picker>
 		</view>
@@ -19,8 +19,8 @@
 			<text class="text-style6">{{year}}年{{month}}月</text>
 		</view>
         <scroll-view class="content" scroll-y="true">
-        	<view class="view">
-        		<view class="itemlist1" v-for="(item,index) in productList" :key="index">
+        	<view class="view" v-for="(item,index) in productList" :key="index">
+        		<view class="itemlist1">
         			<view class="view1">
         				<text class="text1">{{item.days}}</text>
         				<text class="text2">{{item.week}}</text>
@@ -69,32 +69,58 @@
 				money:'',
 				cardid:'',
 				productList:[],
+				
             }
         },
         onLoad() {
             // this.getList();
 			this.$request.getCardInfo('0021002192001892',{}).then(res => {
 				this.money = parseFloat(res.cardInfo.card.amount).toFixed(2)
-				this.cardid = res.cardInfo.card.cid,
-				res.cardInfo.transFlows = res.cardInfo.transFlows.map(item => {
-					if (item.transTypeName == '充值') {
-						item.symbol = '+'
-					} else {
-						item.symbol = '-'
-					}
-					return item
-				})
-				console.log('data',res.cardInfo.transFlows)
+				this.cardid = res.cardInfo.card.cid
 				this.productList = res.cardInfo.transFlows
+				console.log('data',res.cardInfo.transFlows)
+				// res.cardInfo.transFlows = res.cardInfo.transFlows.map(item => {
+				// 	if (this.array[this.index] == '全部') {
+				// 		return item
+				// 	} 
+				// 	else if (this.array[this.index] == '提现') {
+				// 		if (item.transTypeName == '提现'){
+				// 			return item
+				// 		}
+				// 	} else if (this.array[this.index] == '充值'){
+				// 		if (item.transTypeName == '充值'){
+				// 			return item
+				// 		}
+				// 	}
+				// })			
             })		
 		},
         methods: {
 		
 			Change: function(e) {		//改变的事件名
-			//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
-			this.index = e.target.value			//将数组改变索引赋给定义的index变量
-			this.jg=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
-			}
+				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
+				this.index = e.target.value			//将数组改变索引赋给定义的index变量
+				//this.jg=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
+				if (this.array[this.index] == '全部') {
+					console.log(this.array[this.index])
+					this.$request.getCardInfo('0021002192001892', {}).then(res => {
+						this.money = parseFloat(res.cardInfo.card.amount).toFixed(2)
+						this.cardid = res.cardInfo.card.cid
+						this.productList = res.cardInfo.transFlows
+						console.log('data',res.cardInfo.transFlows)
+					})
+				}
+				else {
+					console.log(this.array[this.index])
+					this.$request.getCardInfoAndType('0021002192001892', this.array[this.index], {}).then(res => {
+						this.money = parseFloat(res.cardInfo.card.amount).toFixed(2)
+						this.cardid = res.cardInfo.card.cid
+						console.log('data',res.cardInfo.transFlows)
+						this.productList = res.cardInfo.transFlows
+					})
+				}
+			},
+			
         },
 		computed: {
 		    activation() {              
