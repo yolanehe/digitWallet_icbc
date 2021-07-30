@@ -34,7 +34,7 @@
 					this.timer = setInterval(() => {
 						if (this.count >= 0 && this.count <= TIME_COUNT) {
 							this.count++;
-							if (this.count == 5) {
+							if (this.count == 3) {
 								console.log(this.count)
 								uni.navigateTo({
 									url: "/pages/carddetail/carddetail",

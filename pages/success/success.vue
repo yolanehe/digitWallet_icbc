@@ -1,38 +1,119 @@
 <template>
 	<view class="view">
-		<image class="img" src="@/static/success.png" mode="widthFix" />
-		<text class="text">充值成功</text>
-		<view class="view1">
-			<button class="button_continue" type="warn">继续充值</button>
-			<button class="button_back" >返回</button>
+		<view class="top">
+			<image class="img" src="@/static/success.png" />
+			<text class="title_text">{{ title }}</text>
 		</view>
-		
+		<text class="text">{{ text }}</text>
+		<view class="view1">
+			<button class="button-style2" @tap="navi">{{ button_text }}</button>
+			<button class="button-style1" @tap="navi_index">返回首页</button>
+		</view>
 	</view>
 </template>
 
 <script>
-	
+	export default {
+		data() {
+			return {
+				title: '操作成功',
+				button_text: '继续充值',
+				url: '/pages/topUpAccountWallet/topUpAccountWallet',
+				amount: 0,
+				walletId: '',
+				text: '',
+				transtype: 0
+			};
+		},
+		onLoad(option) {
+			const item = JSON.parse(decodeURIComponent(option.item))
+			this.title = item.title
+			this.button_text = item.button_text
+			this.url = item.url
+			this.amount = item.amount
+			this.transtype = item.transtype
+			this.Id = item.Id
+			
+			// 0: 充钱包 1: 存银行
+			switch (this.transtype) {
+				case 0:
+					this.text = '已成功向尾号为' + this.Id.substr(this.Id.length - 4, 4) + '的数字钱包充值 ' + this.amount + ' 元'
+					break;
+				case 1:
+					this.text = '已成功向尾号为' + this.Id.substr(this.Id.length - 4, 4) + '的银行卡存入 ' + this.amount + ' 元'
+					break;
+				default:
+					break;
+			}
+			
+			// console.log("title:", this.title)
+			// console.log("note:", this.button_text)
+			// console.log("url:", this.url)
+		},
+		methods:{
+			navi_index() {
+				uni.navigateTo({
+					url: "/pages/index/index",
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			navi() {
+				uni.navigateTo({
+					url: url,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			}
+		}
+	}
 </script>
 
 <style>
+	@import url("@/common/uni.css");
 	.view{
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
-	.img{
-		margin-top: 100rpx;
-		margin-bottom: 50rpx;
-		width: 130px;
+	.top {
+		// border: 1rpx solid black;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		
+		padding-top: 50rpx;
+		padding-bottom: 50rpx;
 	}
-	.text{
-		height:100rpx;
+	.img{
+		// border: 1rpx solid black;
+		
+		width: 180rpx;
+		height: 180rpx;
+	}
+	.title_text {
+		color: #0e932e;
+		margin-left: 15rpx;
+		font-weight: bold;
+		font-size: 38rpx;
+	}
+	.text {
+		font-size: 30rpx;
+		font-weight: bold;
+		
+		margin-top: 30rpx;
+		margin-bottom: 40rpx;
+		
+		padding-bottom: 12rpx;
+		border-bottom: 1rpx dashed black;
 	}
 	.view1{
 		height:80rpx;
 		width: 100%;
-		
 	}
 	.button_continue
 	{

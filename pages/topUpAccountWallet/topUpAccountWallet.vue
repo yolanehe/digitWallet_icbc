@@ -58,14 +58,17 @@
 				money: '',
 				showHidden: false,
 				bankCode: Config.getBankCode(),
-				accounts: [],
+				accounts: [{
+					'accId': '6299090982828254213',
+					'bankCode': '102'
+				}],
 			}
 		},
 		onShow() {
-			this.$request.getAccounts().then(res => {
+			/*this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.cardList
-			})
+			})*/
 		},
 		methods: {
 			outputcents(amount) {
@@ -163,9 +166,27 @@
 				this.$refs.numberPad.open()
 			},
 			closeChange(event) {
+				// 后端需传回数字钱包ID
+				// CODE?
 				console.log('event:', event)
 				this.$request.walletRecharge(this.accounts[this.account_index].accId, event).then(res => {
 					console.log(res)
+					let item = {
+						'title': '充值成功',
+						'button_text': '继续充值',
+						'url': '/pages/topUpAccountWallet/topUpAccountWallet', 
+						'amount': this.money,
+						'Id': '00929',
+					}
+					
+					// if
+					
+					uni.navigateTo({
+						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
 				})
 			},
 		}
