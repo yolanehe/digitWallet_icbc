@@ -231,7 +231,7 @@ var _config = _interopRequireDefault(__webpack_require__(/*! @/common/config.js 
       uni.vibrateShort();
     },
     getAccountIcon: function getAccountIcon(src) {
-      console.log('@/static/' + src + '.png');
+      // console.log('@/static/' + src + '.png')
       return __webpack_require__(46)("./" + src + ".png");
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

@@ -35,18 +35,19 @@
 			</view>
 		</view>
 		<view v-if="showHidden" style="border-bottom: 1rpx solid grey; margin-left: 55rpx; margin-right: 55rpx;" />
-		<radio-group class="account_list" v-for="(item,index) in accounts" :key="index"
-			v-if="showHidden">
-			<view style="display: flex; align-items: center;">
-				<image class="account_icon" :src="getAccountIcon(item.bankCode)" mode="aspectFit" />
-				<text class="picker_text">{{ item.accId.substr(0, 4) + ' **** ' +  item.accId.substr(15, 4)}}</text>
-			</view>
-			<view>
-				<radio :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
-			</view>
-		</radio-group>
-		<button class="button-style2" @click="buttonClick()">下一步</button>
-		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入银行卡密码" :bankCode="selected_account.bankCode" :accId='selected_account.accId'/>
+		<scroll-view class="account_list_scroll" scroll-y="true" v-if="showHidden">
+			<radio-group class="account_list" v-for="(item,index) in accounts" :key="index">
+				<view style="display: flex; align-items: center;">
+					<image class="account_icon" :src="getAccountIcon(item.bankCode)" mode="aspectFit" />
+					<text class="picker_text">{{ item.accId.substr(0, 4) + ' **** ' +  item.accId.substr(15, 4)}}</text>
+				</view>
+				<view>
+					<radio :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
+				</view>
+			</radio-group>
+		</scroll-view>
+		<button class="button-style2 button_style" @click="buttonClick()">下一步</button>
+		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数组钱包支付密码" :bankCode="selected_account.bankCode" :accId='selected_account.accId'/>
 	</view>
 </template>
 
@@ -64,7 +65,7 @@
 				money: '',
 				showHidden: false,
 				bankCode: Config.getBankCode(),
-				accounts: [{
+				/*accounts: [{
 					'bankCode': '102',
 					'accId': '2002002020100021324',
 				}, {
@@ -76,18 +77,31 @@
 				}, {
 					'bankCode': '103',
 					'accId': '3882002020100021324',
-				}],
+				}, {
+					'bankCode': '102',
+					'accId': '2002002020100021324',
+				}, {
+					'bankCode': '104',
+					'accId': '2002002020100021324',
+				}, {
+					'bankCode': '103',
+					'accId': '2005124440100021324',
+				}, {
+					'bankCode': '103',
+					'accId': '3882002020100021324',
+				}],*/
+				accounts: [],
 				selected_account: {}
 			}
 		},
 		onShow() {
-			/*this.$request.getAccounts().then(res => {
+			this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.data.cardList
 				this.default_account = this.accounts[0]
 				console.log('default_account:', this.default_account)
-			})*/
-			this.selected_account = this.accounts[0]
+			})
+			// this.selected_account = this.accounts[0]
 		},
 		methods: {
 			outputcents(amount) {
@@ -234,7 +248,6 @@
 	@import url("@/common/uni.css");
 
 	.transfer_top {
-		// border: 1upx solid black;
 		margin-top: 30rpx;
 		justify-content: center;
 		align-items: center;
@@ -243,7 +256,6 @@
 	}
 
 	.transfer-icon {
-		// border: 1upx solid red;
 		width: 120rpx;
 		height: 100rpx;
 	}
@@ -262,21 +274,17 @@
 		margin-right: 60rpx;
 		margin-top: 20rpx;
 		margin-bottom: 20rpx;
-		// border: 1upx solid red;
 
 		width: 72rpx;
 		height: 72rpx;
 	}
 
 	.transfer-text {
-		// border: 1rpx solid black;
-
 		font-size: 30rpx;
 		align-content: center;
 	}
 
 	.transfer_input {
-		// border: 1upx solid red;
 		border-top: 2rpx solid #b30000;
 		border-bottom: 2rpx solid #b30000;
 
@@ -295,9 +303,7 @@
 		margin-left: 30rpx;
 		margin-right: 30rpx;
 		margin-top: 20rpx;
-
-		// border: 1rpx solid black;
-
+		
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
@@ -305,8 +311,6 @@
 	}
 
 	.icon {
-		// border: 1rpx solid red;
-
 		width: 50rpx;
 		height: 50rpx;
 	}
@@ -370,6 +374,14 @@
 		flex-direction: row;
 		justify-content: space-between;
 	}
+	
+	.account_list_scroll {
+		display: flex;
+		flex-direction: row; 
+		align-items: center;
+		height: 470rpx;
+		width: 100%;
+	}
 
 	.account_list {
 		// border: 1rpx solid blue;
@@ -400,5 +412,10 @@
 
 		width: 60rpx;
 		height: 60rpx;
+	}
+	
+	.button_style {
+		margin-top: 20rpx;
+		margin-bottom: 5rpx;
 	}
 </style>

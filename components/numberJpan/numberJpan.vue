@@ -136,7 +136,7 @@
 				uni.vibrateShort();
 			},
 			getAccountIcon(src) {
-				console.log('@/static/' + src + '.png')
+				// console.log('@/static/' + src + '.png')
 				return require('@/static/' + src + '.png')
 			},
 		}

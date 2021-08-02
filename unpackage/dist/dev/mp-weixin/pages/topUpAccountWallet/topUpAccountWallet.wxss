@@ -193,7 +193,6 @@
 	font-weight: bold;
 }
 .transfer_top {
-	/* border: 1upx solid black; */
 	margin-top: 30rpx;
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
@@ -210,7 +209,6 @@
 	display: flex;
 }
 .transfer-icon {
-	/* border: 1upx solid red; */
 	width: 120rpx;
 	height: 100rpx;
 }
@@ -239,20 +237,16 @@
 	margin-right: 60rpx;
 	margin-top: 20rpx;
 	margin-bottom: 20rpx;
-	/* border: 1upx solid red; */
 
 	width: 72rpx;
 	height: 72rpx;
 }
 .transfer-text {
-	/* border: 1rpx solid black; */
-
 	font-size: 30rpx;
 	-webkit-align-content: center;
 	        align-content: center;
 }
 .transfer_input {
-	/* border: 1upx solid red; */
 	border-top: 2rpx solid #b30000;
 	border-bottom: 2rpx solid #b30000;
 
@@ -274,13 +268,11 @@
 	margin-left: 30rpx;
 	margin-right: 30rpx;
 	margin-top: 20rpx;
-
-	/* border: 1rpx solid black; */
-
+	
 	display: -webkit-box;
-
+	
 	display: -webkit-flex;
-
+	
 	display: flex;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
@@ -294,8 +286,6 @@
 	        align-items: center;
 }
 .icon {
-	/* border: 1rpx solid red; */
-
 	width: 50rpx;
 	height: 50rpx;
 }
@@ -379,6 +369,20 @@
 	-webkit-justify-content: space-between;
 	        justify-content: space-between;
 }
+.account_list_scroll {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row; 
+	-webkit-box-align: center; 
+	-webkit-align-items: center; 
+	        align-items: center;
+	height: 470rpx;
+	width: 100%;
+}
 .account_list {
 	/* border: 1rpx solid blue; */
 
@@ -414,5 +418,9 @@
 
 	width: 60rpx;
 	height: 60rpx;
+}
+.button_style {
+	margin-top: 20rpx;
+	margin-bottom: 5rpx;
 }
 

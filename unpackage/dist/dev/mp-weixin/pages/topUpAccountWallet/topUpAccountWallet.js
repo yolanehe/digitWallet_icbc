@@ -101,21 +101,21 @@ var render = function() {
   var g0 = _vm.selected_account.accId.substr(0, 4)
   var g1 = _vm.selected_account.accId.substr(15, 4)
   var m1 = _vm.getImageSrc()
+  var l0 = _vm.showHidden
+    ? _vm.__map(_vm.accounts, function(item, index) {
+        var $orig = _vm.__get_orig(item)
 
-  var l0 = _vm.__map(_vm.accounts, function(item, index) {
-    var $orig = _vm.__get_orig(item)
-
-    var m2 = _vm.showHidden ? _vm.getAccountIcon(item.bankCode) : null
-    var g2 = _vm.showHidden ? item.accId.substr(0, 4) : null
-    var g3 = _vm.showHidden ? item.accId.substr(15, 4) : null
-    return {
-      $orig: $orig,
-      m2: m2,
-      g2: g2,
-      g3: g3
-    }
-  })
-
+        var m2 = _vm.getAccountIcon(item.bankCode)
+        var g2 = item.accId.substr(0, 4)
+        var g3 = item.accId.substr(15, 4)
+        return {
+          $orig: $orig,
+          m2: m2,
+          g2: g2,
+          g3: g3
+        }
+      })
+    : null
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -162,6 +162,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -266,20 +267,33 @@ var _config = _interopRequireDefault(__webpack_require__(/*! @/common/config.js 
 //
 //
 //
-var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure | components/numberJpan/numberJpan */ "components/numberJpan/numberJpan").then((function () {return resolve(__webpack_require__(/*! @/components/numberJpan/numberJpan.vue */ 98));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { 'number-jpan': numberJpan }, data: function data() {return { account_index: 0, money: '', showHidden: false, bankCode: _config.default.getBankCode(), accounts: [{ 'bankCode': '102', 'accId': '2002002020100021324' }, { 'bankCode': '104', 'accId': '2002002020100021324' }, { 'bankCode': '103', 'accId': '2005124440100021324' }, { 'bankCode': '103', 'accId': '3882002020100021324' }], selected_account: {} };}, onShow: function onShow() {/*this.$request.getAccounts().then(res => {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     	console.log(res)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     	this.accounts = res.data.cardList
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     	this.default_account = this.accounts[0]
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     	console.log('default_account:', this.default_account)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     })*/this.selected_account = this.accounts[0];}, methods: { outputcents: function outputcents(amount) {amount = Math.round((amount - Math.floor(amount)) * 100);return amount < 10 ? '.0' + amount : '.' + amount;}, outputdollars: function outputdollars(number) {if (number.length <= 3) return number == '' ? '0' : number;else {var mod = number.length % 3;var output = mod == 0 ? '' : number.substring(0, mod);for (var i = 0; i < Math.floor(number.length / 3); i++) {if (mod == 0 && i == 0) output += number.substring(mod + 3 * i, mod + 3 * i + 3);else output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);}console.log('outputdollars', output);
-
-        return output;
-      }
-    },
-    toThousands: function toThousands(number) {
-      number = number + "";
-      number = number.replace(/\,/g, "");
-
+//
+var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure | components/numberJpan/numberJpan */ "components/numberJpan/numberJpan").then((function () {return resolve(__webpack_require__(/*! @/components/numberJpan/numberJpan.vue */ 98));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { 'number-jpan': numberJpan }, data: function data() {return { account_index: 0, money: '', showHidden: false, bankCode: _config.default.getBankCode(), /*accounts: [{
+                                                                                                                                                                                                                                                                                                                                                                        	'bankCode': '102',
+                                                                                                                                                                                                                                                                                                                                                                        	'accId': '2002002020100021324',
+                                                                                                                                                                                                                                                                                                                                                                        }, {
+                                                                                                                                                                                                                                                                                                                                                                        	'bankCode': '104',
+                                                                                                                                                                                                                                                                                                                                                                        	'accId': '2002002020100021324',
+                                                                                                                                                                                                                                                                                                                                                                        }, {
+                                                                                                                                                                                                                                                                                                                                                                        	'bankCode': '103',
+                                                                                                                                                                                                                                                                                                                                                                        	'accId': '2005124440100021324',
+                                                                                                                                                                                                                                                                                                                                                                        }, {
+                                                                                                                                                                                                                                                                                                                                                                        	'bankCode': '103',
+                                                                                                                                                                                                                                                                                                                                                                        	'accId': '3882002020100021324',
+                                                                                                                                                                                                                                                                                                                                                                        }, {
+                                                                                                                                                                                                                                                                                                                                                                        	'bankCode': '102',
+                                                                                                                                                                                                                                                                                                                                                                        	'accId': '2002002020100021324',
+                                                                                                                                                                                                                                                                                                                                                                        }, {
+                                                                                                                                                                                                                                                                                                                                                                        	'bankCode': '104',
+                                                                                                                                                                                                                                                                                                                                                                        	'accId': '2002002020100021324',
+                                                                                                                                                                                                                                                                                                                                                                        }, {
+                                                                                                                                                                                                                                                                                                                                                                        	'bankCode': '103',
+                                                                                                                                                                                                                                                                                                                                                                        	'accId': '2005124440100021324',
+                                                                                                                                                                                                                                                                                                                                                                        }, {
+                                                                                                                                                                                                                                                                                                                                                                        	'bankCode': '103',
+                                                                                                                                                                                                                                                                                                                                                                        	'accId': '3882002020100021324',
+                                                                                                                                                                                                                                                                                                                                                                        }],*/accounts: [], selected_account: {} };}, onShow: function onShow() {var _this = this;this.$request.getAccounts().then(function (res) {console.log(res);_this.accounts = res.data.cardList;_this.default_account = _this.accounts[0];console.log('default_account:', _this.default_account);}); // this.selected_account = this.accounts[0]
+  }, methods: { outputcents: function outputcents(amount) {amount = Math.round((amount - Math.floor(amount)) * 100);return amount < 10 ? '.0' + amount : '.' + amount;}, outputdollars: function outputdollars(number) {if (number.length <= 3) return number == '' ? '0' : number;else {var mod = number.length % 3;var output = mod == 0 ? '' : number.substring(0, mod);for (var i = 0; i < Math.floor(number.length / 3); i++) {if (mod == 0 && i == 0) output += number.substring(mod + 3 * i, mod + 3 * i + 3);else output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);}console.log('outputdollars', output);return output;}}, toThousands: function toThousands(number) {number = number + "";number = number.replace(/\,/g, "");
       if (isNaN(number) || number == "") return "";
 
       number = Math.round(number * 100) / 100;
@@ -292,7 +306,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
       }
 
     },
-    formatInput: function formatInput(event) {var _this = this;
+    formatInput: function formatInput(event) {var _this2 = this;
       if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
         this.money = '';
       } else {
@@ -303,7 +317,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
             duration: 2000,
             mask: true,
             success: function success() {
-              _this.money = '';
+              _this2.money = '';
             } });
 
         } else {
@@ -311,7 +325,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
         }
       }
     },
-    checkInput: function checkInput(event) {var _this2 = this;
+    checkInput: function checkInput(event) {var _this3 = this;
       if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
         uni.showToast({
           title: '输入不合法',
@@ -319,7 +333,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
           duration: 2000,
           mask: true,
           success: function success() {
-            _this2.money = '';
+            _this3.money = '';
           } });
 
       }
@@ -349,7 +363,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
       console.log(this.accounts[this.account_index]);
       this.$refs.numberPad.open();
     },
-    closeChange: function closeChange(event) {var _this3 = this;
+    closeChange: function closeChange(event) {var _this4 = this;
       this.$request.walletRecharge(this.accounts[this.account_index].accId, event, this.money).then(function (res) {
         console.log('res:', res);
         console.log('res.code:', res.code);
@@ -358,7 +372,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
             'title': '充值成功',
             'button_text': '继续充值',
             'url': '/pages/topUpAccountWallet/topUpAccountWallet',
-            'amount': _this3.money,
+            'amount': _this4.money,
             'Id': '00929',
             'transtype': 0 };
 
@@ -375,7 +389,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
             'title': '充值失败',
             'button_text': '继续充值',
             'url': '/pages/topUpAccountWallet/topUpAccountWallet',
-            'amount': _this3.money,
+            'amount': _this4.money,
             'Id': '00929',
             'err_code': res.code };
 
