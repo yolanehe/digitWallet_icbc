@@ -1,16 +1,6 @@
 <template>
 	<view>
-		<view class="transfer_top">
-			<view class="transfer-block">
-				<image class="transfer-icon" src="@/static/logo1.png" mode="widthFix" />
-				<text class="transfer-text">银行卡</text>
-			</view>
-			<image class="transfer-arrow" src="@/static/arrow.png" mode="widthFix" />
-			<view class="transfer-block">
-				<image class="transfer-icon" src="@/static/logo2.png" mode="widthFix" />
-				<text class="transfer-text">数字银行钱包</text>
-			</view>
-		</view>
+		<transfer-top left_content="account" right_content="wallet" />
 		<view class="transfer_input">
 			<text class="transfer_input_text">充入金额</text>
 			<view class="transfer_input_view">
@@ -54,10 +44,12 @@
 <script>
 	import Config from '@/common/config.js'
 	import numberJpan from '@/components/numberJpan/numberJpan.vue'
+	import transferTop from '@/components/transferTop/transferTop.vue'
 
 	export default {
 		components: {
-			'number-jpan': numberJpan
+			'number-jpan': numberJpan,
+			'transfer-top': transferTop,
 		},
 		data() {
 			return {
@@ -65,7 +57,7 @@
 				money: '',
 				showHidden: false,
 				bankCode: Config.getBankCode(),
-				/*accounts: [{
+				accounts: [{
 					'bankCode': '102',
 					'accId': '2002002020100021324',
 				}, {
@@ -89,19 +81,19 @@
 				}, {
 					'bankCode': '103',
 					'accId': '3882002020100021324',
-				}],*/
-				accounts: [],
+				}],
+				// accounts: [],
 				selected_account: {}
 			}
 		},
 		onShow() {
-			this.$request.getAccounts().then(res => {
+			/*this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.data.cardList
 				this.selected_account = this.accounts[0]
 				console.log('selected_account:', this.selected_account)
-			})
-			// this.selected_account = this.accounts[0]
+			})*/
+			this.selected_account = this.accounts[0]
 		},
 		methods: {
 			outputcents(amount) {

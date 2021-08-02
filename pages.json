@@ -42,7 +42,16 @@
 			}
 		
 		}
-	],
+	    ,{
+            "path" : "pages/topUpWalletAccount/topUpWalletAccount",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "存银行",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

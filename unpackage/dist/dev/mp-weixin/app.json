@@ -5,7 +5,8 @@
     "pages/topUpAccountWallet/topUpAccountWallet",
     "pages/carddetail/carddetail",
     "pages/success/success",
-    "pages/fail/fail"
+    "pages/fail/fail",
+    "pages/topUpWalletAccount/topUpWalletAccount"
   ],
   "subPackages": [],
   "window": {

@@ -265,6 +265,14 @@ var _default = { data: function data() {return { display: false, imageSrc: _.def
         fail: function fail() {},
         complete: function complete() {} });
 
+    },
+    navi_topUpWalletAccount: function navi_topUpWalletAccount() {
+      uni.navigateTo({
+        url: "/pages/topUpWalletAccount/topUpWalletAccount",
+        success: function success(res) {},
+        fail: function fail() {},
+        complete: function complete() {} });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

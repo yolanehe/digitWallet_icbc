@@ -26,7 +26,7 @@
 					<text>钱包充值</text>
 				</view>
 			</button>
-			<button class="button-style1">
+			<button class="button-style1" @tap="navi_topUpWalletAccount">
 				<view class="button-content">
 					<image class="button-icon" src="@/static/bank_v2.png" mode="scaleToFill" />
 					<text>银行存储</text>
@@ -112,6 +112,14 @@
 			navi_topUpAccountWallet() {
 				uni.navigateTo({
 					url: "/pages/topUpAccountWallet/topUpAccountWallet",
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			navi_topUpWalletAccount() {
+				uni.navigateTo({
+					url: "/pages/topUpWalletAccount/topUpWalletAccount",
 					success: res => {},
 					fail: () => {},
 					complete: () => {}

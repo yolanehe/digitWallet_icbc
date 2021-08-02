@@ -1,4 +1,4 @@
-const bankCode = {    //全局常量
+const bankCode = {   
 	'102': {
 		'name': '中国工商银行',
 		'short': 'icbc'
@@ -16,6 +16,21 @@ const bankCode = {    //全局常量
 		'short': 'ccb'
 	}
 };
+
+const logo_map = {
+	'wallet': {
+		'image': 'wallet_logo',
+		'name': '数字人民币钱包'
+	},
+	'account': {
+		'image': 'account_logo',
+		'name': '银行卡'
+	},
+	'card': {
+		'image': 'card_logo',
+		'name': '贴一贴卡式软钱包'
+	}
+}
 
 
 class Config {     //静态配置
@@ -41,6 +56,10 @@ class Config {     //静态配置
 			'-208': '充值金额异常',
 			'-210': '银行卡账户余额不足'
 		}
+	}
+	
+	static getLogoMap() {
+		return logo_map
 	}
 }
 
