@@ -98,8 +98,8 @@
 			this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.data.cardList
-				this.default_account = this.accounts[0]
-				console.log('default_account:', this.default_account)
+				this.selected_account = this.accounts[0]
+				console.log('selected_account:', this.selected_account)
 			})
 			// this.selected_account = this.accounts[0]
 		},
