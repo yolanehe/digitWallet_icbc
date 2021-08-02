@@ -20,12 +20,13 @@ class Service extends BaseService {
 		return this.get(url, data)
 	}
 
-	static walletRecharge = (accId, pwd) => {
+	static walletRecharge = (accId, pwd, amount) => {
 		let url = 'digitalWallet/reCharge'
 		
-		data = {
-			'accId': accId,
-			'pwd': pwd
+		let data = {
+			'transObjId': accId,
+			'payPassword': pwd,
+			'amount': amount
 		}
 
 		return this.post(url, data)

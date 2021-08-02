@@ -37,8 +37,7 @@ class BaseService {
 				}, 200);
 				console.log('response:', response)
 				let [error, res] = response;
-				resolve(res.data.data);
-
+				resolve(res.data);
 			}).catch(error => {
 				console.log('err:' + err)
 				uni.showToast({

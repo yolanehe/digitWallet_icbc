@@ -26,14 +26,20 @@
 				<image class="icon" src="@/static/select_cards.png" />
 				<text class="transfer_input_text" style="color: #515151; margin-left: 8rpx;">选择银行卡</text>
 			</view>
-			<image class="icon" :src="getImageSrc()" @click="clickPickAccounts" />
+			<view class="picker_unit_right">
+				<view class="default_account">
+					<image class="account_icon" :src="getAccountIcon(default_account.bankCode)" mode="aspectFit" />
+					<text class="picker_text">{{ default_account.accId.substr(0, 4) + '****' + default_account.accId.substr(15, 4) }}</text>
+				</view>
+				<image class="icon" :src="getImageSrc()" @click="clickPickAccounts" />
+			</view>
 		</view>
 		<view v-if="showHidden" style="border-bottom: 1rpx solid grey; margin-left: 55rpx; margin-right: 55rpx;" />
 		<radio-group class="account_list" v-for="(item,index) in accounts" :key="index"
 			v-if="showHidden">
 			<view style="display: flex; align-items: center;">
 				<image class="account_icon" :src="getAccountIcon(item.bankCode)" mode="aspectFit" />
-				<text class="picker_text">{{ item.accId.substr(0, 4) + ' **** ' +  item.accId.substr(16, 4)}}</text>
+				<text class="picker_text">{{ item.accId.substr(0, 4) + ' **** ' +  item.accId.substr(15, 4)}}</text>
 			</view>
 			<view>
 				<radio :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
@@ -58,17 +64,17 @@
 				money: '',
 				showHidden: false,
 				bankCode: Config.getBankCode(),
-				accounts: [{
-					'accId': '6299090982828254213',
-					'bankCode': '102'
-				}],
+				accounts: [],
+				default_account: {}
 			}
 		},
 		onShow() {
-			/*this.$request.getAccounts().then(res => {
+			this.$request.getAccounts().then(res => {
 				console.log(res)
-				this.accounts = res.cardList
-			})*/
+				this.accounts = res.data.cardList
+				this.default_account = this.accounts[0]
+				console.log('default_account:', this.default_account)
+			})
 		},
 		methods: {
 			outputcents(amount) {
@@ -156,6 +162,7 @@
 				this.showHidden = !this.showHidden
 			},
 			getAccountIcon(src) {
+				console.log('@/static/' + this.bankCode[src] + '.png')
 				return require('@/static/' + this.bankCode[src] + '.png')
 			},
 			radioIndexChange(index) {
@@ -166,27 +173,43 @@
 				this.$refs.numberPad.open()
 			},
 			closeChange(event) {
-				// 后端需传回数字钱包ID
-				// CODE?
-				console.log('event:', event)
-				this.$request.walletRecharge(this.accounts[this.account_index].accId, event).then(res => {
-					console.log(res)
-					let item = {
-						'title': '充值成功',
-						'button_text': '继续充值',
-						'url': '/pages/topUpAccountWallet/topUpAccountWallet', 
-						'amount': this.money,
-						'Id': '00929',
+				this.$request.walletRecharge(this.accounts[this.account_index].accId, event, this.money).then(res => {
+					console.log('res:', res)
+					console.log('res.code:', res.code)
+					if (res.code == '0') {
+						let item = {
+							'title': '充值成功',
+							'button_text': '继续充值',
+							'url': '/pages/topUpAccountWallet/topUpAccountWallet', 
+							'amount': this.money,
+							'Id': '00929',
+							'transtype': 0
+						}
+						
+						uni.navigateTo({
+							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
 					}
-					
-					// if
-					
-					uni.navigateTo({
-						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-						success: res => {},
-						fail: () => {},
-						complete: () => {}
-					});
+					else {
+						let item = {
+							'title': '充值失败',
+							'button_text': '继续充值',
+							'url': '/pages/topUpAccountWallet/topUpAccountWallet', 
+							'amount': this.money,
+							'Id': '00929',
+							'err_code': res.code
+						}
+						
+						uni.navigateTo({
+							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
 				})
 			},
 		}
@@ -293,9 +316,27 @@
 
 		width: 100%;
 	}
+	
+	.default_account {
+		// border: 1rpx solid black;
+		
+		display: flex;
+		align-items: center;
+	}
 
 	.account_picker {
-		border: 1rpx solid blue;
+		// border: 1rpx solid blue;
+		
+		margin-right: 5rpx;
+	}
+	
+	.picker_unit_right {
+		// border: 1rpx solid blue;
+		
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.picker_unit {

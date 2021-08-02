@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": true,
     "postcss": true,
@@ -40,7 +40,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "",
-  "appid": "wx2bdb0f92c1c8046c",
+  "appid": "touristappid",
   "projectname": "digitWallet_icbc",
   "condition": {
     "search": {

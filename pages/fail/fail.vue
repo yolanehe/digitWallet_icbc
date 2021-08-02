@@ -16,6 +16,8 @@
 </template>
 
 <script>
+	import Config from '@/common/config.js'
+	
 	export default {
 		data() {
 			return {
@@ -25,11 +27,8 @@
 				amount: 0,
 				walletId: '',
 				text: '',
-				transtype: 0, 
-				err_msg: {
-					'-201': '交易金额不能为空',
-					'-207': '支付密码错误'
-				}
+				transtype: 0,
+				err_map: Config.getErrMessage()
 			};
 		},
 		onLoad(option) {
@@ -40,7 +39,7 @@
 			this.amount = item.amount
 			this.transtype = item.transtype
 			this.Id = item.Id
-			this.text = this.err_msg[item.err_code]
+			this.text = this.err_map[item.err_code]
 			
 			// console.log("title:", this.title)
 			// console.log("note:", this.button_text)
@@ -48,19 +47,13 @@
 		},
 		methods:{
 			navi_index() {
-				uni.navigateTo({
-					url: "/pages/index/index",
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
+				uni.redirectTo({
+					url: "/pages/index/index"
 				});
 			},
 			navi() {
-				uni.navigateTo({
-					url: url,
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
+				uni.redirectTo({
+					url: this.url
 				});
 			}
 		}

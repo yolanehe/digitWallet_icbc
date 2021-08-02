@@ -52,19 +52,13 @@
 		},
 		methods:{
 			navi_index() {
-				uni.navigateTo({
-					url: "/pages/index/index",
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
+				uni.redirectTo({
+					url: "/pages/index/index"
 				});
 			},
 			navi() {
-				uni.navigateTo({
-					url: url,
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
+				uni.redirectTo({
+					url: this.url
 				});
 			}
 		}

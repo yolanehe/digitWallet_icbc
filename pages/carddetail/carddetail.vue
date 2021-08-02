@@ -75,10 +75,10 @@
         onLoad() {
             // this.getList();
 			this.$request.getCardInfo('0021002192001892',{}).then(res => {
-				this.money = parseFloat(res.cardInfo.card.amount).toFixed(2)
-				this.cardid = res.cardInfo.card.cid
-				this.productList = res.cardInfo.transFlows
-				console.log('data',res.cardInfo.transFlows)
+				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
+				this.cardid = res.data.cardInfo.card.cid
+				this.productList = res.data.cardInfo.transFlows
+				console.log('data',res.data.cardInfo.transFlows)
 				// res.cardInfo.transFlows = res.cardInfo.transFlows.map(item => {
 				// 	if (this.array[this.index] == '全部') {
 				// 		return item

@@ -317,8 +317,41 @@
 
 	width: 100%;
 }
+.default_account {
+	/* border: 1rpx solid black; */
+	
+	display: -webkit-box;
+	
+	display: -webkit-flex;
+	
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
 .account_picker {
-	border: 1rpx solid blue;
+	/* border: 1rpx solid blue; */
+	
+	margin-right: 5rpx;
+}
+.picker_unit_right {
+	/* border: 1rpx solid blue; */
+	
+	display: -webkit-box;
+	
+	display: -webkit-flex;
+	
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 }
 .picker_unit {
 	border: 3rpx dashed grey;
