@@ -317,8 +317,7 @@
 	border-radius:30rpx;        /*圆角 */
 	position: relative;
     background: #083c66;
-	-webkit-box-shadow:2px 2px 5px #000;
-	        box-shadow:2px 2px 5px #000;/*阴影 */
+	box-shadow:2px 2px 5px #000;/*阴影 */
 	/*border: 1upx solid red; */
 }
 

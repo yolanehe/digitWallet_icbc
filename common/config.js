@@ -1,9 +1,22 @@
 const bankCode = {    //全局常量
-	'102': 'icbc',
-	'103': 'abc',
-	'104': 'boc',
-	'105': 'ccb'
+	'102': {
+		'name': '中国工商银行',
+		'short': 'icbc'
+	},
+	'103': {
+		'name': '中国农业银行',
+		'short': 'abc'
+	},
+	'104': {
+		'name': '中国银行',
+		'short': 'boc'
+	},
+	'105': {
+		'name': '中国建设银行',
+		'short': 'ccb'
+	}
 };
+
 
 class Config {     //静态配置
 	static getToken() {

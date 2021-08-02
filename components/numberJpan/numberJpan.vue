@@ -1,12 +1,12 @@
 <template>
 	<view class="numberJpan" :style="wc" v-show="flag" >
-		<!-- <view class="myshuru" :style="obj" @tap.stop="flag=true">
-			<view class="srk" :style="'width:'+100/(length||6)+'%'" v-for=" i in length||6" :id="(i-1)==xz?'numberJpanActive':''" >
-				{{arr[i-1]}}
-			</view>
-		</view> -->
 		<view class="myshuru" :style="obj" @tap.stop="flag=true">
 			<view class="gb" @tap="close()" :style="gsbstyle">×</view>
+			<view class="account_info">
+				<image class="account_icon" :src="getAccountIcon(bankCode_map[bankCode].short)" mode="aspectFit" />
+				<text class="account_info_text">{{ bankCode_map[bankCode].name }}</text>
+				<text class="account_info_text">&nbsp(尾号: {{ accId.substr(15, 4) }})</text>
+			</view>
 			<view class="shuruTitle">
 				{{ note }}
 			</view>
@@ -44,6 +44,8 @@
 
 <script>
 	import uniIcons from '@/components/uni-icons/uni-icons.vue'
+	import Config from '@/common/config.js'
+	
 	export default {
 		name:'number-jpan',
 		components:{
@@ -51,33 +53,31 @@
 		},
 		data() {
 			return {
-				wc:{
+				wc: {
 					'background-color':"rgba(0, 0, 0, .0)"
 				},
-				obj:{
+				obj: {
 					"opacity":0,
 					"top":'50%'
 				},
-				flag:false,
-				clear1:"",
-				clear2:"",
-				arr:[],
-				xz:0,
-				gsbstyle:{
+				flag: false,
+				clear1: "",
+				clear2: "",
+				arr: [],
+				xz: 0,
+				gsbstyle: {
 					"opacity":0
 				},
-				tsfY:{
+				tsfY: {
 					'transform':'translateY(100%)'
-				}
+				},
+				bankCode_map: Config.getBankCode()
 			};
 		},
-		props:['length','showNum', 'note'],
+		props:['length','showNum', 'note', 'bankCode', 'accId'],
 		methods:{
 			del(){
 				if(this.xz>0){
-					//let arr1=this.arr
-					//arr1[this.xz]=""
-					//this.arr=arr1
 					this.arr.pop();
 					this.xz--;
 				}
@@ -134,7 +134,11 @@
 			xuanze(i){
 				this.xz=i
 				uni.vibrateShort();
-			}
+			},
+			getAccountIcon(src) {
+				console.log('@/static/' + src + '.png')
+				return require('@/static/' + src + '.png')
+			},
 		}
 	}
 </script>
@@ -199,7 +203,8 @@
 			border-radius: 20upx;
 			overflow: hidden;
 			.shuruTitle{
-				margin: 100upx auto;
+				margin-left: 100rpx;
+				margin-right: 100rpx;
 				font-weight: 900;
 				text-align: center;
 				font-size: 30upx;
@@ -238,5 +243,19 @@
 		color: #AAAAAA;
 		left: 30upx;
 		transition: all .5s;
+	}
+	.account_info {
+		margin-top: 70rpx;
+		margin-bottom: 10rpx;
+		
+		margin-left: 80rpx;
+		margin-right: 80rpx;
+		
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.account_info_text {
+		font-size: 26rpx;
 	}
 </style>

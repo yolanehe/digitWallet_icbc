@@ -28,8 +28,8 @@
 			</view>
 			<view class="picker_unit_right">
 				<view class="default_account">
-					<image class="account_icon" :src="getAccountIcon(default_account.bankCode)" mode="aspectFit" />
-					<text class="picker_text">{{ default_account.accId.substr(0, 4) + '****' + default_account.accId.substr(15, 4) }}</text>
+					<image class="account_icon" :src="getAccountIcon(selected_account.bankCode)" mode="aspectFit" />
+					<text class="picker_text">{{ selected_account.accId.substr(0, 4) + '****' + selected_account.accId.substr(15, 4) }}</text>
 				</view>
 				<image class="icon" :src="getImageSrc()" @click="clickPickAccounts" />
 			</view>
@@ -46,7 +46,7 @@
 			</view>
 		</radio-group>
 		<button class="button-style2" @click="buttonClick()">下一步</button>
-		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入银行卡密码" />
+		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入银行卡密码" :bankCode="selected_account.bankCode" :accId='selected_account.accId'/>
 	</view>
 </template>
 
@@ -64,17 +64,30 @@
 				money: '',
 				showHidden: false,
 				bankCode: Config.getBankCode(),
-				accounts: [],
-				default_account: {}
+				accounts: [{
+					'bankCode': '102',
+					'accId': '2002002020100021324',
+				}, {
+					'bankCode': '104',
+					'accId': '2002002020100021324',
+				}, {
+					'bankCode': '103',
+					'accId': '2005124440100021324',
+				}, {
+					'bankCode': '103',
+					'accId': '3882002020100021324',
+				}],
+				selected_account: {}
 			}
 		},
 		onShow() {
-			this.$request.getAccounts().then(res => {
+			/*this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.data.cardList
 				this.default_account = this.accounts[0]
 				console.log('default_account:', this.default_account)
-			})
+			})*/
+			this.selected_account = this.accounts[0]
 		},
 		methods: {
 			outputcents(amount) {
@@ -162,11 +175,12 @@
 				this.showHidden = !this.showHidden
 			},
 			getAccountIcon(src) {
-				console.log('@/static/' + this.bankCode[src] + '.png')
-				return require('@/static/' + this.bankCode[src] + '.png')
+				// console.log('@/static/' + this.bankCode[src]['short'] + '.png')
+				return require('@/static/' + this.bankCode[src]['short'] + '.png')
 			},
 			radioIndexChange(index) {
 				this.account_index = index
+				this.selected_account = this.accounts[this.account_index]
 			},
 			buttonClick() {
 				console.log(this.accounts[this.account_index])

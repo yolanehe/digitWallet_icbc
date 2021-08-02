@@ -42,8 +42,7 @@
 .jpan .nav {
   text-align: center;
   line-height: 50rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border-bottom: 1px solid #EEEEEE;
 }
 .jpan .main {
@@ -51,8 +50,7 @@
   height: calc(30vh - 50rpx);
 }
 .jpan .main view {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   float: left;
   width: 33.33%;
   height: 25%;
@@ -92,7 +90,8 @@
   overflow: hidden;
 }
 .numberJpan .myshuru .shuruTitle {
-  margin: 100rpx auto;
+  margin-left: 100rpx;
+  margin-right: 100rpx;
   font-weight: 900;
   text-align: center;
   font-size: 30rpx;
@@ -114,8 +113,7 @@
   line-height: 80rpx;
   text-align: center;
   float: left;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border-left: 1px solid #EEEEEE;
   -webkit-transition: all .4s;
   transition: all .4s;
@@ -132,5 +130,23 @@
   left: 30rpx;
   -webkit-transition: all .5s;
   transition: all .5s;
+}
+.account_info {
+  margin-top: 70rpx;
+  margin-bottom: 10rpx;
+  margin-left: 80rpx;
+  margin-right: 80rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.account_info_text {
+  font-size: 26rpx;
 }
 

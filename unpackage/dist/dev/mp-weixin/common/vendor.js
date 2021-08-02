@@ -979,11 +979,6 @@ function initProperties(props) {var isBehavior = arguments.length > 1 && argumen
       type: Object,
       value: null };
 
-    // scopedSlotsCompiler auto
-    properties.scopedSlotsCompiler = {
-      type: String,
-      value: '' };
-
     properties.vueSlots = { // 小程序不能直接定义 $slots 的 props，所以通过 vueSlots 转换到 $slots
       type: null,
       value: [],
@@ -1379,14 +1374,11 @@ function initScopedSlotsParams() {
   };
 
   _vue.default.prototype.$setScopedSlotsParams = function (name, value) {
-    var vueIds = this.$options.propsData.vueId;
-    if (vueIds) {
-      var vueId = vueIds.split(',')[0];
-      var object = center[vueId] = center[vueId] || {};
-      object[name] = value;
-      if (parents[vueId]) {
-        parents[vueId].$forceUpdate();
-      }
+    var vueId = this.$options.propsData.vueId;
+    var object = center[vueId] = center[vueId] || {};
+    object[name] = value;
+    if (parents[vueId]) {
+      parents[vueId].$forceUpdate();
     }
   };
 
@@ -1792,7 +1784,6 @@ function createSubpackageApp(vm) {
   var app = getApp({
     allowDefault: true });
 
-  vm.$scope = app;
   var globalData = app.globalData;
   if (globalData) {
     Object.keys(appOptions.globalData).forEach(function (name) {
@@ -1808,17 +1799,17 @@ function createSubpackageApp(vm) {
   });
   if (isFn(appOptions.onShow) && wx.onAppShow) {
     wx.onAppShow(function () {for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {args[_key5] = arguments[_key5];}
-      vm.__call_hook('onShow', args);
+      appOptions.onShow.apply(app, args);
     });
   }
   if (isFn(appOptions.onHide) && wx.onAppHide) {
     wx.onAppHide(function () {for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {args[_key6] = arguments[_key6];}
-      vm.__call_hook('onHide', args);
+      appOptions.onHide.apply(app, args);
     });
   }
   if (isFn(appOptions.onLaunch)) {
     var args = wx.getLaunchOptionsSync && wx.getLaunchOptionsSync();
-    vm.__call_hook('onLaunch', args);
+    appOptions.onLaunch.call(app, args);
   }
   return vm;
 }
@@ -7396,8 +7387,7 @@ function _diff(current, pre, path, result) {
                 var currentType = type(currentValue);
                 var preType = type(preValue);
                 if (currentType != ARRAYTYPE && currentType != OBJECTTYPE) {
-                    // NOTE 此处将 != 修改为 !==。涉及地方太多恐怕测试不到，如果出现数据对比问题，将其修改回来。
-                    if (currentValue !== pre[key]) {
+                    if (currentValue != pre[key]) {
                         setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
                     }
                 } else if (currentType == ARRAYTYPE) {
@@ -8008,9 +7998,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!**********************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/pages.json ***!
-  \**********************************************************************/
+/*!***********************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages.json ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8151,9 +8141,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 11 */
-/*!*****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/common/service.js ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/common/service.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8214,9 +8204,9 @@ Service;exports.default = _default;
 
 /***/ }),
 /* 12 */
-/*!*********************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/common/baseService.js ***!
-  \*********************************************************************************/
+/*!**********************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/common/baseService.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8279,18 +8269,31 @@ BaseService;exports.default = _default;
 
 /***/ }),
 /* 13 */
-/*!****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/common/config.js ***!
-  \****************************************************************************/
+/*!*****************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/common/config.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var bankCode = { //全局常量
-  '102': 'icbc',
-  '103': 'abc',
-  '104': 'boc',
-  '105': 'ccb' };var
+  '102': {
+    'name': '中国工商银行',
+    'short': 'icbc' },
+
+  '103': {
+    'name': '中国农业银行',
+    'short': 'abc' },
+
+  '104': {
+    'name': '中国银行',
+    'short': 'boc' },
+
+  '105': {
+    'name': '中国建设银行',
+    'short': 'ccb' } };var
+
+
 
 
 Config = /*#__PURE__*/function () {function Config() {_classCallCheck(this, Config);}_createClass(Config, null, [{ key: "getToken", //静态配置
@@ -8329,9 +8332,9 @@ Config;exports.default = _default;
 /* 18 */,
 /* 19 */,
 /* 20 */
-/*!************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/2.png ***!
-  \************************************************************************/
+/*!*************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/2.png ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8339,9 +8342,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJwAAACcCAMAAAC9
 
 /***/ }),
 /* 21 */
-/*!************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/1.png ***!
-  \************************************************************************/
+/*!*************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/1.png ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9145,9 +9148,9 @@ if (hadRuntime) {
 
 /***/ }),
 /* 33 */
-/*!*********************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/common/NFCidentify.js ***!
-  \*********************************************************************************/
+/*!**********************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/common/NFCidentify.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9742,9 +9745,9 @@ exports.mixins = mixins;
 /* 42 */,
 /* 43 */,
 /* 44 */
-/*!*************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/up.png ***!
-  \*************************************************************************/
+/*!**************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/up.png ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9752,9 +9755,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 45 */
-/*!***************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/down.png ***!
-  \***************************************************************************/
+/*!****************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/down.png ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9762,9 +9765,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 46 */
-/*!*************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static sync ^\.\/.*\.png$ ***!
-  \*************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static sync ^\.\/.*\.png$ ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9822,9 +9825,9 @@ webpackContext.id = 46;
 
 /***/ }),
 /* 47 */
-/*!*****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/RMB_v3.png ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/RMB_v3.png ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9832,9 +9835,9 @@ module.exports = "/static/RMB_v3.png";
 
 /***/ }),
 /* 48 */
-/*!**************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/abc.png ***!
-  \**************************************************************************/
+/*!***************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/abc.png ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9842,9 +9845,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 49 */
-/*!****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/arrow.png ***!
-  \****************************************************************************/
+/*!*****************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/arrow.png ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9852,9 +9855,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAMAAABi
 
 /***/ }),
 /* 50 */
-/*!******************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/bank_v2.png ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/bank_v2.png ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9862,9 +9865,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 51 */
-/*!**************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/boc.png ***!
-  \**************************************************************************/
+/*!***************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/boc.png ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9872,9 +9875,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 52 */
-/*!***************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/card.png ***!
-  \***************************************************************************/
+/*!****************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/card.png ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9882,9 +9885,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 53 */
-/*!**************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/ccb.png ***!
-  \**************************************************************************/
+/*!***************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/ccb.png ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9892,9 +9895,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 54 */
-/*!******************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/checked.png ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/checked.png ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9902,9 +9905,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACa
 
 /***/ }),
 /* 55 */
-/*!*****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/delete.png ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/delete.png ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9912,9 +9915,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 56 */
-/*!******************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/down_v2.png ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/down_v2.png ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9922,9 +9925,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADD
 
 /***/ }),
 /* 57 */
-/*!***************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/fail.png ***!
-  \***************************************************************************/
+/*!****************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/fail.png ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9932,9 +9935,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 58 */
-/*!*****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/failed.png ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/failed.png ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9942,9 +9945,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 59 */
-/*!***************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/icbc.png ***!
-  \***************************************************************************/
+/*!****************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/icbc.png ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9952,9 +9955,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 60 */
-/*!****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/logo1.png ***!
-  \****************************************************************************/
+/*!*****************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/logo1.png ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9962,9 +9965,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAO
 
 /***/ }),
 /* 61 */
-/*!****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/logo2.png ***!
-  \****************************************************************************/
+/*!*****************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/logo2.png ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9972,9 +9975,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAO
 
 /***/ }),
 /* 62 */
-/*!*************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/rmb_logo_black.png ***!
-  \*************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/rmb_logo_black.png ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9982,9 +9985,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADD
 
 /***/ }),
 /* 63 */
-/*!*************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/rmb_logo_white.png ***!
-  \*************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/rmb_logo_white.png ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9992,9 +9995,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADD
 
 /***/ }),
 /* 64 */
-/*!***********************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/select_cards.png ***!
-  \***********************************************************************************/
+/*!************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/select_cards.png ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10002,9 +10005,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 65 */
-/*!******************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/success.png ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/success.png ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10012,9 +10015,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 66 */
-/*!*******************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/topup_v2.png ***!
-  \*******************************************************************************/
+/*!********************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/topup_v2.png ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10022,9 +10025,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 67 */
-/*!*******************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/trans_v2.png ***!
-  \*******************************************************************************/
+/*!********************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/trans_v2.png ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10032,9 +10035,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 68 */
-/*!*****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/wallet.png ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/wallet.png ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10042,9 +10045,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 69 */
-/*!******************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/warning.png ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/warning.png ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10052,9 +10055,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAYAAAD9
 
 /***/ }),
 /* 70 */
-/*!*****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/下载 (6).png ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/下载 (6).png ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10062,9 +10065,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg
 
 /***/ }),
 /* 71 */
-/*!*****************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/static/下载 (7).png ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/static/下载 (7).png ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10110,9 +10113,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg
 /* 108 */,
 /* 109 */,
 /* 110 */
-/*!*****************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/components/uni-icons/icons.js ***!
-  \*****************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/components/uni-icons/icons.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/topUpAccountWallet/topUpAccountWallet"],{
 
 /***/ 38:
-/*!******************************************************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/main.js?{"page":"pages%2FtopUpAccountWallet%2FtopUpAccountWallet"} ***!
-  \******************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/main.js?{"page":"pages%2FtopUpAccountWallet%2FtopUpAccountWallet"} ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_topUpAccountWallet.default);
 /***/ }),
 
 /***/ 39:
-/*!***********************************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue ***!
-  \***********************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/topUpAccountWallet/topUpAccountWallet.vue"
 /***/ }),
 
 /***/ 40:
-/*!******************************************************************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=template&id=632fce86& ***!
-  \******************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=template&id=632fce86& ***!
+  \*******************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 41:
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=template&id=632fce86& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=template&id=632fce86& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -97,9 +97,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var m0 = _vm.getAccountIcon(_vm.default_account.bankCode)
-  var g0 = _vm.default_account.accId.substr(0, 4)
-  var g1 = _vm.default_account.accId.substr(15, 4)
+  var m0 = _vm.getAccountIcon(_vm.selected_account.bankCode)
+  var g0 = _vm.selected_account.accId.substr(0, 4)
+  var g1 = _vm.selected_account.accId.substr(15, 4)
   var m1 = _vm.getImageSrc()
 
   var l0 = _vm.__map(_vm.accounts, function(item, index) {
@@ -138,9 +138,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 42:
-/*!************************************************************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************/
+/*!*************************************************************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -154,9 +154,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 43:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -266,7 +266,20 @@ var _config = _interopRequireDefault(__webpack_require__(/*! @/common/config.js 
 //
 //
 //
-var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure | components/numberJpan/numberJpan */ "components/numberJpan/numberJpan").then((function () {return resolve(__webpack_require__(/*! @/components/numberJpan/numberJpan.vue */ 98));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { 'number-jpan': numberJpan }, data: function data() {return { account_index: 0, money: '', showHidden: false, bankCode: _config.default.getBankCode(), accounts: [], default_account: {} };}, onShow: function onShow() {var _this = this;this.$request.getAccounts().then(function (res) {console.log(res);_this.accounts = res.data.cardList;_this.default_account = _this.accounts[0];console.log('default_account:', _this.default_account);});}, methods: { outputcents: function outputcents(amount) {amount = Math.round((amount - Math.floor(amount)) * 100);return amount < 10 ? '.0' + amount : '.' + amount;}, outputdollars: function outputdollars(number) {if (number.length <= 3) return number == '' ? '0' : number;else {var mod = number.length % 3;var output = mod == 0 ? '' : number.substring(0, mod);for (var i = 0; i < Math.floor(number.length / 3); i++) {if (mod == 0 && i == 0) output += number.substring(mod + 3 * i, mod + 3 * i + 3);else output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);}console.log('outputdollars', output);return output;}}, toThousands: function toThousands(number) {number = number + "";number = number.replace(/\,/g, "");
+var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure | components/numberJpan/numberJpan */ "components/numberJpan/numberJpan").then((function () {return resolve(__webpack_require__(/*! @/components/numberJpan/numberJpan.vue */ 98));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { 'number-jpan': numberJpan }, data: function data() {return { account_index: 0, money: '', showHidden: false, bankCode: _config.default.getBankCode(), accounts: [{ 'bankCode': '102', 'accId': '2002002020100021324' }, { 'bankCode': '104', 'accId': '2002002020100021324' }, { 'bankCode': '103', 'accId': '2005124440100021324' }, { 'bankCode': '103', 'accId': '3882002020100021324' }], selected_account: {} };}, onShow: function onShow() {/*this.$request.getAccounts().then(res => {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     	console.log(res)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     	this.accounts = res.data.cardList
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     	this.default_account = this.accounts[0]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     	console.log('default_account:', this.default_account)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     })*/this.selected_account = this.accounts[0];}, methods: { outputcents: function outputcents(amount) {amount = Math.round((amount - Math.floor(amount)) * 100);return amount < 10 ? '.0' + amount : '.' + amount;}, outputdollars: function outputdollars(number) {if (number.length <= 3) return number == '' ? '0' : number;else {var mod = number.length % 3;var output = mod == 0 ? '' : number.substring(0, mod);for (var i = 0; i < Math.floor(number.length / 3); i++) {if (mod == 0 && i == 0) output += number.substring(mod + 3 * i, mod + 3 * i + 3);else output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);}console.log('outputdollars', output);
+
+        return output;
+      }
+    },
+    toThousands: function toThousands(number) {
+      number = number + "";
+      number = number.replace(/\,/g, "");
+
       if (isNaN(number) || number == "") return "";
 
       number = Math.round(number * 100) / 100;
@@ -279,7 +292,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
       }
 
     },
-    formatInput: function formatInput(event) {var _this2 = this;
+    formatInput: function formatInput(event) {var _this = this;
       if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
         this.money = '';
       } else {
@@ -290,7 +303,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
             duration: 2000,
             mask: true,
             success: function success() {
-              _this2.money = '';
+              _this.money = '';
             } });
 
         } else {
@@ -298,7 +311,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
         }
       }
     },
-    checkInput: function checkInput(event) {var _this3 = this;
+    checkInput: function checkInput(event) {var _this2 = this;
       if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
         uni.showToast({
           title: '输入不合法',
@@ -306,7 +319,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
           duration: 2000,
           mask: true,
           success: function success() {
-            _this3.money = '';
+            _this2.money = '';
           } });
 
       }
@@ -325,17 +338,18 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
       this.showHidden = !this.showHidden;
     },
     getAccountIcon: function getAccountIcon(src) {
-      console.log('@/static/' + this.bankCode[src] + '.png');
-      return __webpack_require__(46)("./" + this.bankCode[src] + ".png");
+      // console.log('@/static/' + this.bankCode[src]['short'] + '.png')
+      return __webpack_require__(46)("./" + this.bankCode[src]['short'] + ".png");
     },
     radioIndexChange: function radioIndexChange(index) {
       this.account_index = index;
+      this.selected_account = this.accounts[this.account_index];
     },
     buttonClick: function buttonClick() {
       console.log(this.accounts[this.account_index]);
       this.$refs.numberPad.open();
     },
-    closeChange: function closeChange(event) {var _this4 = this;
+    closeChange: function closeChange(event) {var _this3 = this;
       this.$request.walletRecharge(this.accounts[this.account_index].accId, event, this.money).then(function (res) {
         console.log('res:', res);
         console.log('res.code:', res.code);
@@ -344,7 +358,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
             'title': '充值成功',
             'button_text': '继续充值',
             'url': '/pages/topUpAccountWallet/topUpAccountWallet',
-            'amount': _this4.money,
+            'amount': _this3.money,
             'Id': '00929',
             'transtype': 0 };
 
@@ -361,7 +375,7 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
             'title': '充值失败',
             'button_text': '继续充值',
             'url': '/pages/topUpAccountWallet/topUpAccountWallet',
-            'amount': _this4.money,
+            'amount': _this3.money,
             'Id': '00929',
             'err_code': res.code };
 
@@ -380,9 +394,9 @@ var numberJpan = function numberJpan() {__webpack_require__.e(/*! require.ensure
 /***/ }),
 
 /***/ 72:
-/*!********************************************************************************************************************************************!*\
-  !*** /Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=style&index=0&lang=css& ***!
-  \********************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************!*\
+  !*** /Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -396,9 +410,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 73:
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/L-sevne/Desktop/digitWallet/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=style&index=0&lang=css& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/yolanehe/Desktop/HbuilderApp/digitWallet_icbc/pages/topUpAccountWallet/topUpAccountWallet.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
