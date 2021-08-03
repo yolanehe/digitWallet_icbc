@@ -5,7 +5,7 @@
 			<view class="account_info">
 				<image class="account_icon" :src="getAccountIcon(bankCode_map[bankCode].short)" mode="aspectFit" />
 				<text class="account_info_text">{{ bankCode_map[bankCode].name }}</text>
-				<text class="account_info_text">&nbsp(尾号: {{ accId.substr(15, 4) }})</text>
+				<text class="account_info_text">(尾号: {{ accId.substr(15, 4) }})</text>
 			</view>
 			<view class="shuruTitle">
 				{{ note }}
@@ -207,7 +207,7 @@
 				margin-right: 100rpx;
 				font-weight: 900;
 				text-align: center;
-				font-size: 30upx;
+				font-size: 28upx;
 			}
 			.center-x{
 				width: 90%;

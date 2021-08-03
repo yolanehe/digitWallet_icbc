@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "number-jpan": "/components/numberJpan/numberJpan",
-    "transfer-top": "/components/transferTop/transferTop"
+    "transfer-top": "/components/transferTop/transferTop",
+    "transfer-input": "/components/transferInput/transferInput"
   }
 }

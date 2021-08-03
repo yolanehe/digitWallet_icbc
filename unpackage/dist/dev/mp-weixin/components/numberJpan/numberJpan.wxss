@@ -94,7 +94,7 @@
   margin-right: 100rpx;
   font-weight: 900;
   text-align: center;
-  font-size: 30rpx;
+  font-size: 28rpx;
 }
 .numberJpan .myshuru .center-x {
   width: 90%;

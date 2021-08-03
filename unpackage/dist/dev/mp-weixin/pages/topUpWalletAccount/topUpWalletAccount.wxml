@@ -1,1 +1,1 @@
-<view><transfer-top vue-id="53970e00-1" left_content="wallet" right_content="account" bind:__l="__l"></transfer-top></view>
+<view><transfer-top vue-id="53970e00-1" left_content="wallet" right_content="account" bind:__l="__l"></transfer-top><transfer-input vue-id="53970e00-2" input_text="存入金额" bind:__l="__l"></transfer-input></view>

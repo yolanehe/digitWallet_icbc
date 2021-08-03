@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<transfer-top left_content="account" right_content="wallet" />
-		<view class="transfer_input">
+		<!--<view class="transfer_input">
 			<text class="transfer_input_text">充入金额</text>
 			<view class="transfer_input_view">
 				<image class="icon" src="@/static/rmb_logo_black.png" mode="aspectFill" />
@@ -10,7 +10,8 @@
 					@blur="formatInput" @input="checkInput" v-model="money" />
 				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
 			</view>
-		</view>
+		</view>-->
+		<transfer-input input_text="充入金额" @button_disabled="getButtonDisabled"/>
 		<view class="picker_unit">
 			<view style="display: flex; align-items: center;">
 				<image class="icon" src="@/static/select_cards.png" />
@@ -36,8 +37,8 @@
 				</view>
 			</radio-group>
 		</scroll-view>
-		<button class="button-style2 button_style" @click="buttonClick()">下一步</button>
-		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数组钱包支付密码" :bankCode="selected_account.bankCode" :accId='selected_account.accId'/>
+		<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
+		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数字钱包支付密码" :bankCode="selected_account.bankCode" :accId='selected_account.accId'/>
 	</view>
 </template>
 
@@ -45,11 +46,13 @@
 	import Config from '@/common/config.js'
 	import numberJpan from '@/components/numberJpan/numberJpan.vue'
 	import transferTop from '@/components/transferTop/transferTop.vue'
+	import transferInput from '@/components/transferInput/transferInput.vue'
 
 	export default {
 		components: {
 			'number-jpan': numberJpan,
 			'transfer-top': transferTop,
+			'transfer-input': transferInput,
 		},
 		data() {
 			return {
@@ -57,7 +60,7 @@
 				money: '',
 				showHidden: false,
 				bankCode: Config.getBankCode(),
-				accounts: [{
+				/*accounts: [{
 					'bankCode': '102',
 					'accId': '2002002020100021324',
 				}, {
@@ -81,19 +84,25 @@
 				}, {
 					'bankCode': '103',
 					'accId': '3882002020100021324',
-				}],
-				// accounts: [],
-				selected_account: {}
+				}],*/
+				accounts: [],
+				selected_account: {},
+				button_disabled: true,
 			}
 		},
+		onLoad() {
+			uni.$on("button_disabled", (val) => {
+				this.button_disabled = val
+			})
+		},
 		onShow() {
-			/*this.$request.getAccounts().then(res => {
+			this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.data.cardList
 				this.selected_account = this.accounts[0]
 				console.log('selected_account:', this.selected_account)
-			})*/
-			this.selected_account = this.accounts[0]
+			})
+			// this.selected_account = this.accounts[0]
 		},
 		methods: {
 			outputcents(amount) {
@@ -231,51 +240,13 @@
 						});
 					}
 				})
-			},
+			}
 		}
 	}
 </script>
 
 <style>
 	@import url("@/common/uni.css");
-
-	.transfer_top {
-		margin-top: 30rpx;
-		justify-content: center;
-		align-items: center;
-		flex-direction: row;
-		display: flex;
-	}
-
-	.transfer-icon {
-		width: 120rpx;
-		height: 100rpx;
-	}
-
-	.transfer-block {
-		// border: 1rpx solid blue;
-
-		flex-direction: column;
-		display: flex;
-
-		align-items: center;
-	}
-
-	.transfer-arrow {
-		margin-left: 60rpx;
-		margin-right: 60rpx;
-		margin-top: 20rpx;
-		margin-bottom: 20rpx;
-
-		width: 72rpx;
-		height: 72rpx;
-	}
-
-	.transfer-text {
-		font-size: 30rpx;
-		align-content: center;
-	}
-
 	.transfer_input {
 		border-top: 2rpx solid #b30000;
 		border-bottom: 2rpx solid #b30000;
