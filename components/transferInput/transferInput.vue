@@ -1,12 +1,18 @@
 <template>
-	<view class="transfer_input">
-		<text class="transfer_input_text">{{ input_text }}</text>
-		<view class="transfer_input_view">
-			<image class="icon" src="@/static/rmb_logo_black.png" mode="aspectFill" />
-			<input class="transfer_input_style" placeholder="请输入金额"
-				placeholder-style="font-size: 40rpx; margin-bottom: 30rpx;" type="digit" confirm-type="done"
-				@blur="formatInput" @input="checkInput" v-model="money" :disabled="input_disabled" />
-			<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
+	<view>
+		<view class="transfer_input">
+			<text class="transfer_input_text">{{ input_text }}</text>
+			<view class="transfer_input_view">
+				<image class="icon" src="@/static/rmb_logo_black.png" mode="aspectFill" />
+				<input class="transfer_input_style" placeholder="请输入金额"
+					placeholder-style="font-size: 40rpx; margin-bottom: 30rpx;" confirm-type="done"
+					@blur="formatInput" @input="checkInput" v-model="money"/>
+				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
+			</view>
+		</view>
+		<view class="wallet_detail" v-if="display_detail">
+			<text class="wallet_detail_text">可用余额: {{ parseFloat(amount).toFixed(2) }} 元</text>
+			<button class="button-style1 total_button" @click="totalWalletMoney">全部存入</button>
 		</view>
 	</view>
 </template>
@@ -19,60 +25,49 @@
 		data() {
 			return {
 				money: '',
-				input_disabled: false,
 				button_disabled: true,
 			};
 		},
-		props:['input_text'],
+		props: ['input_text', 'display_detail', 'amount'],
 		methods: {
 			formatInput(event) {
-				if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
-					// uni.$emit('button_disabled', true)
+				this.money = parseFloat(this.money).toFixed(2)
+				if (this.money > Config.getMAXMoney() || this.money == 0 || this.money[this.money.length - 1] == '.') {
 					this.button_disabled = true
-				} else {
-					if (event.target.value > Config.getMAXMoney() || event.target.value == 0) {
-						// uni.$emit('button_disabled', true)
-						this.button_disabled = true
-					} else {
-						this.money = parseFloat(event.target.value).toFixed(2)
-						// uni.$emit('button_disabled', false)
-						this.button_disabled = false
-					}
-				}
-				uni.$emit('button_disabled', this.button_disabled)
-				console.log('formatInput input_disabled: ', this.input_disabled)
-				console.log('formatInput button_disabled: ', this.button_disabled)
-			},
-			checkInput(event) {
-				if (/^\d+(\.\d{0,2})?$/.test(event.target.value) || event.target.value == '') {
-					this.input_disabled = false
-					if (/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
-						// uni.$emit('button_disabled', false)
-						this.button_disabled = false
-					}
-					else {
-						// uni.$emit('button_disabled', true)
-						this.button_disabled = true
-					}
 				}
 				else {
-					this.input_disabled = true
-					// uni.$emit('button_disabled', false)
 					this.button_disabled = false
 				}
-				uni.$emit('button_disabled', this.button_disabled)
-				console.log('checkInput input_disabled: ', this.input_disabled)
-				console.log('checkInput button_disabled: ', this.button_disabled)
+				
+				this.$emit('button_disabled', this.button_disabled)
+				this.$emit('transfer_money', this.money)
+			},
+			checkInput(event) {
+				let curr = event.detail.value
+	
+				if (/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/.test(curr)) {
+					this.button_disabled = false
+				}
+				else {
+					this.button_disabled = true
+					/*setTimeout(() => {
+						this.money = curr.substr(0, curr.length - 1)
+					}, 0)*/
+				}
+				this.$emit('button_disabled', this.button_disabled)
+				this.$nextTick(() => {
+					this.money = /^(([1-9]{1}\d*)|(0{1}))(\.\d{0,2})?$/.test(curr) ? curr : curr.substr(0, curr.length - 1)
+				})
 			},
 			deleteMoney() {
 				this.money = ''
-				this.input_disabled = false
-				// uni.$emit('button_disabled', false)
 				this.button_disabled = true
-				uni.$emit('button_disabled', this.button_disabled)
-				console.log('deleteMoney input_disabled: ', this.input_disabled)
-				console.log('deleteMoney button_disabled: ', this.button_disabled)
+				this.$emit('button_disabled', this.button_disabled)
 			},
+			totalWalletMoney() {
+				this.money = parseFloat(this.amount).toFixed(2)
+				this.$emit('transferMoney', this.money)
+			}
 		}
 	}
 </script>
@@ -83,12 +78,12 @@
 		border-bottom: 2rpx solid #b30000;
 	
 		padding-top: 25rpx;
-		padding-bottom: 40rpx;
+		padding-bottom: 25rpx;
 	
 		margin-top: 50rpx;
 		margin-left: 20rpx;
 		margin-right: 20rpx;
-		margin-bottom: 50rpx;
+		margin-bottom: 20rpx;
 	
 		justify-content: center;
 	}
@@ -127,5 +122,27 @@
 		margin-right: 10rpx;
 	
 		width: 100%;
+	}
+	
+	.wallet_detail {
+		display: flex;
+		flex-direction: row;
+		
+		margin-left: 40rpx;
+		margin-right: 30rpx;
+		margin-top: 35rpx;
+		
+		align-items: center;
+		justify-content: space-between;
+	}
+	.wallet_detail_text {
+		font-size: 30rpx;
+		font-weight: bold;
+	}
+	
+	.total_button {
+		margin: 0;
+		font-size: 25rpx;
+		width: 25%;
 	}
 </style>

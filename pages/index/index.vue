@@ -69,7 +69,6 @@
 		onShow() {
 			this.$request.getWallet().then(res => {
 				this.wallet = res.data.userInfo
-				// console.log(res)
 			})
 		},
 		methods: {

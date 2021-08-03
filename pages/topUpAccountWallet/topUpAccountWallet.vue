@@ -1,17 +1,7 @@
 <template>
 	<view>
 		<transfer-top left_content="account" right_content="wallet" />
-		<!--<view class="transfer_input">
-			<text class="transfer_input_text">充入金额</text>
-			<view class="transfer_input_view">
-				<image class="icon" src="@/static/rmb_logo_black.png" mode="aspectFill" />
-				<input class="transfer_input_style" placeholder="请输入金额"
-					placeholder-style="font-size: 30rpx; margin-bottom: 15rpx;" type="digit" confirm-type="done"
-					@blur="formatInput" @input="checkInput" v-model="money" />
-				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
-			</view>
-		</view>-->
-		<transfer-input input_text="充入金额" @button_disabled="getButtonDisabled"/>
+		<transfer-input input_text="充入金额" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
 		<view class="picker_unit">
 			<view style="display: flex; align-items: center;">
 				<image class="icon" src="@/static/select_cards.png" />
@@ -57,7 +47,7 @@
 		data() {
 			return {
 				account_index: 0,
-				money: '',
+				money: 0,
 				showHidden: false,
 				bankCode: Config.getBankCode(),
 				/*accounts: [{
@@ -90,11 +80,6 @@
 				button_disabled: true,
 			}
 		},
-		onLoad() {
-			uni.$on("button_disabled", (val) => {
-				this.button_disabled = val
-			})
-		},
 		onShow() {
 			this.$request.getAccounts().then(res => {
 				console.log(res)
@@ -105,80 +90,6 @@
 			// this.selected_account = this.accounts[0]
 		},
 		methods: {
-			outputcents(amount) {
-				amount = Math.round(((amount) - Math.floor(amount)) * 100)
-				return (amount < 10 ? '.0' + amount : '.' + amount);
-			},
-			outputdollars(number) {
-				if (number.length <= 3)
-					return (number == '' ? '0' : number)
-				else {
-					var mod = number.length % 3;
-					var output = (mod == 0 ? '' : (number.substring(0, mod)));
-
-					for (var i = 0; i < Math.floor(number.length / 3); i++) {
-						if ((mod == 0) && (i == 0))
-							output += number.substring(mod + 3 * i, mod + 3 * i + 3);
-						else
-							output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
-					}
-
-					console.log('outputdollars', output)
-
-					return (output)
-				}
-			},
-			toThousands(number) {
-				number = number + "";
-				number = number.replace(/\,/g, "");
-
-				if (isNaN(number) || number == "") return "";
-
-				number = Math.round(number * 100) / 100;
-
-				if (number < 0) {
-					return '-' + this.outputdollars(Math.floor(Math.abs(number) - 0) + '') + this.outputcents(Math.abs(
-						number) - 0);
-				} else {
-					return this.outputdollars(Math.floor(number - 0) + '') + this.outputcents(number - 0);
-				}
-
-			},
-			formatInput(event) {
-				if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
-					this.money = ''
-				} else {
-					if (event.target.value > Config.getMAXMoney()) {
-						uni.showToast({
-							title: '输入超过最大值',
-							icon: 'error',
-							duration: 2000,
-							mask: true,
-							success: () => {
-								this.money = ''
-							}
-						})
-					} else {
-						this.money = parseFloat(event.target.value).toFixed(2)
-					}
-				}
-			},
-			checkInput(event) {
-				if (!/^\d+(\.\d{0,2})?$/.test(event.target.value)) {
-					uni.showToast({
-						title: '输入不合法',
-						icon: 'error',
-						duration: 2000,
-						mask: true,
-						success: () => {
-							this.money = ''
-						}
-					})
-				}
-			},
-			deleteMoney() {
-				this.money = ''
-			},
 			getImageSrc() {
 				if (this.showHidden) {
 					return require('@/static/up.png')
@@ -190,7 +101,6 @@
 				this.showHidden = !this.showHidden
 			},
 			getAccountIcon(src) {
-				// console.log('@/static/' + this.bankCode[src]['short'] + '.png')
 				return require('@/static/' + this.bankCode[src]['short'] + '.png')
 			},
 			radioIndexChange(index) {
@@ -201,10 +111,16 @@
 				console.log(this.accounts[this.account_index])
 				this.$refs.numberPad.open()
 			},
+			transferMoney(event) {
+				console.log('topup transferMoney event:', event)
+				this.money = Number(event)
+			},
+			getButtonDisabled(event) {
+				this.button_disabled = event
+			},
 			closeChange(event) {
+				console.log('closeChange:', this.money)
 				this.$request.walletRecharge(this.accounts[this.account_index].accId, event, this.money).then(res => {
-					console.log('res:', res)
-					console.log('res.code:', res.code)
 					if (res.code == '0') {
 						let item = {
 							'title': '充值成功',
@@ -247,56 +163,6 @@
 
 <style>
 	@import url("@/common/uni.css");
-	.transfer_input {
-		border-top: 2rpx solid #b30000;
-		border-bottom: 2rpx solid #b30000;
-
-		padding-top: 25rpx;
-		padding-bottom: 40rpx;
-
-		margin-top: 50rpx;
-		margin-left: 20rpx;
-		margin-right: 20rpx;
-		margin-bottom: 50rpx;
-
-		justify-content: center;
-	}
-
-	.transfer_input_view {
-		margin-left: 30rpx;
-		margin-right: 30rpx;
-		margin-top: 20rpx;
-		
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		align-items: center;
-	}
-
-	.icon {
-		width: 50rpx;
-		height: 50rpx;
-	}
-
-	.transfer_input_text {
-		// border: 1upx solid black;
-
-		margin-left: 10rpx;
-		margin-top: 4rpx;
-
-		font-size: 34rpx;
-		font-weight: bold;
-	}
-
-	.transfer_input_style {
-		border-bottom: 1rpx solid grey;
-
-		// border: 1upx solid red;
-		margin-left: 15rpx;
-		margin-right: 10rpx;
-
-		width: 100%;
-	}
 	
 	.default_account {
 		// border: 1rpx solid black;
@@ -367,7 +233,7 @@
 	.picker_text {
 		// border: 1rpx solid pink;
 
-		font-size: 36rpx;
+		font-size: 30rpx;
 	}
 
 	.account_icon {
@@ -380,5 +246,20 @@
 	.button_style {
 		margin-top: 20rpx;
 		margin-bottom: 5rpx;
+	}
+	
+	.icon {
+		width: 50rpx;
+		height: 50rpx;
+	}
+	
+	.transfer_input_text {
+		// border: 1upx solid black;
+	
+		margin-left: 10rpx;
+		margin-top: 4rpx;
+	
+		font-size: 30rpx;
+		font-weight: bold;
 	}
 </style>
