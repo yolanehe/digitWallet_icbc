@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "存银行",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "transfer-top": "/components/transferTop/transferTop",
-    "transfer-input": "/components/transferInput/transferInput"
-  }
-}

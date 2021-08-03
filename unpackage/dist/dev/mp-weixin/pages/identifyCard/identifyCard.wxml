@@ -1,1 +1,0 @@
-<view class="content"><view class="logo"><image src="../../static/nfc-step1.98b6b356.gif" mode="widthFix"></image></view><text class="title">{{title+"\n"}}</text><text class="title">{{"识别中..."+count+"s"}}</text></view>
