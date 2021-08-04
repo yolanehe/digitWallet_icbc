@@ -22,7 +22,7 @@
 						<text class="picker_text">{{ item.accId.substr(0, 4) + ' **** ' +  item.accId.substr(15, 4)}}</text>
 					</view>
 					<view>
-						<radio :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
+						<radio color="#b30000" :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
 					</view>
 				</radio-group>
 			</scroll-view>
