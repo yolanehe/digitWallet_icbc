@@ -49,10 +49,12 @@
 					this.button_disabled = false
 				}
 				else {
-					this.button_disabled = true
-					/*setTimeout(() => {
-						this.money = curr.substr(0, curr.length - 1)
-					}, 0)*/
+					if (/^(([1-9]{1}\d*)|(0{1}))(\.\d{3})?$/.test(curr)) {
+						this.button_disabled = false
+					}
+					else {
+						this.button_disabled = true
+					}
 				}
 				this.$emit('button_disabled', this.button_disabled)
 				this.$nextTick(() => {
@@ -65,8 +67,9 @@
 				this.$emit('button_disabled', this.button_disabled)
 			},
 			totalWalletMoney() {
+				console.log('transfer_money transferInput')
 				this.money = parseFloat(this.amount).toFixed(2)
-				this.$emit('transferMoney', this.money)
+				this.$emit('transfer_money', this.money)
 			}
 		}
 	}

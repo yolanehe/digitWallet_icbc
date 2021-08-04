@@ -21,6 +21,7 @@
 				url: '/pages/topUpAccountWallet/topUpAccountWallet',
 				amount: 0,
 				walletId: '',
+				cardId: '',
 				text: '',
 				transtype: 0
 			};
@@ -30,17 +31,20 @@
 			this.title = item.title
 			this.button_text = item.button_text
 			this.url = item.url
-			this.amount = item.amount
+			this.amount = parseFloat(item.amount).toFixed(2)
 			this.transtype = item.transtype
-			this.Id = item.Id
+			this.walletId = item.walletId
+			this.cardId = item.cardId
+			
+			console.log(this.amount)
 			
 			// 0: 充钱包 1: 存银行
 			switch (this.transtype) {
 				case 0:
-					this.text = '已成功向尾号为' + this.Id.substr(this.Id.length - 4, 4) + '的数字钱包充值 ' + this.amount + ' 元'
+					this.text = '已成功向尾号为' + this.walletId + '的数字钱包充值 ' + this.amount + ' 元'
 					break;
 				case 1:
-					this.text = '已成功向尾号为' + this.Id.substr(this.Id.length - 4, 4) + '的银行卡存入 ' + this.amount + ' 元'
+					this.text = '已成功向尾号为' + this.cardId + '的银行卡存入 ' + this.amount + ' 元'
 					break;
 				default:
 					break;
