@@ -67,7 +67,6 @@
 				this.$emit('button_disabled', this.button_disabled)
 			},
 			totalWalletMoney() {
-				console.log('transfer_money transferInput')
 				this.money = parseFloat(this.amount).toFixed(2)
 				this.$emit('transfer_money', this.money)
 			}

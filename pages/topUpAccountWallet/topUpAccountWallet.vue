@@ -12,10 +12,10 @@
 
 <script>
 	import Config from '@/common/config.js'
-	import numberJpan from '@/components/numberJpan/numberJpan.vue'
 	import transferTop from '@/components/transferTop/transferTop.vue'
 	import transferInput from '@/components/transferInput/transferInput.vue'
 	import pickerBlock from '@/components/pickerBlock/pickerBlock.vue'
+	import numberJpan from '@/components/numberJpan/numberJpan.vue'
 
 	export default {
 		components: {
@@ -29,7 +29,7 @@
 				account_index: 0,
 				money: 0,
 				bankCode: Config.getBankCode(),
-				accounts: [{
+				/*accounts: [{
 					'bankCode': '102',
 					'accId': '2002002020100021324',
 				}, {
@@ -53,20 +53,20 @@
 				}, {
 					'bankCode': '103',
 					'accId': '3882002020100021324',
-				}],
-				// accounts: [],
+				}],*/
+				accounts: [],
 				selected_account: {},
 				button_disabled: true,
 			}
 		},
 		onShow() {
-			/*this.$request.getAccounts().then(res => {
+			this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.data.cardList
 				this.selected_account = this.accounts[0]
 				console.log('selected_account:', this.selected_account)
-			})*/
-			this.selected_account = this.accounts[0]
+			})
+			// this.selected_account = this.accounts[0]
 		},
 		methods: {
 			buttonClick() {
@@ -75,25 +75,23 @@
 			},
 			accountIndexChanged(event){
 				this.account_index = event
-				console.log('accountIndexSelectedChanged:', event)
 			},
 			transferMoney(event) {
-				console.log('topup transferMoney event:', event)
 				this.money = Number(event)
 			},
 			getButtonDisabled(event) {
 				this.button_disabled = event
 			},
 			closeChange(event) {
-				console.log('closeChange:', this.money)
 				this.$request.walletRecharge(this.accounts[this.account_index].accId, event, this.money).then(res => {
 					if (res.code == '0') {
 						let item = {
-							'title': '充值成功',
-							'button_text': '继续充值',
+							'title': '充钱包成功',
+							'button_text': '继续充钱包',
 							'url': '/pages/topUpAccountWallet/topUpAccountWallet', 
 							'amount': this.money,
-							'Id': '00929',
+							'cardId': this.selected_account.accId.substr(15, 4),
+							'walletId': this.wallet.dwId.substr(14, 4),
 							'transtype': 0
 						}
 						
@@ -106,11 +104,10 @@
 					}
 					else {
 						let item = {
-							'title': '充值失败',
-							'button_text': '继续充值',
+							'title': '充钱包失败',
+							'button_text': '继续充钱包',
 							'url': '/pages/topUpAccountWallet/topUpAccountWallet', 
 							'amount': this.money,
-							'Id': '00929',
 							'err_code': res.code
 						}
 						
@@ -129,121 +126,6 @@
 
 <style>
 	@import url("@/common/uni.css");
-	
-	.picker_block{
-		margin-top: 50rpx;
-	}
-	
-	.picker_unit {
-		border: 3rpx dashed grey;
-		border-radius: 40rpx;
-	
-		padding-left: 30rpx;
-		padding-right: 25rpx;
-		padding-top: 20rpx;
-		padding-bottom: 25rpx;
-	
-		margin-left: 20rpx;
-		margin-right: 20rpx;
-		margin-bottom: 35rpx;
-	
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
-	
-	.picker_unit_left {
-		display: flex;
-		align-items: center;
-	}
-	
-	.picker_unit_right {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-	}
-	
-	.transfer_input_text {
-		margin-left: 10rpx;
-		margin-top: 4rpx;
-	
-		font-size: 30rpx;
-		font-weight: bold;
-	}
-	
-	.icon {
-		width: 50rpx;
-		height: 50rpx;
-	}
-	
-	.default_account {
-		display: flex;
-		align-items: center;
-	}
-	
-	.parting {
-		border-bottom: 1rpx solid grey; 
-		margin-left: 55rpx; 
-		margin-right: 55rpx;
-	}
-
-	.account_picker {
-		margin-right: 5rpx;
-	}
-	
-	.account_list_scroll {
-		display: flex;
-		flex-direction: row; 
-		align-items: center;
-		height: 400rpx;
-		width: 100%;
-		
-		transition-duration: 3s;
-	}
-
-	.account_list {
-		border-bottom: 1rpx solid grey;
-
-		margin-left: 55rpx;
-		margin-right: 55rpx;
-
-		padding-top: 5rpx;
-		padding-bottom: 5rpx;
-		padding-left: 40rpx;
-		padding-right: 40rpx;
-
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.picker_text {
-		// border: 1rpx solid pink;
-
-		font-size: 30rpx;
-	}
-	
-	.content-open {
-		height: 400rpx;
-		overflow: hidden;
-		transition: all 0.2s linear;
-	}
-	
-	.content-close {
-		height: 0;
-		transition: all 0.2s linear;
-	}
-	
-	.item-close {
-		opacity: 0;
-		height: 0;
-	}
-
-	.account_icon {
-		width: 60rpx;
-		height: 60rpx;
-	}
 	
 	.button_block {
 		position: absolute;

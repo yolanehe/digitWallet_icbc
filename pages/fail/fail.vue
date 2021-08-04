@@ -25,7 +25,6 @@
 				button_text: '继续充值',
 				url: '/pages/topUpAccountWallet/topUpAccountWallet',
 				amount: 0,
-				walletId: '',
 				text: '',
 				transtype: 0,
 				err_map: Config.getErrMessage()
@@ -40,10 +39,6 @@
 			this.transtype = item.transtype
 			this.Id = item.Id
 			this.text = this.err_map[item.err_code]
-			
-			// console.log("title:", this.title)
-			// console.log("note:", this.button_text)
-			// console.log("url:", this.url)
 		},
 		methods:{
 			navi_index() {
