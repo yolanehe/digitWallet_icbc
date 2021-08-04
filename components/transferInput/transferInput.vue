@@ -78,7 +78,7 @@
 		border-bottom: 2rpx solid #b30000;
 	
 		padding-top: 25rpx;
-		padding-bottom: 25rpx;
+		padding-bottom: 40rpx;
 	
 		margin-top: 50rpx;
 		margin-left: 20rpx;

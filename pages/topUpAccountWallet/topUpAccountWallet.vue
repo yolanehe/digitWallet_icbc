@@ -2,32 +2,10 @@
 	<view>
 		<transfer-top left_content="account" right_content="wallet" />
 		<transfer-input input_text="充入金额" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
-		<view class="picker_unit">
-			<view style="display: flex; align-items: center;">
-				<image class="icon" src="@/static/select_cards.png" />
-				<text class="transfer_input_text" style="color: #515151; margin-left: 8rpx;">选择银行卡</text>
-			</view>
-			<view class="picker_unit_right">
-				<view class="default_account">
-					<image class="account_icon" :src="getAccountIcon(selected_account.bankCode)" mode="aspectFit" />
-					<text class="picker_text">{{ selected_account.accId.substr(0, 4) + '****' + selected_account.accId.substr(15, 4) }}</text>
-				</view>
-				<image class="icon" :src="getImageSrc()" @click="clickPickAccounts" />
-			</view>
+		<picker-block :accounts="accounts" @selected_index="accountIndexChanged($event)"/>
+		<view class="button_block">
+			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
 		</view>
-		<view v-if="showHidden" style="border-bottom: 1rpx solid grey; margin-left: 55rpx; margin-right: 55rpx;" />
-		<scroll-view class="account_list_scroll" scroll-y="true" v-if="showHidden">
-			<radio-group class="account_list" v-for="(item,index) in accounts" :key="index">
-				<view style="display: flex; align-items: center;">
-					<image class="account_icon" :src="getAccountIcon(item.bankCode)" mode="aspectFit" />
-					<text class="picker_text">{{ item.accId.substr(0, 4) + ' **** ' +  item.accId.substr(15, 4)}}</text>
-				</view>
-				<view>
-					<radio :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
-				</view>
-			</radio-group>
-		</scroll-view>
-		<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
 		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数字钱包支付密码" :bankCode="selected_account.bankCode" :accId='selected_account.accId'/>
 	</view>
 </template>
@@ -37,20 +15,21 @@
 	import numberJpan from '@/components/numberJpan/numberJpan.vue'
 	import transferTop from '@/components/transferTop/transferTop.vue'
 	import transferInput from '@/components/transferInput/transferInput.vue'
+	import pickerBlock from '@/components/pickerBlock/pickerBlock.vue'
 
 	export default {
 		components: {
 			'number-jpan': numberJpan,
 			'transfer-top': transferTop,
 			'transfer-input': transferInput,
+			'picker-block': pickerBlock,
 		},
 		data() {
 			return {
 				account_index: 0,
 				money: 0,
-				showHidden: false,
 				bankCode: Config.getBankCode(),
-				/*accounts: [{
+				accounts: [{
 					'bankCode': '102',
 					'accId': '2002002020100021324',
 				}, {
@@ -74,42 +53,29 @@
 				}, {
 					'bankCode': '103',
 					'accId': '3882002020100021324',
-				}],*/
-				accounts: [],
+				}],
+				// accounts: [],
 				selected_account: {},
 				button_disabled: true,
 			}
 		},
 		onShow() {
-			this.$request.getAccounts().then(res => {
+			/*this.$request.getAccounts().then(res => {
 				console.log(res)
 				this.accounts = res.data.cardList
 				this.selected_account = this.accounts[0]
 				console.log('selected_account:', this.selected_account)
-			})
-			// this.selected_account = this.accounts[0]
+			})*/
+			this.selected_account = this.accounts[0]
 		},
 		methods: {
-			getImageSrc() {
-				if (this.showHidden) {
-					return require('@/static/up.png')
-				} else {
-					return require('@/static/down.png')
-				}
-			},
-			clickPickAccounts() {
-				this.showHidden = !this.showHidden
-			},
-			getAccountIcon(src) {
-				return require('@/static/' + this.bankCode[src]['short'] + '.png')
-			},
-			radioIndexChange(index) {
-				this.account_index = index
-				this.selected_account = this.accounts[this.account_index]
-			},
 			buttonClick() {
 				console.log(this.accounts[this.account_index])
 				this.$refs.numberPad.open()
+			},
+			accountIndexChanged(event){
+				this.account_index = event
+				console.log('accountIndexSelectedChanged:', event)
 			},
 			transferMoney(event) {
 				console.log('topup transferMoney event:', event)
@@ -164,57 +130,79 @@
 <style>
 	@import url("@/common/uni.css");
 	
-	.default_account {
-		// border: 1rpx solid black;
-		
+	.picker_block{
+		margin-top: 50rpx;
+	}
+	
+	.picker_unit {
+		border: 3rpx dashed grey;
+		border-radius: 40rpx;
+	
+		padding-left: 30rpx;
+		padding-right: 25rpx;
+		padding-top: 20rpx;
+		padding-bottom: 25rpx;
+	
+		margin-left: 20rpx;
+		margin-right: 20rpx;
+		margin-bottom: 35rpx;
+	
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	
+	.picker_unit_left {
 		display: flex;
 		align-items: center;
 	}
-
-	.account_picker {
-		// border: 1rpx solid blue;
-		
-		margin-right: 5rpx;
-	}
 	
 	.picker_unit_right {
-		// border: 1rpx solid blue;
-		
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
 	}
-
-	.picker_unit {
-		border: 3rpx dashed grey;
-		border-radius: 40rpx;
-
-		padding-left: 30rpx;
-		padding-right: 25rpx;
-		padding-top: 20rpx;
-		padding-bottom: 25rpx;
-
-		margin-left: 20rpx;
-		margin-right: 20rpx;
-		margin-bottom: 20rpx;
-
+	
+	.transfer_input_text {
+		margin-left: 10rpx;
+		margin-top: 4rpx;
+	
+		font-size: 30rpx;
+		font-weight: bold;
+	}
+	
+	.icon {
+		width: 50rpx;
+		height: 50rpx;
+	}
+	
+	.default_account {
 		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.parting {
+		border-bottom: 1rpx solid grey; 
+		margin-left: 55rpx; 
+		margin-right: 55rpx;
+	}
+
+	.account_picker {
+		margin-right: 5rpx;
 	}
 	
 	.account_list_scroll {
 		display: flex;
 		flex-direction: row; 
 		align-items: center;
-		height: 470rpx;
+		height: 400rpx;
 		width: 100%;
+		
+		transition-duration: 3s;
 	}
 
 	.account_list {
-		// border: 1rpx solid blue;
-
 		border-bottom: 1rpx solid grey;
 
 		margin-left: 55rpx;
@@ -235,31 +223,35 @@
 
 		font-size: 30rpx;
 	}
+	
+	.content-open {
+		height: 400rpx;
+		overflow: hidden;
+		transition: all 0.2s linear;
+	}
+	
+	.content-close {
+		height: 0;
+		transition: all 0.2s linear;
+	}
+	
+	.item-close {
+		opacity: 0;
+		height: 0;
+	}
 
 	.account_icon {
-		// border: 1rpx solid red;
-
 		width: 60rpx;
 		height: 60rpx;
 	}
 	
+	.button_block {
+		position: absolute;
+		bottom: 25rpx;
+		width: 100%;
+	}
+	
 	.button_style {
-		margin-top: 20rpx;
-		margin-bottom: 5rpx;
-	}
-	
-	.icon {
-		width: 50rpx;
-		height: 50rpx;
-	}
-	
-	.transfer_input_text {
-		// border: 1upx solid black;
-	
-		margin-left: 10rpx;
-		margin-top: 4rpx;
-	
-		font-size: 30rpx;
-		font-weight: bold;
+		margin: 0 auto;
 	}
 </style>
