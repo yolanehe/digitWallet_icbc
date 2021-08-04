@@ -6,7 +6,7 @@
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
 		</view>
-		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数字钱包支付密码" :bankCode="selected_account.bankCode" :accId='selected_account.accId'/>
+		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数字钱包支付密码"/>
 	</view>
 </template>
 

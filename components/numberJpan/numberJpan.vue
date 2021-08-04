@@ -2,11 +2,6 @@
 	<view class="numberJpan" :style="wc" v-show="flag" >
 		<view class="myshuru" :style="obj" @tap.stop="flag=true">
 			<view class="gb" @tap="close()" :style="gsbstyle">×</view>
-			<view class="account_info">
-				<image class="account_icon" :src="getAccountIcon(bankCode_map[bankCode].short)" mode="aspectFit" />
-				<text class="account_info_text">{{ bankCode_map[bankCode].name }}</text>
-				<text class="account_info_text">(尾号: {{ accId.substr(15, 4) }})</text>
-			</view>
 			<view class="shuruTitle">
 				{{ note }}
 			</view>
@@ -74,7 +69,7 @@
 				bankCode_map: Config.getBankCode()
 			};
 		},
-		props:['length','showNum', 'note', 'bankCode', 'accId'],
+		props:['length','showNum', 'note'],
 		methods:{
 			del(){
 				if(this.xz>0){
@@ -203,11 +198,10 @@
 			border-radius: 20upx;
 			overflow: hidden;
 			.shuruTitle{
-				margin-left: 100rpx;
-				margin-right: 100rpx;
+				margin: 100upx auto;
 				font-weight: 900;
 				text-align: center;
-				font-size: 28upx;
+				font-size: 30upx;
 			}
 			.center-x{
 				width: 90%;
@@ -243,19 +237,5 @@
 		color: #AAAAAA;
 		left: 30upx;
 		transition: all .5s;
-	}
-	.account_info {
-		margin-top: 70rpx;
-		margin-bottom: 10rpx;
-		
-		margin-left: 80rpx;
-		margin-right: 80rpx;
-		
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.account_info_text {
-		font-size: 26rpx;
 	}
 </style>
