@@ -31,6 +31,18 @@ class Service extends BaseService {
 
 		return this.post(url, data)
 	}
+	
+	static walletWithdraw = (accId, pwd, amount) => {
+		let url = 'digitalWallet/withDraw'
+		
+		let data = {
+			'transObjId': accId,
+			'payPassword': pwd,
+			'amount': amount
+		}
+		
+		return this.post(url, data)
+	}
 
 	static getCardInfo = (cardId, data) => {
 		let url = 'card/getCardInfo?cardId=' + cardId
