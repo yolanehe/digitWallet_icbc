@@ -9,9 +9,14 @@
 					@blur="formatInput" @input="checkInput" v-model="money"/>
 				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
 			</view>
+			<view class="transfer_notes" v-if="display_notes">
+				<text class="transfer_input_text">可用金额: {{ parseFloat(amount).toFixed(2) }} 元</text>
+				<text v-if="display_notes" class="wallet_detail_notes">贴一贴卡式钱包余额上限为200.00元</text>
+				<button v-if="display_button" class="button-style1 total_button" @click="totalWalletMoney">全部存入</button>
+			</view>
 		</view>
 		<view class="wallet_detail" v-if="display_detail">
-			<text class="wallet_detail_text">可用余额: {{ parseFloat(amount).toFixed(2) }} 元</text>
+			<text class="wallet_detail_text">可充金额: {{ parseFloat(amount).toFixed(2) }} 元</text>
 			<button class="button-style1 total_button" @click="totalWalletMoney">全部存入</button>
 		</view>
 	</view>
@@ -28,7 +33,7 @@
 				button_disabled: true,
 			};
 		},
-		props: ['input_text', 'display_detail', 'amount'],
+		props: ['input_text', 'display_detail', 'display_button', 'amount', 'display_notes'],
 		methods: {
 			formatInput(event) {
 				this.money = parseFloat(this.money).toFixed(2)
@@ -80,7 +85,7 @@
 		border-bottom: 2rpx solid #b30000;
 	
 		padding-top: 25rpx;
-		padding-bottom: 40rpx;
+		padding-bottom: 20rpx;
 	
 		margin-top: 50rpx;
 		margin-left: 20rpx;
@@ -107,8 +112,6 @@
 	}
 	
 	.transfer_input_text {
-		// border: 1upx solid black;
-	
 		margin-left: 10rpx;
 		margin-top: 4rpx;
 	
@@ -118,12 +121,19 @@
 	
 	.transfer_input_style {
 		border-bottom: 1rpx solid grey;
-	
-		// border: 1upx solid red;
 		margin-left: 15rpx;
 		margin-right: 10rpx;
 	
 		width: 100%;
+	}
+	.transfer_notes {
+		display: flex;
+		flex-direction: row;
+		
+		margin-top: 20rpx;
+		
+		align-items: center;
+		justify-content: space-between;
 	}
 	
 	.wallet_detail {
@@ -146,5 +156,11 @@
 		margin: 0;
 		font-size: 25rpx;
 		width: 25%;
+	}
+	
+	.wallet_detail_notes {
+		color: #b30000;
+		font-size: 24rpx;
+		font-weight: bold;
 	}
 </style>
