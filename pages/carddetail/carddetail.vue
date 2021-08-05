@@ -15,7 +15,7 @@
 				<image class="image-style2" src="@/static/down_v2.png" mode="aspectFit"></image>
 			</picker>
 		</view>
-		<view class="title3">
+		<view class="title3">  
 			<text class="text-style6">{{year}}年{{month}}月</text>
 		</view>
         <scroll-view class="content" scroll-y="true">
