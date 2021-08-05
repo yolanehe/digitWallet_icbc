@@ -22,8 +22,8 @@
         	<detail_list :productList="productList"></detail_list>	
         </scroll-view>
 		<view class="anniu">
-		    <button class="button-style1" style="width: 50%; margin-top: 60rpx; margin-bottom: 0rpx;" @tap="charge">充值</button>
-		    <button class="button-style2" style="width: 50%; margin-top: 60rpx; margin-bottom: 0rpx;" @tap="withdrawal">提现</button>
+		    <button class="button-style1" style="width: 47%; margin-top: 60rpx; margin-bottom: 2rpx;" @tap="recharge">充值</button>
+		    <button class="button-style2" style="width: 47%; margin-top: 60rpx; margin-bottom: 2rpx;" @tap="withdraw">提现</button>
 		</view>
 	</view>
 </template>
@@ -83,7 +83,6 @@
 			})
 		},		
         methods: {
-		
 			Change: function(e) {		//改变的事件名
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
 				this.index = e.target.value			//将数组改变索引赋给定义的index变量
@@ -108,7 +107,22 @@
 					})
 				}
 			},
-			
+			recharge() {
+				uni.navigateTo({
+					url: "/pages/recharge/walletCard",
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			withdraw() {
+				uni.navigateTo({
+					url: "/pages/withdraw/walletCard",
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			}
         }
     }   
 </script>
