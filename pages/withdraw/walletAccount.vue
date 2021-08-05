@@ -2,7 +2,7 @@
 	<view>
 		<transfer-top left_content="wallet" display_detail right_content="account" />
 		<transfer-input input_text="存入金额" display_detail :amount="wallet.amount" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)" />
-		<picker-block :accounts="accounts" @selected_index="accountIndexChanged($event)"/>
+		<picker-block :accounts="accounts" :selected_account="selected_account" @selected_index="accountIndexChanged($event)"/>
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
 		</view>
@@ -51,17 +51,15 @@
 				this.wallet = res.data.userInfo
 			});
 			this.$request.getAccounts().then(res => {
-				console.log(res)
 				this.accounts = res.data.cardList
 				this.selected_account = this.accounts[0]
-				console.log('selected_account:', this.selected_account)
 			});
 			/*this.wallet = {
 				'dwId': '0021002193008888',
 				'nickName': 'ICBC的数字钱包',
 				'amount': 29994.00
 			}*/
-			// this.selected_account = this.accounts[0]
+			this.selected_account = this.accounts[0]
 		},
 		methods: {
 			accountIndexChanged(event){

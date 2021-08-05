@@ -2,7 +2,7 @@
 	<view>
 		<transfer-top left_content="account" right_content="wallet" />
 		<transfer-input input_text="充入金额" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
-		<picker-block :accounts="accounts" @selected_index="accountIndexChanged($event)"/>
+		<picker-block :accounts="accounts" :selected_account="selected_account" @selected_index="accountIndexChanged($event)"/>
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
 		</view>
@@ -61,16 +61,13 @@
 		},
 		onShow() {
 			this.$request.getAccounts().then(res => {
-				console.log(res)
 				this.accounts = res.data.cardList
 				this.selected_account = this.accounts[0]
-				console.log('selected_account:', this.selected_account)
 			})
-			// this.selected_account = this.accounts[0]
+			this.selected_account = this.accounts[0]
 		},
 		methods: {
 			buttonClick() {
-				console.log(this.accounts[this.account_index])
 				this.$refs.numberPad.open()
 			},
 			accountIndexChanged(event){

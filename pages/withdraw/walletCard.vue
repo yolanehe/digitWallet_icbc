@@ -25,7 +25,7 @@
 	import transferTop from '@/components/transferTop/transferTop.vue'
 	import pickerBlock from '@/components/pickerBlock/pickerBlock.vue'
 	import numberJpan from '@/components/numberJpan/numberJpan.vue'
-	import cardDetail from '@/components/card-detail/card-detail.vue'
+	import walletDetail from '@/components/wallet-detail/wallet-detail.vue'
 	
 	export default {
 		data() {
@@ -40,7 +40,7 @@
 			'number-jpan': numberJpan,
 			'transfer-top': transferTop,
 			'picker-block': pickerBlock,
-			'card-detail': cardDetail,
+			'walletdetail': walletDetail,
 		},
 		onShow() {
 			/*this.$request.getCardInfo('0021002192001892', {}).then(res => {
