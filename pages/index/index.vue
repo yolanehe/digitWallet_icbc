@@ -20,13 +20,13 @@
 			</view>
 		</view>
 		<view class="button-list">
-			<button class="button-style2" @tap="navi_topUpAccountWallet">
+			<button class="button-style2" @tap="navi_rechargeWalletAccount">
 				<view class="button-content">
 					<image class="button-icon" src="@/static/topup_v2.png" mode="scaleToFill" />
 					<text>钱包充值</text>
 				</view>
 			</button>
-			<button class="button-style1" @tap="navi_topUpWalletAccount">
+			<button class="button-style1" @tap="navi_withdrawWalletAccount">
 				<view class="button-content">
 					<image class="button-icon" src="@/static/bank_v2.png" mode="scaleToFill" />
 					<text>银行存储</text>
@@ -108,22 +108,22 @@
 					complete: () => {}
 				});
 			},
-			navi_topUpAccountWallet() {
+			navi_rechargeWalletAccount() {
 				uni.navigateTo({
-					url: "/pages/topUpAccountWallet/topUpAccountWallet",
+					url: "/pages/recharge/walletAccount",
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
 				});
 			},
-			navi_topUpWalletAccount() {
+			navi_withdrawWalletAccount() {
 				uni.navigateTo({
-					url: "/pages/topUpWalletAccount/topUpWalletAccount",
+					url: "/pages/withdraw/walletAccount",
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
 				});
-			}
+			},
 		}
 	}
 </script>

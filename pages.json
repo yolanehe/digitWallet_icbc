@@ -12,7 +12,7 @@
 				"navigationBarTitleText": "贴一贴卡片钱包"
 			}
 		}, {
-			"path": "pages/topUpAccountWallet/topUpAccountWallet",
+			"path": "pages/recharge/walletAccount",
 			"style": {
 				"navigationBarTitleText": "充钱包",
 				"enablePullDownRefresh": false
@@ -43,7 +43,7 @@
 		
 		}
 	    ,{
-            "path" : "pages/topUpWalletAccount/topUpWalletAccount",
+            "path" : "pages/withdraw/walletAccount",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "存银行",
