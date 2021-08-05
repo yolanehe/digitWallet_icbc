@@ -19,23 +19,7 @@
 			<text class="text-style6">{{year}}年{{month}}月</text>
 		</view>
         <scroll-view class="content" scroll-y="true">
-        	<view class="view" v-for="(item,index) in productList" :key="index">
-        		<view class="itemlist1">
-        			<view class="view1">
-        				<text class="text1">{{item.days}}</text>
-        				<text class="text2">{{item.week}}</text>
-        			</view>
-        			<view class="view2">
-        				<view class="view21">
-        					<text class="text1">{{item.transTypeName}}</text>
-        					<text class="text2">{{item.transObjName}}</text>
-        				</view>
-        				<view class="view22">
-        					<text  :class="item.transTypeName === '充值' ?'text3':'text33'">{{item.resultAmount}}</text>
-        				</view>	
-        			</view>	
-        		</view>
-        	</view>
+        	<detail_list :productList="productList"></detail_list>	
         </scroll-view>
 		<view class="anniu">
 		    <button class="button-style1" style="width: 50%; margin-top: 60rpx; margin-bottom: 0rpx;" @tap="charge">充值</button>
@@ -44,23 +28,15 @@
 	</view>
 </template>
 <script>
-    //import uniList from "@/components/uni-list/uni-list.vue"
-    //import uniListItem from "@/components/uni-list-item/uni-list-item.vue"
+    import detail_list from '@/components/detail-list/detail-list.vue'
 	import Config from '@/common/config.js'
-    export default {
-  //       components: {
-		// 	uniList,
-		//     uniListItem
-		// },
+    
+	export default {
+        components: {
+			'detail_list': detail_list,
+		},
         data() {
             return {
-                // listarr:[
-                // 	{id:1,name:"张三",time:"+1"},
-                // 	{id:2,name:"李四",time:"-1"},
-                // 	{id:3,name:"王武",time:"+1"},
-                // 	{id:4,name:"王其",time:"-1"},
-                // 	{id:5,name:"韩语",time:"-1"}
-                // ],
 				token: Config.getToken(),
 				year:"2021",
 				month:"07",
@@ -93,8 +69,19 @@
 				// 		}
 				// 	}
 				// })			
-            })		
+            })
 		},
+		onUnload:function(){
+			// wx.reLaunch({
+			// 	url:"../index/index"
+			// })
+			// uni.navigateBack()({
+			// 	url:"../index/index"   
+			// })
+			uni.navigateBack({
+				delta:2
+			})
+		},		
         methods: {
 		
 			Change: function(e) {		//改变的事件名
@@ -104,38 +91,25 @@
 				if (this.array[this.index] == '全部') {
 					console.log(this.array[this.index])
 					this.$request.getCardInfo('0021002192001892', {}).then(res => {
-						this.money = parseFloat(res.cardInfo.card.amount).toFixed(2)
-						this.cardid = res.cardInfo.card.cid
-						this.productList = res.cardInfo.transFlows
-						console.log('data',res.cardInfo.transFlows)
+						console.log('data',res.data.cardInfo.transFlows)
+						this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
+						this.cardid = res.data.cardInfo.card.cid
+						this.productList = res.data.cardInfo.transFlows
+						
 					})
 				}
 				else {
 					console.log(this.array[this.index])
 					this.$request.getCardInfoAndType('0021002192001892', this.array[this.index], {}).then(res => {
-						this.money = parseFloat(res.cardInfo.card.amount).toFixed(2)
-						this.cardid = res.cardInfo.card.cid
-						console.log('data',res.cardInfo.transFlows)
-						this.productList = res.cardInfo.transFlows
+						this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
+						this.cardid = res.data.cardInfo.card.cid
+						console.log('data',res.data.cardInfo.transFlows)
+						this.productList = res.data.cardInfo.transFlows
 					})
 				}
 			},
 			
-        },
-		computed: {
-		    activation() {              
-		        return (icontent) => { // 使用JavaScript闭包，进行传值操作
-		            //console.log(icontent)	            
-		            if (icontent.transTypeName=='充值'){
-		                return {'color':'red'}
-		            } 
-		            else if (icontent.transTypeName=='提现'){
-		                return {'color':'green'}
-		            } 
-		                
-		        }
-		    }
-		}
+        }
     }   
 </script>
 <style>
@@ -159,38 +133,7 @@
 		width: 100%;
 		margin: 0px auto;
 	}
-	.view{
-		margin: 0 auto;
-		width: 90%;
-		//border: 1upx solid red;
-	}
-	.itemlist1{
-		display: flex;
-		flex-direction: row;
-		
-		height:100rpx;
-		width: 100%;
-		//border: 1upx solid blue;
-	}
-	.view1{
-		display: flex;
-		flex-direction: column;
-		width: 20%;
-		//border: 1upx solid blue;
-	}
-	.view2{
-		display: flex;
-		flex-direction: row;
-		margin:0;
-		justify-content: space-between;
-		width: 80%;
-		border-top: 1rpx solid #e1e1e1;
-		//border: 1upx solid blue;
-	}
-	.view21{
-		display: flex;
-		flex-direction: column;
-	}
+	
 	.text1{
 		font-size: 35upx;
 		color: #000000;
@@ -198,14 +141,6 @@
 	.text2{
 		font-size: 25upx;
 		color: #606266;
-	}
-	.text3{
-		font-size: 40upx;
-		color: red;
-	}
-	.text33{
-		font-size: 40upx;
-		color: green;
 	}
 	//卡片背景
 	.title1 {
