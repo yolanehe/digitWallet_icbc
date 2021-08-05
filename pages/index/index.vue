@@ -14,7 +14,7 @@
 			<view class="intro-text">
 				<text class="text-walletDetail">钱包名称：{{ wallet.nickName + '\n' }}</text>
 				<text class="text-walletDetail">钱包ID：{{ wallet.dwId }}</text>
-			</view>
+			</view>  
 			<view class="intro-trans">
 				<button class="copyID-button" @click="clipContent">复制ID</button>
 			</view>
