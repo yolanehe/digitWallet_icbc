@@ -2,7 +2,7 @@
 	<view>
 		<transfer-top left_content="wallet" right_content="card" />
 		<transfer-input input_text="充值金额" display_notes :amount=" (200 - card.amount) " @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
-		<card-detail :wallet="wallet" />
+		<wallet-detail :wallet="wallet" />
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
 		</view>
@@ -16,7 +16,7 @@
 	import transferInput from '@/components/transferInput/transferInput.vue'
 	import pickerBlock from '@/components/pickerBlock/pickerBlock.vue'
 	import numberJpan from '@/components/numberJpan/numberJpan.vue'
-	import cardDetail from '@/components/card-detail/card-detail.vue'
+	import walletDetail from '@/components/wallet-detail/wallet-detail.vue'
 	
 	export default {
 		data() {
@@ -32,7 +32,7 @@
 			'transfer-top': transferTop,
 			'transfer-input': transferInput,
 			'picker-block': pickerBlock,
-			'card-detail': cardDetail,
+			'wallet-detail': walletDetail,
 		},
 		onShow() {
 			/*this.$request.getCardInfo('0021002192001892', {}).then(res => {
