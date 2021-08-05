@@ -88,7 +88,7 @@
 						let item = {
 							'title': '充钱包成功',
 							'button_text': '继续充钱包',
-							'url': '/pages/topUpAccountWallet/topUpAccountWallet', 
+							'url': '/pages/recharge/walletAccount', 
 							'amount': this.money,
 							'cardId': this.selected_account.accId.substr(15, 4),
 							'walletId': this.wallet.dwId.substr(14, 4),

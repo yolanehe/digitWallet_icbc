@@ -83,7 +83,7 @@
 						let item = {
 							'title': '存银行成功',
 							'button_text': '继续存银行',
-							'url': '/pages/topUpWalletAccount/topUpWalletAccount', 
+							'url': '/pages/withdraw/walletAccount', 
 							'amount': this.money,
 							'cardId': this.selected_account.accId.substr(15, 4),
 							'walletId': this.wallet.dwId.substr(14, 4),
