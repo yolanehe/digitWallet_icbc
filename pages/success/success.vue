@@ -16,9 +16,9 @@
 	export default {
 		data() {
 			return {
-				title: '操作成功',
-				button_text: '继续充值',
-				url: '/pages/topUpAccountWallet/topUpAccountWallet',
+				title: '',
+				button_text: '',
+				url: '',
 				amount: 0,
 				walletId: '',
 				cardId: '',
@@ -39,6 +39,7 @@
 			console.log(this.amount)
 			
 			// 0: 充钱包 1: 存银行
+			// 2: 充值 3: 提现
 			switch (this.transtype) {
 				case 0:
 					this.text = '已成功向尾号为' + this.walletId + '的数字钱包充值 ' + this.amount + ' 元'
@@ -46,13 +47,15 @@
 				case 1:
 					this.text = '已成功向尾号为' + this.cardId + '的银行卡存入 ' + this.amount + ' 元'
 					break;
+				case 2:
+					this.text = '已成功向尾号为' + this.cardId + '的卡式软钱包充值 ' + this.amount + ' 元'
+					break;
+				case 3:
+					this.text = '已成功向尾号为' + this.walletId + '的数字钱包提现 ' + this.amount + ' 元'
+					break;
 				default:
 					break;
 			}
-			
-			// console.log("title:", this.title)
-			// console.log("note:", this.button_text)
-			// console.log("url:", this.url)
 		},
 		methods:{
 			navi_index() {
@@ -78,7 +81,6 @@
 		align-items: center;
 	}
 	.top {
-		// border: 1rpx solid black;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
@@ -88,8 +90,6 @@
 		padding-bottom: 50rpx;
 	}
 	.img{
-		// border: 1rpx solid black;
-		
 		width: 180rpx;
 		height: 180rpx;
 	}
