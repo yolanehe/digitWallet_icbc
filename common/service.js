@@ -85,6 +85,12 @@ class Service extends BaseService {
 		// console.log(url)
 		return this.post(url, data)
 	}
+	
+	static getWalletTrans = () => {
+		let url = 'digitalWallet/getTransFlow'
+		
+		return this.get(url, {})
+	}
 }
 
 export default Service

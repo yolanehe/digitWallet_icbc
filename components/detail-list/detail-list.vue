@@ -12,7 +12,7 @@
 						<text class="text2">{{item.transObjName}}</text>
 					</view>
 					<view class="view22">
-						<text :class="item.transTypeName === '充值' ?'text3':'text33'">{{item.resultAmount}}</text>
+						<text :class="(item.transTypeName === '充值' || item.transTypeName === '转入') ? 'text3': 'text33'">{{item.resultAmount}}</text>
 					</view>	
 				</view>	
 			</view>
@@ -76,11 +76,19 @@
 	}
 	.text3{
 		font-size: 40upx;
-		color: red;
+		color: #b30000;
 	}
 	.text33{
 		font-size: 40upx;
 		color: green;
+	}
+	.text1{
+		font-size: 35upx;
+		color: #000000;
+	}
+	.text2{
+		font-size: 25upx;
+		color: #606266;
 	}
 	
 </style>

@@ -14,7 +14,7 @@
 				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
 			</view>
 			<view class="transfer_notes" v-if="display_notes">
-				<text class="transfer_input_text">可用金额: {{ parseFloat(amount).toFixed(2) }} 元</text>
+				<text class="transfer_input_text">可充金额: {{ parseFloat(amount).toFixed(2) }} 元</text>
 				<text v-if="display_notes" class="wallet_detail_notes">贴一贴卡式钱包余额上限为200.00元</text>
 				<button v-if="display_button" class="button-style1 total_button" @click="totalWalletMoney">全部存入</button>
 			</view>
