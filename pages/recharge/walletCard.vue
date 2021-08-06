@@ -35,22 +35,12 @@
 			'wallet-detail': walletDetail,
 		},
 		onShow() {
-			/*this.$request.getCardInfo('0021002192001892', {}).then(res => {
+			this.$request.getCardInfo('0021002192001892', {}).then(res => {
 				this.card = res.data.cardInfo.card
 			});
 			this.$request.getWallet().then(res => {
 				this.wallet = res.data.userInfo
-			});*/
-			
-			this.wallet = {
-				'dwId': '0021002193008888',
-				'nickName': 'ICBC的数字钱包',
-				'amount': 29994.00
-			}
-			this.card = {
-				'amount': 22,
-				'cid': '02938718293010202'
-			}
+			});
 		},
 		methods: {
 			buttonClick() {

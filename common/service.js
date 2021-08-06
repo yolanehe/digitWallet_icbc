@@ -43,6 +43,32 @@ class Service extends BaseService {
 		
 		return this.post(url, data)
 	}
+	
+	static cardRecharge = (cardId, walletId, pwd, amount) =>  {
+		let url = 'card/reCharge'
+		
+		let data = {
+			'id': cardId,
+			'transObjId': walletId,
+			'payPassword': pwd,
+			'amount': amount
+		}
+		
+		return this.post(url, data)
+	}
+	
+	static cardWithdraw = (cardId, walletId) =>  {
+		let url = 'card/withDraw?cid=' + cardId + '&wid=' + walletId
+		
+		// let data = {
+		// 	'cid': cardId,
+		// 	'wid': walletId
+		// }
+		
+		let data = {}
+		
+		return this.post(url, data)
+	}
 
 	static getCardInfo = (cardId, data) => {
 		let url = 'card/getCardInfo?cardId=' + cardId
@@ -57,7 +83,7 @@ class Service extends BaseService {
 		}
 		
 		let url = 'card/getCardInfo?type=' + typeCode + '&cardId=' + cardId
-		console.log(url)
+		// console.log(url)
 		return this.post(url, data)
 	}
 }

@@ -48,7 +48,7 @@
 				
             }
         },
-        onLoad() {
+        onShow() {
             // this.getList();
 			this.$request.getCardInfo('0021002192001892',{}).then(res => {
 				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)

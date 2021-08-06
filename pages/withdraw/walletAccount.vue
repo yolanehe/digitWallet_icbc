@@ -28,19 +28,6 @@
 				wallet: {},
 				account_index: 0,
 				money: 0,
-				/*accounts: [{
-					'bankCode': '102',
-					'accId': '2002002020100021324',
-				}, {
-					'bankCode': '104',
-					'accId': '2002002020100021324',
-				}, {
-					'bankCode': '103',
-					'accId': '2005124440100021324',
-				}, {
-					'bankCode': '103',
-					'accId': '3882002020100021324',
-				}],*/
 				accounts: [],
 				selected_account: {},
 				button_disabled: true,
@@ -99,7 +86,7 @@
 						let item = {
 							'title': '存银行失败',
 							'button_text': '继续存银行',
-							'url': '/pages/topUpWalletAccount/topUpWalletAccount', 
+							'url': '/pages/withdraw/walletAccount', 
 							'amount': this.money,
 							'err_code': res.code
 						}

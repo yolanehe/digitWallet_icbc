@@ -29,34 +29,10 @@
 				account_index: 0,
 				money: 0,
 				bankCode: Config.getBankCode(),
-				/*accounts: [{
-					'bankCode': '102',
-					'accId': '2002002020100021324',
-				}, {
-					'bankCode': '104',
-					'accId': '2002002020100021324',
-				}, {
-					'bankCode': '103',
-					'accId': '2005124440100021324',
-				}, {
-					'bankCode': '103',
-					'accId': '3882002020100021324',
-				}, {
-					'bankCode': '102',
-					'accId': '2002002020100021324',
-				}, {
-					'bankCode': '104',
-					'accId': '2002002020100021324',
-				}, {
-					'bankCode': '103',
-					'accId': '2005124440100021324',
-				}, {
-					'bankCode': '103',
-					'accId': '3882002020100021324',
-				}],*/
 				accounts: [],
 				selected_account: {},
 				button_disabled: true,
+				wallet: {},
 			}
 		},
 		onShow() {
@@ -64,6 +40,9 @@
 				this.accounts = res.data.cardList
 				this.selected_account = this.accounts[0]
 			})
+			this.$request.getWallet().then(res => {
+				this.wallet = res.data.userInfo
+			});
 			this.selected_account = this.accounts[0]
 		},
 		methods: {
@@ -87,8 +66,8 @@
 							'button_text': '继续充钱包',
 							'url': '/pages/recharge/walletAccount', 
 							'amount': this.money,
-							'cardId': this.selected_account.accId.substr(15, 4),
-							'walletId': this.wallet.dwId.substr(14, 4),
+							'cardId': this.selected_account.accId.substr(this.selected_account.accId.length - 4, 4),
+							'walletId': this.wallet.dwId.substr(this.wallet.dwId.length - 4, 4),
 							'transtype': 0
 						}
 						
@@ -103,7 +82,7 @@
 						let item = {
 							'title': '充钱包失败',
 							'button_text': '继续充钱包',
-							'url': '/pages/topUpAccountWallet/topUpAccountWallet', 
+							'url': '/pages/recharge/walletAccount', 
 							'amount': this.money,
 							'err_code': res.code
 						}

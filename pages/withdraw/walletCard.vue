@@ -16,7 +16,6 @@
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">一键提现</button>
 		</view>
-		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数字钱包支付密码"/>
 	</view>
 </template>
 
@@ -24,54 +23,38 @@
 	import Config from '@/common/config.js'
 	import transferTop from '@/components/transferTop/transferTop.vue'
 	import pickerBlock from '@/components/pickerBlock/pickerBlock.vue'
-	import numberJpan from '@/components/numberJpan/numberJpan.vue'
 	import walletDetail from '@/components/wallet-detail/wallet-detail.vue'
 	
 	export default {
 		data() {
 			return {
-				money: 0,
 				button_disabled: false,
 				card: {},
 				wallet: {},
 			}
 		},
 		components: {
-			'number-jpan': numberJpan,
 			'transfer-top': transferTop,
 			'picker-block': pickerBlock,
 			'walletdetail': walletDetail,
 		},
 		onShow() {
-			/*this.$request.getCardInfo('0021002192001892', {}).then(res => {
+			this.$request.getCardInfo('0021002192001892', {}).then(res => {
 				this.card = res.data.cardInfo.card
 			});
 			this.$request.getWallet().then(res => {
 				this.wallet = res.data.userInfo
-			});*/
-			
-			this.wallet = {
-				'dwId': '0021002193008888',
-				'nickName': 'ICBC的数字钱包',
-				'amount': 29994.00
-			}
-			this.card = {
-				'amount': 22,
-				'cid': '02938718293010202'
-			}
+			});
 		},
 		methods: {
 			buttonClick() {
-				this.$refs.numberPad.open()
-			},
-			closeChange(event) {
-				this.$request.walletRecharge(this.accounts[this.account_index].accId, event, this.money).then(res => {
+				this.$request.cardWithdraw(this.card.cid, this.wallet.dwId).then(res => {
 					if (res.code == '0') {
 						let item = {
 							'title': '充值成功',
 							'button_text': '继续充值',
 							'url': '/pages/withdraw/walletCard', 
-							'amount': this.money,
+							'amount': this.card.amount,
 							'cardId': this.card.cid.substr(this.card.cid.length - 4, 4),
 							'walletId': this.wallet.dwId.substr(this.wallet.dwId.length - 4, 4),
 							'transtype': 3
@@ -101,7 +84,7 @@
 						});
 					}
 				})
-			}
+			},
 		}
 	}
 </script>
