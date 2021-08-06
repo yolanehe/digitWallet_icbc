@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<transfer-top left_content="wallet" right_content="card" />
-		<transfer-input input_text="充值金额" display_notes :amount=" (200 - card.amount) " @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
+		<transfer-input input_text="充值金额" display_notes :amount=" (200 - dayDetail.cardAmount) " @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
 		<wallet-detail :wallet="wallet" />
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
@@ -25,6 +25,7 @@
 				button_disabled: true,
 				card: {},
 				wallet: {},
+				dayDetail: {},
 			}
 		},
 		components: {
@@ -37,6 +38,7 @@
 		onShow() {
 			this.$request.getCardInfo('0021002192001892', {}).then(res => {
 				this.card = res.data.cardInfo.card
+				this.dayDetail = res.data.cardInfo.dayDetail
 			});
 			this.$request.getWallet().then(res => {
 				this.wallet = res.data.userInfo
