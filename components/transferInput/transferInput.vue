@@ -1,7 +1,11 @@
 <template>
 	<view>
 		<view class="transfer_input">
-			<text class="transfer_input_text">{{ input_text }}</text>
+			<view class="transfer_input_title">
+				<text class="transfer_input_text">{{ input_text }}</text>
+				<!--<text v-if="display_warning" class="transfer_input_notes">输入金额超过数字钱包余额</text>-->
+				</text>
+			</view>
 			<view class="transfer_input_view">
 				<image class="icon" src="@/static/rmb_logo_black.png" mode="aspectFill" />
 				<input class="transfer_input_style" placeholder="请输入金额"
@@ -33,7 +37,7 @@
 				button_disabled: true,
 			};
 		},
-		props: ['input_text', 'display_detail', 'display_button', 'amount', 'display_notes'],
+		props: ['input_text', 'display_detail', 'display_button', 'amount', 'display_notes', 'display_warning'],
 		methods: {
 			formatInput(event) {
 				this.money = parseFloat(this.money).toFixed(2)
@@ -111,12 +115,24 @@
 		height: 50rpx;
 	}
 	
+	.transfer_input_title {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	
 	.transfer_input_text {
 		margin-left: 10rpx;
 		margin-top: 4rpx;
 	
 		font-size: 26rpx;
 		font-weight: bold;
+	}
+	
+	.transfer_input_notes {
+		font-size: 22rpx;
+		color: #b30000;
+		margin-left: 15rpx;
 	}
 	
 	.transfer_input_style {

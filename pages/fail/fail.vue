@@ -2,11 +2,7 @@
 	<view class="view">
 		<view class="top">
 			<image class="img" src="@/static/fail.png" />
-			<text class="title_text">{{ title }}</text>
-		</view>
-		<view class="warning">
-			<image class="warning_img" src="@/static/warning.png"></image>
-			<text class="text">{{ text }}</text>
+			<text class="title_text">{{ text }}</text>
 		</view>
 		<view class="view1">
 			<button class="button-style2" @tap="navi">{{ button_text }}</button>
@@ -39,6 +35,12 @@
 			this.transtype = item.transtype
 			this.Id = item.Id
 			this.text = this.err_map[item.err_code]
+			
+			console.log('title:', this.title)
+			
+			uni.setNavigationBarTitle({
+				title: this.title
+			})
 		},
 		methods:{
 			navi_index() {
@@ -64,9 +66,8 @@
 		align-items: center;
 	}
 	.top {
-		// border: 1rpx solid black;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		
@@ -74,32 +75,14 @@
 		padding-bottom: 50rpx;
 	}
 	.img{
-		// border: 1rpx solid black;
-		
 		width: 180rpx;
 		height: 180rpx;
 	}
 	.title_text {
-		color: #b30000;
-		margin-left: 15rpx;
+		margin-top: 35rpx;
+		
 		font-weight: bold;
 		font-size: 38rpx;
-	}
-	.text {
-		font-size: 30rpx;
-		font-weight: bold;
-	}
-	.warning {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		
-		margin-bottom: 20rpx;
-	}
-	.warning_img {
-		width: 50rpx;
-		height: 50rpx;
 	}
 	.view1{
 		height:80rpx;

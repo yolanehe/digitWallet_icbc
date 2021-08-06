@@ -48,28 +48,13 @@
 				
             }
         },
-        onShow() {
-            // this.getList();
-			this.$request.getCardInfo('0021002192001892',{}).then(res => {
+		onLoad(option) {
+			this.cardid = option.cid
+			this.$request.getCardInfo(this.cardid,{}).then(res => {
 				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
-				this.cardid = res.data.cardInfo.card.cid
 				this.productList = res.data.cardInfo.transFlows
 				console.log('data',res.data.cardInfo.transFlows)
-				// res.cardInfo.transFlows = res.cardInfo.transFlows.map(item => {
-				// 	if (this.array[this.index] == '全部') {
-				// 		return item
-				// 	} 
-				// 	else if (this.array[this.index] == '提现') {
-				// 		if (item.transTypeName == '提现'){
-				// 			return item
-				// 		}
-				// 	} else if (this.array[this.index] == '充值'){
-				// 		if (item.transTypeName == '充值'){
-				// 			return item
-				// 		}
-				// 	}
-				// })			
-            })
+			})
 		},
 		onUnload:function(){
 			// wx.reLaunch({

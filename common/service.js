@@ -8,8 +8,7 @@ class Service extends BaseService {
 	}
 
 	static getCardIdentification = (cardId, data) => {
-		let url = 'card/openCard?cardId=' + cardId
-		console.log(url)
+		let url = 'card/establishCard?cardId=' + cardId
 
 		return this.post(url, data)
 	}

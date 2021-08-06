@@ -18,30 +18,119 @@
 				count: 0,
 				timer: null,
 				NFCAdapter: null,
-				tab: {},
+				
+				type: 0, // 0: 识别卡, 1: 开立卡
 			}
 		},
 		destroyed() {
 			clearInterval(this.timer);
 		},
-
+		async onLoad(option) {
+			this.type = option.type
+			console.log('type:', this.type)
+			
+			let res = NFCidentify.initDevice();
+			
+			// 识别卡
+			if (this.type == 0) {
+				if (res.code == '0') {
+					uni.redirectTo({
+						url: "/pages/carddetail/carddetail?cid=" + res.data.cardInfo.card.cid,
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					})
+				}
+				else {
+					let item = {
+						'title': '识别卡失败',
+						'button_text': '重新识别',
+						'url': '/pages/identifyCard/identifyCard?type=' + this.type,
+						'err_code': res.code
+					}
+					
+					uni.redirectTo({
+						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
+				}
+			}
+			else { //开立卡
+				if (res.code == '0') {
+					let item = {
+						'title': '开立卡成功',
+						'button_text': '识别软卡',
+						'url': '/pages/identifyCard/identifyCard?type=0',
+						'transtype': 4
+					}
+					
+					uni.navigateTo({
+						url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
+				}
+				else {
+					let item = {
+						'title': '开卡失败',
+						'button_text': '识别软卡',
+						'url': '/pages/identifyCard/identifyCard?type=0',
+						'err_code': res.code
+					}
+					
+					uni.redirectTo({
+						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
+				}
+			}
+		},
+		onShow() {
+			this.countDown();
+		},
+		onUnload() {
+			NFCidentify.closeNFC();
+		},
 		methods: {
 			countDown() {
 				let _this = this;
-				const TIME_COUNT = 3;
+				const TIME_COUNT = 1;
 				if (!this.timer) {
 					this.count = 0;
 					this.timer = setInterval(() => {
 						if (this.count >= 0 && this.count <= TIME_COUNT) {
 							this.count++;
-							if (this.count == 3) {
-								console.log(this.count)
-								uni.navigateTo({
-									url: "/pages/carddetail/carddetail",
+							if (this.count == TIME_COUNT) {
+								let item = {
+									'title': '识别卡失败',
+									'button_text': '重新识别',
+									'url': '/pages/identifyCard/identifyCard?type=' + this.type,
+									'err_code': '500'
+								}
+								
+								if (this.type == 1) {
+									item['title'] = '开立卡失败'
+									item['button_text'] = '重新开立'
+								}
+								
+								uni.redirectTo({
+									url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
 									success: res => {},
 									fail: () => {},
 									complete: () => {}
 								});
+								
+								/*uni.navigateTo({
+									url: "/pages/carddetail/carddetail",
+									success: res => {},
+									fail: () => {},
+									complete: () => {}
+								});*/
 							}
 						} else {
 							clearInterval(this.timer);
@@ -50,15 +139,6 @@
 					}, 1000);
 				}
 			},
-		},
-		async onLoad() {
-			NFCidentify.initDevice();
-		},
-		onShow() {
-			this.countDown();
-		},
-		onUnload() {
-			NFCidentify.closeNFC();
 		},
 	}
 </script>
@@ -69,16 +149,6 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-
-	}
-
-	.logo {
-		// margin-top: 10rpx;
-		// margin-left: auto;
-		// margin-right: auto;
-		// margin-bottom: 200rpx;
-
-		//border: 1upx solid black;
 
 	}
 

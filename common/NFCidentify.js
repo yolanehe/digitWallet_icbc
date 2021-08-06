@@ -90,21 +90,11 @@ class NFCIdentify {
 		NFCAdapter = wx.getNFCAdapter();
 		console.log(NFCAdapter);
 		
-		/*tab = {
-			'ISO-DEP': NFCAdapter.getIsoDep(),
-			'MIFARE Classic': NFCAdapter.getMifareClassic(),
-			'MIFARE Ultraligh': NFCAdapter.getMifareUltralight(),
-			NDEF: NFCAdapter.getNdef(),
-			'NFC-A': NFCAdapter.getNfcA(),
-			'NFC-B': NFCAdapter.getNfcB(),
-			'NFC-F': NFCAdapter.getNfcF(),
-			'NFC-V': NFCAdapter.getNfcV(),
-		}*/
-		
-		// this.Ndef = NFCAdapter.getNdef();
 		this.NfcA = NFCAdapter.getNfcA();
+		let res = this.NFCListener();
+		console.log('initDevice:', res)
 		
-		this.NFCListener();
+		return res
 	}
 
 	// call listener
@@ -115,8 +105,9 @@ class NFCIdentify {
 			let aid = ab2hex(callback.id);
 			console.log('aid:', aid);
 			
-			service.getCardIdentification(aid).then(res => {
+			service.getCardIdentification('00210021920018').then(res => {
 				console.log('getCardIdentification: ', res)
+				return res
 			})
 			
 			if (callback.techs.length != 0) {

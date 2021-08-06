@@ -31,15 +31,17 @@
 			this.title = item.title
 			this.button_text = item.button_text
 			this.url = item.url
-			this.amount = parseFloat(item.amount).toFixed(2)
 			this.transtype = item.transtype
-			this.walletId = item.walletId
-			this.cardId = item.cardId
 			
-			console.log(this.amount)
+			if (this.transtype != 4) {
+				this.amount = parseFloat(item.amount).toFixed(2)
+				this.walletId = item.walletId
+				this.cardId = item.cardId
+			}
 			
 			// 0: 充钱包 1: 存银行
 			// 2: 充值 3: 提现
+			// 4: 开立软卡
 			switch (this.transtype) {
 				case 0:
 					this.text = '已成功向尾号为' + this.walletId + '的数字钱包充值 ' + this.amount + ' 元'

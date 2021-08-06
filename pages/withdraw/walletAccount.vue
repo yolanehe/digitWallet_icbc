@@ -41,11 +41,6 @@
 				this.accounts = res.data.cardList
 				this.selected_account = this.accounts[0]
 			});
-			/*this.wallet = {
-				'dwId': '0021002193008888',
-				'nickName': 'ICBC的数字钱包',
-				'amount': 29994.00
-			}*/
 			this.selected_account = this.accounts[0]
 		},
 		methods: {

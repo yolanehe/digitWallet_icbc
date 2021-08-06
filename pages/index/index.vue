@@ -32,7 +32,7 @@
 					<text>银行存储</text>
 				</view>
 			</button>
-			<button class="button-style2">
+			<button class="button-style2" @tap="navi_establishCard">
 				<view class="button-content">
 					<image class="button-icon" src="@/static/wallet.png" mode="scaleToFill" />
 					<text>开立钱包</text>
@@ -100,9 +100,17 @@
 					}
 				})
 			},
+			navi_establishCard() {
+				uni.navigateTo({
+					url: "/pages/identifyCard/identifyCard?type=1",
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 			navi_identifyCard() {
 				uni.navigateTo({
-					url: "/pages/identifyCard/identifyCard",
+					url: "/pages/identifyCard/identifyCard?type=0",
 					success: res => {},
 					fail: () => {},
 					complete: () => {}

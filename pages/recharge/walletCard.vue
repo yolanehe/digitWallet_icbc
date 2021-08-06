@@ -53,7 +53,7 @@
 				this.button_disabled = event
 			},
 			closeChange(event) {
-				this.$request.walletRecharge(this.accounts[this.account_index].accId, event, this.money).then(res => {
+				this.$request.cardRecharge(this.card.cid, thid.wallet.dwId, event, this.money).then(res => {
 					if (res.code == '0') {
 						let item = {
 							'title': '充值成功',
