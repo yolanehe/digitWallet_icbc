@@ -75,7 +75,7 @@
 				}
 				else {
 					let item = {
-						'title': '开卡失败',
+						'title': '开立卡失败',
 						'button_text': '识别软卡',
 						'url': '/pages/identifyCard/identifyCard?type=0',
 						'err_code': res.code
