@@ -8,7 +8,7 @@
 				<text class="text-log">欢迎登录数字钱包</text>
 			</view>
 		</view>
-		<view class="form">
+		<view class="form"> 
 			<view class="inputWrapper">
 				<!-- <input class="input" type="text" value="" placeholder="请输入用户名"/> -->
 				<input v-model.trim="phone" maxlength="11" placeholder-style="color: #AFAFB8" class="input" type="number" placeholder="请输入手机号" />
