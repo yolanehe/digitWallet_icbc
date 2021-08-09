@@ -65,8 +65,8 @@
 							'button_text': '继续存银行',
 							'url': '/pages/withdraw/walletAccount', 
 							'amount': this.money,
-							'cardId': this.selected_account.accId.substr(15, 4),
-							'walletId': this.wallet.dwId.substr(14, 4),
+							'cardId': this.selected_account.accId,
+							'walletId': this.wallet.dwId,
 							'transtype': 1
 						}
 						
@@ -83,7 +83,8 @@
 							'button_text': '继续存银行',
 							'url': '/pages/withdraw/walletAccount', 
 							'amount': this.money,
-							'err_code': res.code
+							'err_code': res.code,
+							'transtype': 1
 						}
 						
 						uni.redirectTo({

@@ -66,8 +66,8 @@
 							'button_text': '继续充钱包',
 							'url': '/pages/recharge/walletAccount', 
 							'amount': this.money,
-							'cardId': this.selected_account.accId.substr(this.selected_account.accId.length - 4, 4),
-							'walletId': this.wallet.dwId.substr(this.wallet.dwId.length - 4, 4),
+							'cardId': this.selected_account.accId,
+							'walletId': this.wallet.dwId,
 							'transtype': 0
 						}
 						
@@ -84,7 +84,8 @@
 							'button_text': '继续充钱包',
 							'url': '/pages/recharge/walletAccount', 
 							'amount': this.money,
-							'err_code': res.code
+							'err_code': res.code,
+							'transtype': 0
 						}
 						
 						uni.redirectTo({

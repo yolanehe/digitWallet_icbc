@@ -35,8 +35,9 @@
 			'picker-block': pickerBlock,
 			'wallet-detail': walletDetail,
 		},
-		onShow() {
-			this.$request.getCardInfo('0021002192001892', {}).then(res => {
+		onLoad(option) {
+			console.log('walletDetail onload cid:', option.cid)
+			this.$request.getCardInfo(option.cid, {}).then(res => {
 				this.card = res.data.cardInfo.card
 				this.dayDetail = res.data.cardInfo.dayDetail
 			});
@@ -50,6 +51,15 @@
 			},
 			transferMoney(event) {
 				this.money = Number(event)
+				
+				if (this.money > (200 - this.dayDetail.cardAmount)) {
+					this.button_disabled = true
+					uni.showToast({
+						title: '充值金额超过上限',
+						duration: 2000,
+						icon: error,
+					})
+				}
 			},
 			getButtonDisabled(event) {
 				this.button_disabled = event
@@ -62,8 +72,8 @@
 							'button_text': '继续充值',
 							'url': '/pages/recharge/walletCard', 
 							'amount': this.money,
-							'cardId': this.card.cid.substr(this.card.cid.length - 4, 4),
-							'walletId': this.wallet.dwId.substr(this.wallet.dwId.length - 4, 4),
+							'cardId': this.card.cid,
+							'walletId': this.wallet.dwId,
 							'transtype': 2
 						}
 						
@@ -76,11 +86,13 @@
 					}
 					else {
 						let item = {
-							'title': '充钱包失败',
-							'button_text': '继续充钱包',
+							'title': '充值失败',
+							'button_text': '继续充值',
 							'url': '/pages/recharge/walletCard', 
 							'amount': this.money,
-							'err_code': res.code
+							'err_code': res.code,
+							'transtype': 2,
+							'cardId': this.card.cid,
 						}
 						
 						uni.redirectTo({

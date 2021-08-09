@@ -20,7 +20,7 @@
 			</view>
 		</view>
 		<view class="wallet_detail" v-if="display_detail">
-			<text class="wallet_detail_text">可充金额: {{ parseFloat(amount).toFixed(2) }} 元</text>
+			<text class="wallet_detail_text">可用金额: {{ parseFloat(amount).toFixed(2) }} 元</text>
 			<button class="button-style1 total_button" @click="totalWalletMoney">全部存入</button>
 		</view>
 	</view>
@@ -43,16 +43,8 @@
 				if (this.money != '') {
 					this.money = parseFloat(this.money).toFixed(2)
 					
-					if (this.money > Config.getMAXMoney() || this.money == 0 || this.money[this.money.length - 1] == '.' || this.money > this.amount) {
+					if (this.money > Config.getMAXMoney() || this.money == 0 || this.money[this.money.length - 1] == '.') {
 						this.button_disabled = true
-						
-						if (this.money > this.amount) {
-							uni.showToast({
-								title: '充值金额超过上限',
-								duration: 2000,
-								icon: error,
-							})
-						}
 					}
 					else {
 						this.button_disabled = false

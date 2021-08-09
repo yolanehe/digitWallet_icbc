@@ -5,7 +5,7 @@
 			<text class="card_detail_title">卡式软钱包</text>
 			<view class="card_detail_block">
 				<image class="card_detail_icon" src="@/static/card.png" />
-				<text class="card_detail_text">卡号: {{ card.cid }}</text>
+				<text class="card_detail_text">卡号: {{ parseInt(card.cid, 16) }}</text>
 			</view>
 			<view class="card_detail_block">
 				<image class="card_detail_icon" src="@/static/balance.png" />
@@ -38,8 +38,8 @@
 			'picker-block': pickerBlock,
 			'walletdetail': walletDetail,
 		},
-		onShow() {
-			this.$request.getCardInfo('0021002192001892', {}).then(res => {
+		onLoad(option) {
+			this.$request.getCardInfo(option.cid, {}).then(res => {
 				this.card = res.data.cardInfo.card
 			});
 			this.$request.getWallet().then(res => {
@@ -51,12 +51,12 @@
 				this.$request.cardWithdraw(this.card.cid, this.wallet.dwId).then(res => {
 					if (res.code == '0') {
 						let item = {
-							'title': '充值成功',
-							'button_text': '继续充值',
+							'title': '提现成功',
+							'button_text': '继续提现',
 							'url': '/pages/withdraw/walletCard', 
 							'amount': this.card.amount,
-							'cardId': this.card.cid.substr(this.card.cid.length - 4, 4),
-							'walletId': this.wallet.dwId.substr(this.wallet.dwId.length - 4, 4),
+							'cardId': this.card.cid,
+							'walletId': this.wallet.dwId,
 							'transtype': 3
 						}
 						
@@ -69,11 +69,13 @@
 					}
 					else {
 						let item = {
-							'title': '充钱包失败',
-							'button_text': '继续充钱包',
+							'title': '提现失败',
+							'button_text': '继续提现',
 							'url': '/pages/withdraw/walletCard', 
 							'amount': this.money,
-							'err_code': res.code
+							'err_code': res.code,
+							'transtype': 3,
+							'cardId': this.card.cid,
 						}
 						
 						uni.redirectTo({
