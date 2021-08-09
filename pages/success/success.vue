@@ -44,19 +44,21 @@
 			// 4: 开立软卡
 			switch (this.transtype) {
 				case 0:
-					this.text = '已成功向尾号为' + this.walletId + '的数字钱包充值 ' + this.amount + ' 元'
+					this.text = '已成功向尾号为' + this.walletId.substr(this.walletId.length - 4, 4) + '的数字钱包充值 ' + this.amount + ' 元'
 					break;
 				case 1:
-					this.text = '已成功向尾号为' + this.cardId + '的银行卡存入 ' + this.amount + ' 元'
+					this.text = '已成功向尾号为' + this.cardId.substr(this.cardId.length - 4, 4) + '的银行卡存入 ' + this.amount + ' 元'
 					break;
 				case 2:
-					this.text = '已成功向尾号为' + this.cardId + '的卡式软钱包充值 ' + this.amount + ' 元'
+					this.text = '已成功向尾号为' + parseInt(this.cardId, 16) % 10000 + '的卡式软钱包充值 ' + this.amount + ' 元'
 					break;
 				case 3:
-					this.text = '已成功向尾号为' + this.walletId + '的数字钱包提现 ' + this.amount + ' 元'
+					this.text = '已成功向尾号为' + this.walletId.substr(this.walletId.length - 4, 4) + '的数字钱包提现 ' + this.amount + ' 元'
 					break;
 				default:
 					break;
+					
+			console.log('text:', this.text)
 			}
 		},
 		methods:{
@@ -66,6 +68,10 @@
 				});
 			},
 			navi() {
+				if (this.transtype == 2 || this.transtype == 3) {
+					this.url += '?cid=' + this.cardId
+				}
+				
 				uni.redirectTo({
 					url: this.url
 				});

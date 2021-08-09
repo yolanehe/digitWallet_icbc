@@ -60,7 +60,7 @@
 							'transtype': 3
 						}
 						
-						uni.navigateTo({
+						uni.redirectTo({
 							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
 							success: res => {},
 							fail: () => {},
@@ -76,7 +76,7 @@
 							'err_code': res.code
 						}
 						
-						uni.navigateTo({
+						uni.redirectTo({
 							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
 							success: res => {},
 							fail: () => {},

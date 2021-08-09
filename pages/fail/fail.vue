@@ -23,7 +23,8 @@
 				amount: 0,
 				text: '',
 				transtype: 0,
-				err_map: Config.getErrMessage()
+				err_map: Config.getErrMessage(),
+				cardId: '',
 			};
 		},
 		onLoad(option) {
@@ -35,6 +36,11 @@
 			this.transtype = item.transtype
 			this.Id = item.Id
 			this.text = this.err_map[item.err_code]
+			this.transtype = item.transtype
+			
+			if (this.transtype == 2 || this.transtype == 3) {
+				this.cardId = item.cardId
+			}
 			
 			console.log('title:', this.title)
 			
@@ -49,6 +55,10 @@
 				});
 			},
 			navi() {
+				if (this.transtype == 2 || this.transtype == 3) {
+					this.url += '?cid=' + this.cardId
+				}
+				
 				uni.redirectTo({
 					url: this.url
 				});

@@ -35,7 +35,7 @@
 			<button class="button-style2" @tap="navi_establishCard">
 				<view class="button-content">
 					<image class="button-icon" src="@/static/wallet.png" mode="scaleToFill" />
-					<text>开立钱包</text>
+					<text>开立软卡</text>
 				</view>
 			</button>
 			<button class="button-style1" @tap="navi_identifyCard">
@@ -44,7 +44,7 @@
 					<text>识别软卡</text>
 				</view>
 			</button>
-			<button class="button-style2" @click="toggle('bottom')">
+			<button class="button-style2" @click="toggle()">
 				<view class="button-content">
 					<image class="button-icon" src="@/static/trans_v2.png" mode="scaleToFill" />
 					<text>交易明细</text>

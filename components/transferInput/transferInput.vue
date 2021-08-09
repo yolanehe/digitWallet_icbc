@@ -40,12 +40,26 @@
 		props: ['input_text', 'display_detail', 'display_button', 'amount', 'display_notes', 'display_warning'],
 		methods: {
 			formatInput(event) {
-				this.money = parseFloat(this.money).toFixed(2)
-				if (this.money > Config.getMAXMoney() || this.money == 0 || this.money[this.money.length - 1] == '.') {
-					this.button_disabled = true
+				if (this.money != '') {
+					this.money = parseFloat(this.money).toFixed(2)
+					
+					if (this.money > Config.getMAXMoney() || this.money == 0 || this.money[this.money.length - 1] == '.' || this.money > this.amount) {
+						this.button_disabled = true
+						
+						if (this.money > this.amount) {
+							uni.showToast({
+								title: '充值金额超过上限',
+								duration: 2000,
+								icon: error,
+							})
+						}
+					}
+					else {
+						this.button_disabled = false
+					}
 				}
 				else {
-					this.button_disabled = false
+					this.button_disabled = true
 				}
 				
 				this.$emit('button_disabled', this.button_disabled)

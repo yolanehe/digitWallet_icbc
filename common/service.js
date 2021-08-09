@@ -20,6 +20,10 @@ class Service extends BaseService {
 	}
 
 	static walletRecharge = (accId, pwd, amount) => {
+		console.log('amount:', amount)
+		console.log('accId:', accId)
+		console.log('pwd:', pwd)
+		
 		let url = 'digitalWallet/reCharge'
 		
 		let data = {
@@ -44,10 +48,9 @@ class Service extends BaseService {
 	}
 	
 	static cardRecharge = (cardId, walletId, pwd, amount) =>  {
-		let url = 'card/reCharge'
+		let url = 'card/reCharge?id=' + cardId
 		
 		let data = {
-			'id': cardId,
 			'transObjId': walletId,
 			'payPassword': pwd,
 			'amount': amount
@@ -82,7 +85,6 @@ class Service extends BaseService {
 		}
 		
 		let url = 'card/getCardInfo?type=' + typeCode + '&cardId=' + cardId
-		// console.log(url)
 		return this.post(url, data)
 	}
 	

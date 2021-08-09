@@ -2,7 +2,7 @@
     <view class="zong" >
         <view class="title1">
 			<text class="text-style1">贴一贴卡片钱包</text>
-			<text class="text-style2">{{cardid}}</text>
+			<text class="text-style2">{{ parseInt(cardid, 16) }}</text>
 			<view class="stylemoney">
 				<image class="image-style1" src="@/static/rmb_logo_white.png" mode="aspectFit"></image>
 				<text class="text-style3">{{ money }}</text>
@@ -49,24 +49,26 @@
             }
         },
 		onLoad(option) {
-			this.cardid = option.cid
-			this.$request.getCardInfo(this.cardid,{}).then(res => {
-				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
-				this.productList = res.data.cardInfo.transFlows
-				console.log('data',res.data.cardInfo.transFlows)
+			const item = JSON.parse(decodeURIComponent(option.item))
+			this.cardid = item.cardInfo.card.cid
+			this.money = parseFloat(item.cardInfo.card.amount).toFixed(2)
+			this.productList = item.cardInfo.transFlows
+			
+			uni.setNavigationBarTitle({
+				title: '贴一贴卡片钱包'
 			})
 		},
-		onUnload:function(){
+		// onUnload:function(){
 			// wx.reLaunch({
 			// 	url:"../index/index"
 			// })
 			// uni.navigateBack()({
 			// 	url:"../index/index"   
 			// })
-			uni.navigateBack({
-				delta:2
-			})
-		},		
+			// uni.onBackPress({
+				// delta:2
+			// })
+		// },		
         methods: {
 			Change: function(e) {		//改变的事件名
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
@@ -74,17 +76,16 @@
 				//this.jg=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
 				if (this.array[this.index] == '全部') {
 					console.log(this.array[this.index])
-					this.$request.getCardInfo('0021002192001892', {}).then(res => {
+					this.$request.getCardInfo(this.cardid, {}).then(res => {
 						console.log('data',res.data.cardInfo.transFlows)
 						this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
 						this.cardid = res.data.cardInfo.card.cid
 						this.productList = res.data.cardInfo.transFlows
-						
 					})
 				}
 				else {
 					console.log(this.array[this.index])
-					this.$request.getCardInfoAndType('0021002192001892', this.array[this.index], {}).then(res => {
+					this.$request.getCardInfoAndType(this.cardid, this.array[this.index], {}).then(res => {
 						this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
 						this.cardid = res.data.cardInfo.card.cid
 						console.log('data',res.data.cardInfo.transFlows)
@@ -93,16 +94,16 @@
 				}
 			},
 			recharge() {
-				uni.navigateTo({
-					url: "/pages/recharge/walletCard",
+				uni.redirectTo({
+					url: "/pages/recharge/walletCard?cid=" + this.cardid,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
 				});
 			},
 			withdraw() {
-				uni.navigateTo({
-					url: "/pages/withdraw/walletCard",
+				uni.redirectTo({
+					url: "/pages/withdraw/walletCard?cid=" + this.cardid,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}

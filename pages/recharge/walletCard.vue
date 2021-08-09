@@ -55,7 +55,7 @@
 				this.button_disabled = event
 			},
 			closeChange(event) {
-				this.$request.cardRecharge(this.card.cid, thid.wallet.dwId, event, this.money).then(res => {
+				this.$request.cardRecharge(this.card.cid, this.wallet.dwId, event, this.money).then(res => {
 					if (res.code == '0') {
 						let item = {
 							'title': '充值成功',
@@ -67,7 +67,7 @@
 							'transtype': 2
 						}
 						
-						uni.navigateTo({
+						uni.redirectTo({
 							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
 							success: res => {},
 							fail: () => {},
@@ -83,7 +83,7 @@
 							'err_code': res.code
 						}
 						
-						uni.navigateTo({
+						uni.redirectTo({
 							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
 							success: res => {},
 							fail: () => {},

@@ -86,34 +86,96 @@ class NFCIdentify {
 	Ndef = null;
 
 	// init NFC device
-	static initDevice() {
+	static initDevice(type) {
 		NFCAdapter = wx.getNFCAdapter();
 		console.log(NFCAdapter);
 		
 		this.NfcA = NFCAdapter.getNfcA();
-		let res = this.NFCListener();
-		console.log('initDevice:', res)
-		
-		return res
+		this.NFCListener(type);
 	}
 
 	// call listener
-	static NFCListener() {
+	static NFCListener(type) {
 		// onDiscover
 		NFCAdapter.onDiscovered(callback => {
-			console.log('onDiscovered callback => ', callback);
 			let aid = ab2hex(callback.id);
 			console.log('aid:', aid);
 			
-			service.getCardIdentification('00210021920018').then(res => {
-				console.log('getCardIdentification: ', res)
-				return res
-			})
+			if (type == 0) {
+				service.getCardInfo(aid).then(res => {
+					console.log('getCardInfo: ', res)
+					console.log('type:', type)
+					
+					if (res.code == '0') {
+						console.log('getCardInfo res.code=0')
+						uni.redirectTo({
+							url: "/pages/carddetail/carddetail?item=" + encodeURIComponent(JSON.stringify(res.data)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						})
+					}
+					else {
+						let item = {
+							'title': '识别卡失败',
+							'button_text': '重新识别',
+							'url': '/pages/identifyCard/identifyCard?type=' + this.type,
+							'err_code': res.code
+						}
+						
+						uni.redirectTo({
+							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+				})
+			}
+			else {
+				service.getCardIdentification(aid).then(res => {
+					console.log('getCardIdentification: ', res)
+					console.log('type:', type)
+					
+					if (res.code == '0') {
+						console.log('getCardIdentification res.code=0')
+						let item = {
+							'title': '开立卡成功',
+							'button_text': '识别软卡',
+							'url': '/pages/identifyCard/identifyCard?type=0',
+							'transtype': 4
+						}
+						
+						uni.redirectTo({
+							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+					else {
+						let item = {
+							'title': '开立卡失败',
+							'button_text': '换卡开立',
+							'url': '/pages/identifyCard/identifyCard?type=1',
+							'err_code': res.code
+						}
+						
+						uni.redirectTo({
+							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+				})
+			}
 			
-			if (callback.techs.length != 0) {
-				// console.log('识别成功');
-			} else {
-				console.log('无效设备')
+			if (callback.techs.length == 0) {
+				uni.showToast({
+					title: '无效设备',
+					duration: 2000
+				})
 			}
 		});
 		

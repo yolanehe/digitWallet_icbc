@@ -29,66 +29,7 @@
 			this.type = option.type
 			console.log('type:', this.type)
 			
-			let res = NFCidentify.initDevice();
-			
-			// 识别卡
-			if (this.type == 0) {
-				if (res.code == '0') {
-					uni.redirectTo({
-						url: "/pages/carddetail/carddetail?cid=" + res.data.cardInfo.card.cid,
-						success: res => {},
-						fail: () => {},
-						complete: () => {}
-					})
-				}
-				else {
-					let item = {
-						'title': '识别卡失败',
-						'button_text': '重新识别',
-						'url': '/pages/identifyCard/identifyCard?type=' + this.type,
-						'err_code': res.code
-					}
-					
-					uni.redirectTo({
-						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-						success: res => {},
-						fail: () => {},
-						complete: () => {}
-					});
-				}
-			}
-			else { //开立卡
-				if (res.code == '0') {
-					let item = {
-						'title': '开立卡成功',
-						'button_text': '识别软卡',
-						'url': '/pages/identifyCard/identifyCard?type=0',
-						'transtype': 4
-					}
-					
-					uni.navigateTo({
-						url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
-						success: res => {},
-						fail: () => {},
-						complete: () => {}
-					});
-				}
-				else {
-					let item = {
-						'title': '开立卡失败',
-						'button_text': '识别软卡', 
-						'url': '/pages/identifyCard/identifyCard?type=0',
-						'err_code': res.code
-					}
-					
-					uni.redirectTo({
-						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-						success: res => {},
-						fail: () => {},
-						complete: () => {}
-					});
-				}
-			}
+			NFCidentify.initDevice(this.type)
 		},
 		onShow() {
 			this.countDown();
@@ -99,7 +40,7 @@
 		methods: {
 			countDown() {
 				let _this = this;
-				const TIME_COUNT = 1;
+				const TIME_COUNT = 30;
 				if (!this.timer) {
 					this.count = 0;
 					this.timer = setInterval(() => {
@@ -124,13 +65,6 @@
 									fail: () => {},
 									complete: () => {}
 								});
-								
-								/*uni.navigateTo({
-									url: "/pages/carddetail/carddetail",
-									success: res => {},
-									fail: () => {},
-									complete: () => {}
-								});*/
 							}
 						} else {
 							clearInterval(this.timer);
