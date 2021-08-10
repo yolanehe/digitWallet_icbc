@@ -35,12 +35,20 @@
 	
 	export default {
 		name:"pickerBlock",
-		props:['accounts', 'selected_account'],
+		props:{
+			accounts: {
+				type: Array,
+				value: [],
+			}, 
+			selected_account: {
+				type: Map,
+				value: {},
+		}},
 		data() {
 			return {
 				bankCode: Config.getBankCode(),
 				showHidden: false,
-				account_index: 0
+				account_index: 0,
 			};
 		},
 		methods: {
