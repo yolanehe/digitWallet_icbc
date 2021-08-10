@@ -2,12 +2,13 @@
 	<view class="view">
 		<view class="top">
 			<image class="img" src="@/static/success.png" />
-			<text class="title_text">{{ title }}</text>
 		</view>
+		<text class="title_text">{{ title }}</text>
+		<text v-if="transtype != 4" class="money">{{ amount }}元</text>
 		<text class="text">{{ text }}</text>
-		<view class="view1">
-			<button class="button-style2" @tap="navi">{{ button_text }}</button>
-			<button class="button-style1" @tap="navi_index">返回首页</button>
+		<view class="view_button">
+			<button class="button-style2 button_style" @tap="navi">{{ button_text }}</button>
+			<button class="button-style1 button_style" @tap="navi_index">返回首页</button>
 		</view>
 	</view>
 </template>
@@ -94,7 +95,7 @@
 		justify-content: center;
 		align-items: center;
 		
-		padding-top: 50rpx;
+		padding-top: 120rpx;
 		padding-bottom: 50rpx;
 	}
 	.img{
@@ -102,35 +103,33 @@
 		height: 180rpx;
 	}
 	.title_text {
-		color: #0e932e;
-		margin-left: 15rpx;
 		font-weight: bold;
-		font-size: 38rpx;
+		font-size: 34rpx;
+	}
+	.money {
+		font-size: 75rpx;
+		font-weight: bold;
+		margin-top: 10rpx;
+		margin-bottom: 10rpx;
 	}
 	.text {
 		font-size: 30rpx;
 		font-weight: bold;
 		
-		margin-top: 30rpx;
-		margin-bottom: 40rpx;
+		margin-top: 50rpx;
+		margin-bottom: 20rpx;
 		
 		padding-bottom: 12rpx;
-		border-bottom: 1rpx dashed black;
 	}
-	.view1{
-		height:80rpx;
+	.view_button{
 		width: 100%;
+		
+		position: absolute;
+		bottom: 320rpx;
 	}
-	.button_continue
+	.button_style
 	{
-		width: 100%;
-		color: white;
-		font-size: 35upx;
-	}
-	.button_back{
-		margin-top: 50rpx;
-		width: 100%;
-		color:black;
-		font-size: 35upx;
+		margin-top: 20rpx;
+		margin-bottom: 20rpx;
 	}
 </style>

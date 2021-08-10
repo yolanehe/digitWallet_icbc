@@ -2,11 +2,13 @@
 	<view class="view">
 		<view class="top">
 			<image class="img" src="@/static/fail.png" />
-			<text class="title_text">{{ text }}</text>
 		</view>
-		<view class="view1">
-			<button class="button-style2" @tap="navi">{{ button_text }}</button>
-			<button class="button-style1" @tap="navi_index">返回首页</button>
+		<text class="title_text">{{ title }}</text>
+		<text v-if="transtype != 4" class="money">{{ amount }}元</text>
+		<text class="text">错误原因:{{ text }}</text>
+		<view class="view_button">
+			<button class="button-style2 button_style" @tap="navi">{{ button_text }}</button>
+			<button class="button-style1 button_style" @tap="navi_index">返回首页</button>
 		</view>
 	</view>
 </template>
@@ -32,7 +34,6 @@
 			this.title = item.title
 			this.button_text = item.button_text
 			this.url = item.url
-			this.amount = item.amount
 			this.transtype = item.transtype
 			this.Id = item.Id
 			this.text = this.err_map[item.err_code]
@@ -42,7 +43,9 @@
 				this.cardId = item.cardId
 			}
 			
-			console.log('title:', this.title)
+			if (this.transtype != 4) {
+				this.amount = parseFloat(item.amount).toFixed(2)
+			}
 			
 			uni.setNavigationBarTitle({
 				title: this.title
@@ -81,7 +84,7 @@
 		justify-content: center;
 		align-items: center;
 		
-		padding-top: 50rpx;
+		padding-top: 120rpx;
 		padding-bottom: 50rpx;
 	}
 	.img{
@@ -89,25 +92,33 @@
 		height: 180rpx;
 	}
 	.title_text {
-		margin-top: 35rpx;
-		
 		font-weight: bold;
-		font-size: 38rpx;
+		font-size: 34rpx;
 	}
-	.view1{
-		height:80rpx;
-		width: 100%;
+	.money {
+		font-size: 75rpx;
+		font-weight: bold;
+		margin-top: 10rpx;
+		margin-bottom: 10rpx;
 	}
-	.button_continue
-	{
-		width: 100%;
-		color: white;
-		font-size: 35upx;
-	}
-	.button_back{
+	.text {
+		font-size: 30rpx;
+		font-weight: bold;
+		
 		margin-top: 50rpx;
+		margin-bottom: 20rpx;
+		
+		padding-bottom: 12rpx;
+	}
+	.view_button{
 		width: 100%;
-		color:black;
-		font-size: 35upx;
+		
+		position: absolute;
+		bottom: 320rpx;
+	}
+	.button_style
+	{
+		margin-top: 20rpx;
+		margin-bottom: 20rpx;
 	}
 </style>
