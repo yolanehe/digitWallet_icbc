@@ -1,26 +1,21 @@
 <template>
-	<view class="content">
-		<view class="avatorWrapper">
-			<view class="avator">
-				<image class="img" src="/static/digitwallet_logo.png" mode="widthFix"></image>
+	<view>
+		<view class="login_top">
+			<view class="login_top_title">
+				<image class="img" src="/static/digitwallet_logo.png"></image>
+				<text class="text-log">数字人民币钱包</text>
 			</view>
-			<view class="avatext">
-				<text class="text-log">欢迎登录数字钱包</text>
+			<view class="image-style1">
+				<image src="@/static/accounting.png" mode="aspectFit"></image>
 			</view>
+			<text class="title">欢迎进入数字人民币钱包首页</text>
+			<button class="button-style2" @tap="login">点击进入主页面</button>
 		</view>
-		<view class="form"> 
-			<view class="inputWrapper">
-				<!-- <input class="input" type="text" value="" placeholder="请输入用户名"/> -->
-				<input v-model.trim="phone" maxlength="11" placeholder-style="color: #AFAFB8" class="input" type="number" placeholder="请输入手机号" />
+		<view class="foot">
+			<view class="foot_block">
+				<image class="icon" src="@/static/thumbs.png" />
+				<text class="foot_text">珠海研发二部 爱存不存夸夸群</text>
 			</view>
-			<view class="inputWrapper">
-				<!-- <input class="input" type="password" value="" placeholder="请输入密码"/> -->
-				<input v-model.trim="password" maxlength="8" placeholder-style="color: #AFAFB8" class="input" type="text" placeholder="请输入密码" :password="pwd_show" />
-			</view>
-			<!-- <view class="" @tap="wallet">
-				<button class="btnValue">登录</button>
-			</view> -->
-			<view class="loginBtn" :class="(phone.length == 11 && password.length == 8) ? 'btn2' : ''" @click="login" @tap="wallet">登录</view>
 		</view>
 	</view>
 </template>
@@ -31,133 +26,96 @@
 			return {
 				phone: '',
 				password: '',
-				pwd_show: true
+				pwd_show: true,
+				count: 0,
 			};
 		},
-		onLoad() {
- 
-		},
 		methods: {
-			wallet() {
-				const { phone, password } = this;
-				if (phone !== '18831636610') {
-					uni.showToast({
-						title: '手机号不正确',
-						icon: 'none'
-					});
-					return;
-				}
-				if (password !== '88888888') {
-					uni.showToast({
-						title: '密码不正确',
-						icon: 'none'
-					});
-					return;
-				}
-				if (phone == '18831636610'&&password == '88888888'){
-					uni.showToast({
-						title: '登陆成功',
-						duration:2000
-					});
-					setTimeout(function() {
-						uni.redirectTo({
-							url: "/pages/index/index",
-							title: '登录成功',
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
-						});
-					},2000);
-				}
-			},
 			login() {
-				const { phone, password } = this;
-				if (phone == '') {
-					uni.showToast({
-						title: '请输入手机号',
-						icon: 'none'
-					});
-					return;
-				}
-				if (password == '') {
-					uni.showToast({
-						title: '请输入密码',
-						icon: 'none'
-					});
-					return;
-				}
-			}
+				uni.navigateTo({
+					url: "/pages/index/index",
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 		}
 	}
 </script>
  
 <style>
-	.content {
-		background: #EEEEEE;
-		width: 100vw;
-		height: 100vh;
-	
-	}
-	.avatorWrapper{
-		position: relative;
+	@import url("@/common/uni.css");
+	.login_top {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		top: 40rpx;
-		height: 400rpx; 
+		justify-content: center;
+		margin-top: 50rpx;
 		//border: 1upx solid red;
 	}
-	.avatext{
-		margin-top: 40rpx;
-		//border: 1upx solid red;
+	.login_top_title {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		//border: 1upx solid blue;
+	}
+	.image-style1{
+		margin-top:100rpx;
+		//border: 1upx solid blue;
+	}
+	.title {
+		margin-top: 100rpx;
+		font-size: 30rpx;
+		font-weight: 500;
+		//border: 1upx solid blue;
+	}
+	.note {
+		margin-top: 10rpx;
+		font-size: 26rpx;
+	}
+	.count_view {
+		margin-top: 240rpx;
+		font-size: 25rpx;
+	}
+	.img {
+		width: 80rpx;
+		height: 80rpx;
+		margin-right: 15rpx;
+		// border: 1rpx solid blue;
 	}
 	.text-log{
-		color: #3B4144;
 		font-size: 50rpx;
+		font-weight: bold;
 	}
-	.avator{
-		width: 200upx;
-		height: 200upx;
-		//overflow: hidden;
-		margin-top: 60rpx;
-		//border: 1upx solid red;
-	}
-	.avator .img{
-		width: 100%
-	}
-	.form{
-		padding: 0 100upx;
-		margin-top: 80px;
-	}
-	.inputWrapper{
-		width: 100%;
-		height: 80upx;
-		background: white;
-		border-radius: 20px;
-		box-sizing: border-box;
-		padding: 0 20px;
-		margin-top: 25px;
-	}
-	.inputWrapper .input{
-		width: 100%;
-		height: 100%;
-		text-align: center;
-		font-size: 15px;
-	}
-	.loginBtn{
-		width: 100%;
-		height: 80upx;
-		color: white;
-		background: #dd8683;
-		border-radius: 50upx;
-		margin-top: 50px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		
+	.foot {
+		// border: 1rpx solid red;
+		position: absolute;
+		bottom: 25rpx;
+		width: 100%;
 	}
-	.btn2 {
-		background-color: #c80b1e !important;
-	}	
+	
+	.foot_block {
+		display: flex;
+		flex-direction: row;
+		align-items: center;		
+		bottom: 50rpx;
+		margin-bottom: 5rpx;
+		//border: 1rpx solid blue;
+	}
+	
+	.icon {
+		width: 60rpx;
+		height: 60rpx;
+		margin-left: 25%;
+	}
+	
+	.foot_text {
+		margin-left: 15rpx;
+		font-size: 26rpx;
+		color: #b30000;
+	}
 </style>
 
