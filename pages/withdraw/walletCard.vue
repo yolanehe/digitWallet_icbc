@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="card.cid">
 		<transfer-top left_content="card" right_content="wallet" />
 		<view class="card_detail">
 			<text class="card_detail_title">卡式软钱包</text>

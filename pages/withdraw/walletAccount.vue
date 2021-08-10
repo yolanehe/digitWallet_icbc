@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="wallet.dwId">
 		<transfer-top left_content="wallet" display_detail right_content="account" />
 		<transfer-input input_text="存入金额" display_detail :amount="wallet.amount" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)" />
 		<picker-block :accounts="accounts" :selected_account="selected_account" @selected_index="accountIndexChanged($event)"/>

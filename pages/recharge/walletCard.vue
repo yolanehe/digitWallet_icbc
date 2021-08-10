@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="wallet.dwId">
 		<transfer-top left_content="wallet" right_content="card" />
 		<transfer-input input_text="充值金额" display_notes :amount=" dayDetail.cardTimes + '' " @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
 		<wallet-detail :wallet="wallet" />
