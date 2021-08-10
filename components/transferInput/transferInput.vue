@@ -43,7 +43,7 @@
 				if (this.money != '') {
 					this.money = parseFloat(this.money).toFixed(2)
 					
-					if (this.money > Config.getMAXMoney() || this.money == 0 || this.money[this.money.length - 1] == '.') {
+					if (this.money == 0 || this.money[this.money.length - 1] == '.') {
 						this.button_disabled = true
 					}
 					else {
@@ -60,20 +60,15 @@
 			checkInput(event) {
 				let curr = event.detail.value
 	
-				if (/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/.test(curr)) {
+				if (/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/.test(curr) && curr <= Config.getMAXMoney()) {
 					this.button_disabled = false
 				}
 				else {
-					if (/^(([1-9]{1}\d*)|(0{1}))(\.\d{3})?$/.test(curr)) {
-						this.button_disabled = false
-					}
-					else {
-						this.button_disabled = true
-					}
+					this.button_disabled = true
 				}
 				this.$emit('button_disabled', this.button_disabled)
 				this.$nextTick(() => {
-					this.money = /^(([1-9]{1}\d*)|(0{1}))(\.\d{0,2})?$/.test(curr) ? curr : curr.substr(0, curr.length - 1)
+					this.money = (/^(([1-9]{1}\d*)|(0{1}))(\.\d{0,2})?$/.test(curr) && curr <= Config.getMAXMoney()) ? curr : curr.substr(0, curr.length - 1)
 				})
 			},
 			deleteMoney() {
