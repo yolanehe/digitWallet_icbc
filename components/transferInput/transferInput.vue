@@ -3,7 +3,7 @@
 		<view class="transfer_input">
 			<view class="transfer_input_title">
 				<text class="transfer_input_text">{{ input_text }}</text>
-				<!--<text v-if="display_warning" class="transfer_input_notes">输入金额超过数字钱包余额</text>-->
+				<text v-if="display_warning" class="transfer_input_notes">输入金额超过上限</text>
 				</text>
 			</view>
 			<view class="transfer_input_view">
@@ -14,8 +14,8 @@
 				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
 			</view>
 			<view class="transfer_notes" v-if="display_notes">
-				<text class="transfer_input_text">可充金额: {{ parseFloat(amount).toFixed(2) }} 元</text>
-				<text v-if="display_notes" class="wallet_detail_notes">贴一贴卡式钱包余额上限为200.00元</text>
+				<text class="transfer_input_text">当日可充次数: {{ amount }} 次</text>
+				<text v-if="display_notes" class="wallet_detail_notes">贴一贴卡式钱包余额上限为20000.00元</text>
 				<button v-if="display_button" class="button-style1 total_button" @click="totalWalletMoney">全部存入</button>
 			</view>
 		</view>
@@ -35,9 +35,16 @@
 			return {
 				money: '',
 				button_disabled: true,
+				max_money: Config.getMAXMoney(),
+				display_warning: false
 			};
 		},
 		props: ['input_text', 'display_detail', 'display_button', 'amount', 'display_notes', 'display_warning'],
+		created:function(){
+			if (this.display_notes) {
+				this.max_money = 500
+			}
+		},
 		methods: {
 			formatInput(event) {
 				if (this.money != '') {
@@ -51,6 +58,7 @@
 					}
 				}
 				else {
+					this.display_warning = false
 					this.button_disabled = true
 				}
 				
@@ -60,20 +68,25 @@
 			checkInput(event) {
 				let curr = event.detail.value
 	
-				if (/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/.test(curr) && curr <= Config.getMAXMoney()) {
+				if (/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/.test(curr) && curr <= this.max_money) {
 					this.button_disabled = false
+					this.display_warning = false
 				}
 				else {
+					if (curr > this.max_money) {
+						this.display_warning = true
+					}
 					this.button_disabled = true
 				}
 				this.$emit('button_disabled', this.button_disabled)
 				this.$nextTick(() => {
-					this.money = (/^(([1-9]{1}\d*)|(0{1}))(\.\d{0,2})?$/.test(curr) && curr <= Config.getMAXMoney()) ? curr : curr.substr(0, curr.length - 1)
+					this.money = (/^(([1-9]{1}\d*)|(0{1}))(\.\d{0,2})?$/.test(curr) && curr <= this.max_money) ? curr : curr.substr(0, curr.length - 1)
 				})
 			},
 			deleteMoney() {
 				this.money = ''
 				this.button_disabled = true
+				this.display_warning = false
 				this.$emit('button_disabled', this.button_disabled)
 			},
 			totalWalletMoney() {
