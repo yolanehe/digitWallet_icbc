@@ -56,12 +56,14 @@
 		//border: 1upx solid blue;
 	}
 	.view1{ 
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		width: 20%;
 		//border: 1upx solid blue;
 	}
 	.view2{
+		position: relative;
 		display: flex;
 		flex-direction: row;
 		margin:0;
@@ -74,6 +76,10 @@
 		display: flex;
 		flex-direction: column;
 	}
+	.view22{
+	  display: flex;
+	  align-items: center;
+	 }
 	.text3{
 		font-size: 40upx;
 		color: #b30000;
@@ -83,6 +89,7 @@
 		color: green;
 	}
 	.text1{
+		margin-top: 10rpx;
 		font-size: 35upx;
 		color: #000000;
 	}

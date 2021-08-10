@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<transfer-top left_content="wallet" right_content="card" />
-		<transfer-input input_text="充值金额" display_notes :amount=" (200 - dayDetail.cardAmount) " @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
+		<transfer-input input_text="充值金额" display_notes :amount=" dayDetail.cardTimes + '' " @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
 		<wallet-detail :wallet="wallet" />
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
@@ -36,7 +36,6 @@
 			'wallet-detail': walletDetail,
 		},
 		onLoad(option) {
-			console.log('walletDetail onload cid:', option.cid)
 			this.$request.getCardInfo(option.cid, {}).then(res => {
 				this.card = res.data.cardInfo.card
 				this.dayDetail = res.data.cardInfo.dayDetail
@@ -51,15 +50,6 @@
 			},
 			transferMoney(event) {
 				this.money = Number(event)
-				
-				if (this.money > (200 - this.dayDetail.cardAmount)) {
-					this.button_disabled = true
-					uni.showToast({
-						title: '充值金额超过上限',
-						duration: 2000,
-						icon: error,
-					})
-				}
 			},
 			getButtonDisabled(event) {
 				this.button_disabled = event

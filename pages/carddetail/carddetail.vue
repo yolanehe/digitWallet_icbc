@@ -113,7 +113,6 @@
     }   
 </script>
 <style>
-	@import url("@/common/uni.css");
 	//滚动条
 	.zong{
 		display: flex;
@@ -148,7 +147,7 @@
 		flex-direction: column;
 		align-items: flex-start;
 		margin-top: 40rpx;
-		width: 80%;
+		width: 90%;
 	    height: 270rpx; 
 		border-radius:30rpx;        //圆角
 		position: relative;
@@ -161,12 +160,21 @@
 		display: flex;                //布局方式
 		flex-direction:row; 
 		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		// width: 100%;
-		// border: 1upx solid red;
-	} 
+		bottom:30rpx;
+		width: 90%;
+	}
+	.button-style1{
+		width: 50%;
+		margin-bottom: 20rpx;
+	 }
+	 .button-style2{
+		 width: 50%;
+		 margin-bottom: 20rpx;
+		 display: flex;
+		 justify-content: center;
+		 background-color:  #B40404;
+		 color: white;
+	 }
 	//卡片内容
 	.text-style1 {
 		color: white;
@@ -204,7 +212,7 @@
 		height: 100rpx;
 		position: relative;
 		align-items: flex-end;    //在方框中靠下显示
-		width: 95%;
+		width: 90%;
 		position: relative;
 		flex-direction: row;
 		//border: 1rpx solid red;
@@ -236,12 +244,8 @@
 		align-items: flex-start;
 		justify-content: center;
 		height: 100rpx;
-		width: 95%;
+		width: 90%;
 		//border: 1rpx solid red;
 		font-size: 35upx;
 	}
-	/* .text-style6{
-		position: absolute;
-		bottom: 10rpx;
-	} */
 </style>
