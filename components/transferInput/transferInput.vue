@@ -72,19 +72,16 @@
 				
 				if(/^([1-9]\d{0,7}|0)([.]?|(\.\d{1,2})?)$/.test(curr) && curr <= this.max_money) {
 					this.display_warning = false
+					this.button_disabled = true
 					this.money = curr
 				}
 				else {
 					if (curr > this.max_money) {
 						this.display_warning = true
-						this.money = curr
 					}
-					else {
-						this.money = curr.substr(0, curr.length - 1)
-					}
+					this.button_disabled = false
+					this.money = curr.substr(0, curr.length - 1)
 				}
-				
-				this.button_disabled = false
 				this.$emit('button_disabled', this.button_disabled)
 				return this.money
 			},
