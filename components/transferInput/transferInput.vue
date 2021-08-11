@@ -10,7 +10,7 @@
 				<image class="icon" src="@/static/rmb_logo_black.png" mode="aspectFill" />
 				<input class="transfer_input_style" placeholder="请输入金额"
 					placeholder-style="font-size: 40rpx; margin-bottom: 30rpx;" confirm-type="done"
-					@blur="formatInput" @input="checkInput" v-model="money"/>
+					@blur="formatInput" @input="checkInput" :value="money"/>
 				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
 			</view>
 			<view class="transfer_notes" v-if="display_notes">
@@ -39,7 +39,7 @@
 				display_warning: false
 			};
 		},
-		props: ['input_text', 'display_detail', 'display_button', 'amount', 'display_notes', 'display_warning'],
+		props: ['input_text', 'display_detail', 'display_button', 'amount', 'display_notes'],
 		created:function(){
 			if (this.display_notes) {
 				this.max_money = 500
@@ -50,7 +50,7 @@
 				if (this.money != '') {
 					this.money = parseFloat(this.money).toFixed(2)
 					
-					if (this.money == 0 || this.money[this.money.length - 1] == '.') {
+					if (this.money == 0 || this.money > this.max_money) {
 						this.button_disabled = true
 					}
 					else {
@@ -62,26 +62,31 @@
 					this.button_disabled = true
 				}
 				
+				console.log('formatInput=', this.money)
+				
 				this.$emit('button_disabled', this.button_disabled)
 				this.$emit('transfer_money', this.money)
 			},
 			checkInput(event) {
 				let curr = event.detail.value
-	
-				if (/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/.test(curr) && curr <= this.max_money) {
-					this.button_disabled = false
+				
+				if(/^([1-9]\d{0,7}|0)([.]?|(\.\d{1,2})?)$/.test(curr) && curr <= this.max_money) {
 					this.display_warning = false
+					this.money = curr
 				}
 				else {
 					if (curr > this.max_money) {
 						this.display_warning = true
+						this.money = curr
 					}
-					this.button_disabled = true
+					else {
+						this.money = curr.substr(0, curr.length - 1)
+					}
 				}
+				
+				this.button_disabled = false
 				this.$emit('button_disabled', this.button_disabled)
-				this.$nextTick(() => {
-					this.money = (/^(([1-9]{1}\d*)|(0{1}))(\.\d{0,2})?$/.test(curr) && curr <= this.max_money) ? curr : curr.substr(0, curr.length - 1)
-				})
+				return this.money
 			},
 			deleteMoney() {
 				this.money = ''
@@ -91,7 +96,10 @@
 			},
 			totalWalletMoney() {
 				this.money = parseFloat(this.amount).toFixed(2)
+				this.button_disabled = true
+				this.display_warning = false
 				this.$emit('transfer_money', this.money)
+				this.$emit('button_disabled', this.button_disabled)
 			}
 		}
 	}
@@ -117,6 +125,7 @@
 		margin-left: 30rpx;
 		margin-right: 30rpx;
 		margin-top: 20rpx;
+		margin-bottom: 20rpx;
 		
 		display: flex;
 		flex-direction: row;
