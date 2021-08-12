@@ -1,19 +1,19 @@
 const bankCode = {   
 	'102': {
-		'name': '中国工商银行',
-		'short': 'icbc'
+		name: '中国工商银行',
+		short: 'icbc'
 	},
 	'103': {
-		'name': '中国农业银行',
-		'short': 'abc'
+		name: '中国农业银行',
+		short: 'abc'
 	},
 	'104': {
-		'name': '中国银行',
-		'short': 'boc'
+		name: '中国银行',
+		short: 'boc'
 	},
 	'105': {
-		'name': '中国建设银行',
-		'short': 'ccb'
+		name: '中国建设银行',
+		short: 'ccb'
 	}
 };
 
@@ -48,6 +48,7 @@ class Config {     //静态配置
 	
 	static getErrMessage() {
 		return {
+			'-102': '服务器请求异常',
 			'-201': '交易金额不能为空',
 			'-202': '交易账户不能为空',
 			'-203': '交易密码不能为空',

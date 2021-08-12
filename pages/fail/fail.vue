@@ -27,6 +27,7 @@
 				transtype: 0,
 				err_map: Config.getErrMessage(),
 				cardId: '',
+				type: 0,
 			};
 		},
 		onLoad(option) {
@@ -109,6 +110,8 @@
 		margin-bottom: 20rpx;
 		
 		padding-bottom: 12rpx;
+		
+		color: #b30000;
 	}
 	.view_button{
 		width: 100%;

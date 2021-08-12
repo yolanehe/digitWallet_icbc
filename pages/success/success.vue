@@ -58,8 +58,6 @@
 					break;
 				default:
 					break;
-					
-			console.log('text:', this.text)
 			}
 		},
 		methods:{
