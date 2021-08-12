@@ -14,13 +14,16 @@
 				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
 			</view>
 			<view class="transfer_notes" v-if="display_notes">
-				<text class="transfer_input_text">当日可充次数: {{ amount }} 次</text>
-				<text v-if="display_notes" class="wallet_detail_notes">贴一贴卡式钱包余额上限为20000.00元</text>
-				<button v-if="display_button" class="button-style1 total_button" @click="totalWalletMoney">全部存入</button>
+				<text class="transfer_input_text">当日可充次数: {{ transfer_amount }} 次</text>
+				<text class="wallet_detail_notes">每次可充值上限为500.00元</text>
+			</view>
+			<view class="transfer_notes" v-if="display_notes">
+				<text class="transfer_input_text">卡式钱包可充金额: {{ card_balance }} 元</text>
+				<text class="wallet_detail_notes">卡式钱包余额上限为20000.00元</text>
 			</view>
 		</view>
 		<view class="wallet_detail" v-if="display_detail">
-			<text class="wallet_detail_text">可用金额: {{ parseFloat(amount).toFixed(2) }} 元</text>
+			<text class="wallet_detail_text">可用金额: {{ parseFloat(wallet_balance).toFixed(2) }} 元</text>
 			<button class="button-style1 total_button" @click="totalWalletMoney">全部存入</button>
 		</view>
 	</view>
@@ -39,7 +42,7 @@
 				display_warning: false
 			};
 		},
-		props: ['input_text', 'display_detail', 'display_button', 'amount', 'display_notes'],
+		props: ['input_text', 'display_detail', 'card_balance', 'display_button', 'transfer_amount', 'wallet_balance','display_notes'],
 		created:function(){
 			if (this.display_notes) {
 				this.max_money = 500
@@ -54,15 +57,19 @@
 						this.button_disabled = true
 					}
 					else {
-						this.button_disabled = false
+						if (this.display_notes && this.money > this.card_balance) {
+							this.display_warning = true
+							this.button_disabled = true
+						}
+						else {
+							this.button_disabled = false
+						}
 					}
 				}
 				else {
 					this.display_warning = false
 					this.button_disabled = true
 				}
-				
-				console.log('formatInput=', this.money)
 				
 				this.$emit('button_disabled', this.button_disabled)
 				this.$emit('transfer_money', this.money)
@@ -72,14 +79,14 @@
 				
 				if(/^([1-9]\d{0,7}|0)([.]?|(\.\d{1,2})?)$/.test(curr) && curr <= this.max_money) {
 					this.display_warning = false
-					this.button_disabled = true
+					this.button_disabled = false
 					this.money = curr
 				}
 				else {
 					if (curr > this.max_money) {
 						this.display_warning = true
 					}
-					this.button_disabled = false
+					this.button_disabled = true
 					this.money = curr.substr(0, curr.length - 1)
 				}
 				this.$emit('button_disabled', this.button_disabled)
@@ -92,8 +99,8 @@
 				this.$emit('button_disabled', this.button_disabled)
 			},
 			totalWalletMoney() {
-				this.money = parseFloat(this.amount).toFixed(2)
-				this.button_disabled = true
+				this.money = parseFloat(this.wallet_balance).toFixed(2)
+				this.button_disabled = false
 				this.display_warning = false
 				this.$emit('transfer_money', this.money)
 				this.$emit('button_disabled', this.button_disabled)
@@ -166,7 +173,7 @@
 		display: flex;
 		flex-direction: row;
 		
-		margin-top: 20rpx;
+		margin-top: 10rpx;
 		
 		align-items: center;
 		justify-content: space-between;
