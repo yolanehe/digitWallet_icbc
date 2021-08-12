@@ -20,10 +20,6 @@ class Service extends BaseService {
 	}
 
 	static walletRecharge = (accId, pwd, amount) => {
-		console.log('amount:', amount)
-		console.log('accId:', accId)
-		console.log('pwd:', pwd)
-		
 		let url = 'digitalWallet/reCharge'
 		
 		let data = {
@@ -91,6 +87,11 @@ class Service extends BaseService {
 	static getWalletTrans = () => {
 		let url = 'digitalWallet/getTransFlow'
 		
+		return this.get(url, {})
+	}
+	
+	static getRandom = () => {
+		let url = 'digitalWallet/getRechargeKey'
 		return this.get(url, {})
 	}
 }
