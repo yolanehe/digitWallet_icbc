@@ -20,28 +20,36 @@
 				NFCAdapter: null,
 				cardId: '',
 				
-				type: 0, // 0: 识别卡, 1: 开立卡
+				type: '0', // 0: 识别卡, 1: 开立卡
 			}
 		},
 		destroyed() {
 			clearInterval(this.timer);
 		},
-		async onLoad(option) {
-			this.type = option.type
-			console.log('identifyCard type:', this.type)
-			
-			this.countDown();
-			this.cardId = NFCidentify.NFCReadCard()
-			
-			switch (this.type) {
-				case 0:
-					identifyCard()
-					break;
-				case 1:
-					establishCard()
-					break;
-				default:
-					break;
+		onLoad(option) {
+			if (uni.getSystemInfoSync().platform == 'ios') {
+				uni.showModal({
+					title: '提示',
+					content: '本手机不支持NFC功能,请点击确认按钮返回主页',
+					confirmText: '确认',
+					showCancel: false,
+					success: (res) => {
+						if (res.confirm) {
+							uni.redirectTo({
+								'url': '/pages/index/index',
+							})
+						}
+						else {
+							console.log('identifyCard ios:', res)
+						}
+					}
+				})
+			}
+			else {
+				this.type = option.type
+				
+				this.countDown()
+				this.getCardId()
 			}
 		},
 		methods: {
@@ -91,49 +99,12 @@
 				}
 			},
 			identifyCard() {
-				service.getCardIdentification(this.cardId).then(res => {
-					console.log('getCardIdentification: ', res)
-					console.log('type:', type)
+				// console.log('identifyCard')
+				this.$request.getCardInfo(this.cardId).then(res => {
+					// console.log('getCardInfo: ', res)
+					// console.log('type:', this.type)
 					
-					if (res.code == '0') {
-						console.log('getCardIdentification res.code=0')
-						let item = {
-							'title': '开立卡成功',
-							'button_text': '继续开立',
-							'url': '/pages/identifyCard/identifyCard?type=1',
-							'transtype': 4
-						}
-						
-						uni.redirectTo({
-							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
-						});
-					}
-					else {
-						let item = {
-							'title': '开立卡失败',
-							'button_text': '换卡开立',
-							'url': '/pages/identifyCard/identifyCard?type=1',
-							'err_code': res.code,
-							'transtype': 4
-						}
-						
-						uni.redirectTo({
-							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
-						});
-					}
-				})
-			},
-			establishCard() {
-				service.getCardInfo(this.cardId).then(res => {
-					console.log('getCardInfo: ', res)
-					console.log('type:', type)
-					
+					clearInterval(this.timer);
 					if (res.code == '0') {
 						console.log('getCardInfo res.code=0')
 						uni.redirectTo({
@@ -160,6 +131,63 @@
 						});
 					}
 				})
+			},
+			establishCard() {
+				// console.log('establishCard')
+				this.$request.getCardIdentification(this.cardId).then(res => {
+					// console.log('getCardIdentification: ', res)
+					// console.log('type:', this.type)
+					
+					clearInterval(this.timer);
+					if (res.code == '0') {
+						console.log('getCardIdentification res.code=0')
+						let item = {
+							'title': '开立卡成功',
+							'button_text': '继续开立',
+							'url': '/pages/identifyCard/identifyCard?type=1',
+							'transtype': 4
+						}
+						
+						uni.redirectTo({
+							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+					else {
+						console.log('getCardIdentification res.code=', res.code)
+						let item = {
+							'title': '开立卡失败',
+							'button_text': '换卡开立',
+							'url': '/pages/identifyCard/identifyCard?type=1',
+							'err_code': res.code,
+							'transtype': 4
+						}
+						
+						uni.redirectTo({
+							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+				})
+			},
+			async getCardId() {
+				const id = await NFCidentify.NFCReadCard();
+				this.cardId = id
+				
+				switch (this.type) {
+					case '0':
+						this.identifyCard()
+						break;
+					case '1':
+						this.establishCard()
+						break;
+					default:
+						break;
+				}
 			},
 		},
 	}

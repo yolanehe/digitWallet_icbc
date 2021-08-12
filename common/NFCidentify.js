@@ -32,7 +32,7 @@ let aid = '';
 class NFCIdentify {
 	static async NFCReadCard() {
 		try {
-			console.log("enter the NFCRead")
+			await this._startHCE()
 			this.adapter = wx.getNFCAdapter()
 			await this._startDiscovery()
 			const discovered = await this._onDiscovered()
@@ -41,6 +41,8 @@ class NFCIdentify {
 			return aid
 		} catch (e) {
 			await this._shutDown()
+			
+			console.log(e)
 
 			const content = HCECode[e.errCode]
 			uni.showToast({
@@ -50,12 +52,31 @@ class NFCIdentify {
 			})
 		}
 	}
+	
+	static _startHCE() {
+		return new Promise((resolve, reject) => {
+			wx.startHCE({
+				aid_list: ['F00000000A0101'],
+				success: e => {
+					resolve(e)
+				},
+				fail: err => {
+					console.log('startHCE:', err)
+					uni.showToast({
+						title: HCECode[err.errCode],
+						icon: 'none',
+						mask: true,
+						duration: 5000
+					})
+				}
+			})
+		})
+	}
 
 	static _startDiscovery() {
 		return new Promise((resolve, reject) => {
 			this.adapter.startDiscovery({
 				success: e => {
-					console.log('开始监听贴卡', e)
 					resolve(e)
 				},
 				fail: err => {
@@ -74,9 +95,7 @@ class NFCIdentify {
 		return new Promise((resolve, reject) => {
 			this.adapter.onDiscovered(
 				(this.onDiscoveredCallback = res => {
-					console.log("enter the onDiscovered")
 					aid = ab2hex(res.id);
-					console.log('卡-id:', aid)
 
 					resolve(res)
 				})
