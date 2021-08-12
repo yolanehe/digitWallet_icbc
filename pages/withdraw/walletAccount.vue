@@ -1,7 +1,7 @@
 <template>
 	<view v-if="wallet.dwId">
 		<transfer-top left_content="wallet" display_detail right_content="account" />
-		<transfer-input input_text="存入金额" display_detail :amount="wallet.amount" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)" />
+		<transfer-input input_text="存入金额" display_detail :wallet_balance="wallet.amount" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)" />
 		<picker-block :accounts="accounts" :selected_account="selected_account" @selected_index="accountIndexChanged($event)"/>
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>

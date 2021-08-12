@@ -1,7 +1,7 @@
 <template>
 	<view v-if="wallet.dwId">
 		<transfer-top left_content="wallet" right_content="card" />
-		<transfer-input input_text="充值金额" display_notes :amount=" dayDetail.cardTimes + '' " @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
+		<transfer-input input_text="充值金额" display_notes :transfer_amount="dayDetail.cardTimes" :card_balance="20000-card.amount" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
 		<wallet-detail :wallet="wallet" />
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>

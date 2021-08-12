@@ -1,12 +1,15 @@
 <template>
 	<view v-if="wallet.dwId">
 		<transfer-top left_content="account" right_content="wallet" />
-		<transfer-input input_text="充入金额" @button_disabled="getButtonDisabled($event)" @transfer_money="transferMoney($event)"/>
-		<picker-block :accounts="accounts" :selected_account="selected_account" @selected_index="accountIndexChanged($event)"/>
+		<transfer-input input_text="充入金额" @button_disabled="getButtonDisabled($event)"
+			@transfer_money="transferMoney($event)" />
+		<picker-block :accounts="accounts" :selected_account="selected_account"
+			@selected_index="accountIndexChanged($event)" />
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
 		</view>
-		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数字钱包支付密码"/>
+		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad"
+			note="请输入数字钱包支付密码" />
 	</view>
 </template>
 
@@ -49,7 +52,7 @@
 			buttonClick() {
 				this.$refs.numberPad.open()
 			},
-			accountIndexChanged(event){
+			accountIndexChanged(event) {
 				this.account_index = event
 			},
 			transferMoney(event) {
@@ -64,30 +67,29 @@
 						let item = {
 							'title': '充钱包成功',
 							'button_text': '继续充钱包',
-							'url': '/pages/recharge/walletAccount', 
+							'url': '/pages/recharge/walletAccount',
 							'amount': this.money,
 							'cardId': this.selected_account.accId,
 							'walletId': this.wallet.dwId,
 							'transtype': 0
 						}
-						
+
 						uni.redirectTo({
 							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
 							success: res => {},
 							fail: () => {},
 							complete: () => {}
 						});
-					}
-					else {
+					} else {
 						let item = {
 							'title': '充钱包失败',
 							'button_text': '继续充钱包',
-							'url': '/pages/recharge/walletAccount', 
+							'url': '/pages/recharge/walletAccount',
 							'amount': this.money,
 							'err_code': res.code,
 							'transtype': 0
 						}
-						
+
 						uni.redirectTo({
 							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
 							success: res => {},
@@ -96,20 +98,20 @@
 						});
 					}
 				})
-			}
+			},
 		}
 	}
 </script>
 
 <style>
 	@import url("@/common/uni.css");
-	
+
 	.button_block {
 		position: absolute;
-		bottom: 25rpx;
+		bottom: 60rpx;
 		width: 100%;
 	}
-	
+
 	.button_style {
 		margin: 0 auto;
 	}

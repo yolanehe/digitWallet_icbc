@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="content" v-if="wallet.dwId">
 		<view class="img-center-index">
 			<view class="walletMoney">
 				<view style="display: flex;">
@@ -12,8 +12,8 @@
 		</view>
 		<view class="intro-block">
 			<view class="intro-text">
-				<text class="text-walletDetail">钱包名称：{{ wallet.nickName + '\n' }}</text>
-				<text class="text-walletDetail">钱包ID：{{ wallet.dwId }}</text>
+				<text class="text-walletDetail">钱包名称：{{ wallet.nickName ? wallet.nickName + '\n' : '' + '\n' }}</text>
+				<text class="text-walletDetail">钱包ID：{{ wallet.dwId ? wallet.dwId : '' }}</text>
 			</view>  
 			<view class="intro-trans">
 				<button class="copyID-button" @click="clipContent">复制ID</button>
@@ -54,7 +54,7 @@
 			<uni-popup class="pop_up" ref="popup" :type="type" :animation="false" :maskClick="true">
 				<view style="background-color: #fff;padding: 30px;">
 					<view class="text-chargeDetail">
-						<text>2021年7月</text>
+						<text>2021年8月</text>
 					</view>
 					<scroll-view class="popWindow" scroll-y="true">
 						<detail_list :productList="productList"></detail_list>
@@ -76,7 +76,7 @@
 		data() {
 			return {
 				type: 'bottom',
-				display: false,
+				display: true,
 				imageSrc: imageSrc,
 				wallet: {},
 				money: '***',

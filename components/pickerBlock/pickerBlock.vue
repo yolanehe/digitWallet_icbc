@@ -1,6 +1,6 @@
 <template>
-	<view class="picker_block">
-		<view class="picker_unit">
+	<view class="picker_block" v-if="selected_account.accId">
+		<view class="picker_unit" @click="clickPickAccounts">
 			<view class="picker_unit_left">
 				<image class="icon" src="@/static/select_cards.png" />
 				<text class="transfer_input_text" style="color: #515151; margin-left: 8rpx;">选择银行卡</text>
@@ -10,7 +10,7 @@
 					<image class="account_icon" :src="getAccountIcon(selected_account.bankCode)" mode="aspectFit" />
 					<text class="picker_text">{{ selected_account.accId.substr(0, 4) + '****' + selected_account.accId.substr(15, 4) }}</text>
 				</view>
-				<image class="icon" :src="getImageSrc()" @click="clickPickAccounts" />
+				<image class="icon" :src="getImageSrc()" />
 			</view>
 		</view>
 		<view :class="showHidden ? 'content-open' : 'content-close'">
@@ -35,15 +35,7 @@
 	
 	export default {
 		name:"pickerBlock",
-		props:{
-			accounts: {
-				type: Array,
-				value: [],
-			}, 
-			selected_account: {
-				type: Map,
-				value: {},
-		}},
+		props:['accounts', 'selected_account'],
 		data() {
 			return {
 				bankCode: Config.getBankCode(),
@@ -145,7 +137,7 @@
 		height: 400rpx;
 		width: 100%;
 		
-		transition-duration: 3s;
+		transition-duration: 300ms;
 	}
 
 	.account_list {
