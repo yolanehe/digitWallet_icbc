@@ -1,20 +1,20 @@
 <template>
 	<view>
-		<view class="view" v-for="(item,index) in productList" :key="index">
-			<view class="itemlist1">
-				<view class="view1">
-					<text class="text1">{{item.days}}</text>
-					<text class="text2">{{item.week}}</text>
+		<view class="productList" v-for="(item,index) in productList" :key="index">
+			<view class="tran-list">
+				<view class="time-list">
+					<text class="time-date">{{item.days}}</text>
+					<text class="time-week">{{item.week}}</text>
 				</view>
-				<view class="view2">
-					<view class="view21">
-						<text class="text1">{{item.transTypeName}}</text>
-						<text class="text2">{{item.transObjName}}</text>
+				<view class="content-list">
+					<view class="content-left">
+						<text class="type">{{item.transTypeName}}</text>
+						<text class="desc">{{item.transObjName}}</text>
 					</view>
-					<view class="view22">
-						<text :class="(item.transTypeName === '充值' || item.transTypeName === '转入') ? 'text3': 'text33'">{{item.resultAmount}}</text>
-					</view>	
-				</view>	
+					<view class="content-right">
+						<text :class="(item.transTypeName === '充值' || item.transTypeName === '转入') ? 'incr': 'decr'">{{item.resultAmount}}</text>
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -22,80 +22,92 @@
 
 <script>
 	export default {
-		name:'detail_list',
+		name: 'detail_list',
 		//从父组件传入的参数
 		props: {
-			productList:{
-				type:Array, //参数的类型
-				default() {
-				  return [];
+			productList: {
+				type: Array, //参数的类型
+				default () {
+					return [];
 				},
 			},
 		}
-		// methods:{
-			
-		// 	childMethod(){
-		// 		//子组件的方法
-		// 	}
-		// }
 	};
 </script>
 
 <style>
-	.view{
+	.productList {
 		margin: 0 auto;
 		width: 90%;
-		//border: 1upx solid red;
 	}
-	.itemlist1{
+
+	.tran-list {
 		display: flex;
 		flex-direction: row;
-		
-		height:100rpx;
 		width: 100%;
-		//border: 1upx solid blue;
 	}
-	.view1{ 
+
+	.time-list {
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		width: 20%;
-		//border: 1upx solid blue;
+		padding: 10rpx 0;
 	}
-	.view2{
+
+	.content-list {
 		position: relative;
 		display: flex;
 		flex-direction: row;
-		margin:0;
+		margin: 0;
 		justify-content: space-between;
 		width: 80%;
 		border-top: 1rpx solid #e1e1e1;
-		//border: 1upx solid blue;
+		padding: 10rpx 0;
 	}
-	.view21{
+
+	.content-left{
 		display: flex;
 		flex-direction: column;
 	}
-	.view22{
-	  display: flex;
-	  align-items: center;
-	 }
-	.text3{
-		font-size: 40upx;
+
+	.content-right {
+		display: flex;
+		align-items: center;
+	}
+
+	.incr {
+		font-size: 36rpx;
 		color: #b30000;
 	}
-	.text33{
-		font-size: 40upx;
+
+	.decr {
+		font-size: 36rpx;
 		color: green;
 	}
-	.text1{
-		margin-top: 10rpx;
-		font-size: 35upx;
-		color: #000000;
+
+	.time-date {
+		font-size: 30rpx;
+		font-weight: 600;
+		color: #607483;
+		line-height: 48rpx;
 	}
-	.text2{
-		font-size: 25upx;
+
+	.time-week {
+		font-size: 25rpx;
+		line-height: 48rpx;
 		color: #606266;
 	}
-	
+
+	.type {
+		color: #333333;
+		font-size: 28rpx;
+		line-height: 48rpx;
+	}
+
+	.desc {
+		color: #999999;
+		font-size: 24rpx;
+		line-height: 48rpx;
+	}
 </style>
