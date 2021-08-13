@@ -33,6 +33,7 @@ class NFCIdentify {
 	static async NFCReadCard() {
 		try {
 			await this._startHCE()
+			console.log('this._startHCE')
 			this.adapter = wx.getNFCAdapter()
 			await this._startDiscovery()
 			const discovered = await this._onDiscovered()
@@ -58,6 +59,7 @@ class NFCIdentify {
 			wx.startHCE({
 				aid_list: ['F00000000A0101'],
 				success: e => {
+					console.log('_startHCE')
 					resolve(e)
 				},
 				fail: err => {
@@ -77,6 +79,7 @@ class NFCIdentify {
 		return new Promise((resolve, reject) => {
 			this.adapter.startDiscovery({
 				success: e => {
+					console.log('_startDiscovery')
 					resolve(e)
 				},
 				fail: err => {
@@ -96,6 +99,8 @@ class NFCIdentify {
 			this.adapter.onDiscovered(
 				(this.onDiscoveredCallback = res => {
 					aid = ab2hex(res.id);
+					
+					console.log('_onDiscovered')
 
 					resolve(res)
 				})

@@ -18,7 +18,13 @@
 				count: 0,
 				timer: null,
 				NFCAdapter: null,
+				
+				dwId: '', 
+				pwd: '', 
+				money: 0,
 				cardId: '',
+				checkId: '',
+				checkType: 0,
 				
 				type: '0', // 0: 识别卡, 1: 开立卡
 			}
@@ -47,6 +53,16 @@
 			}
 			else {
 				this.type = option.type
+				
+				if (this.type == '2') {
+					this.checkId = option.Id
+					this.dwId = option.dwId
+					this.checkType = option.checkType
+					this.money = option.money
+					if (this.checkType == 0) {
+						this.pwd = option.pwd
+					}
+				}
 				
 				this.countDown()
 				this.getCardId()
@@ -105,8 +121,10 @@
 					// console.log('type:', this.type)
 					
 					clearInterval(this.timer);
+					this.timer = null;
+					// console.log('identifyCard timer:', this.timer)
 					if (res.code == '0') {
-						console.log('getCardInfo res.code=0')
+						// console.log('getCardInfo res.code=0')
 						uni.redirectTo({
 							url: "/pages/carddetail/carddetail?cid=" + res.data.cardInfo.card.cid,
 							success: res => {},
@@ -139,8 +157,10 @@
 					// console.log('type:', this.type)
 					
 					clearInterval(this.timer);
+					this.timer = null;
+					// console.log('establishCard timer:', this.timer)
 					if (res.code == '0') {
-						console.log('getCardIdentification res.code=0')
+						// console.log('getCardIdentification res.code=0')
 						let item = {
 							'title': '开立卡成功',
 							'button_text': '继续开立',
@@ -156,7 +176,7 @@
 						});
 					}
 					else {
-						console.log('getCardIdentification res.code=', res.code)
+						// console.log('getCardIdentification res.code=', res.code)
 						let item = {
 							'title': '开立卡失败',
 							'button_text': '换卡开立',
@@ -174,9 +194,134 @@
 					}
 				})
 			},
+			recharge() {
+				this.$request.cardRecharge(this.checkId, this.dwId, this.pwd, this.money).then(res => {
+					clearInterval(this.timer);
+					this.timer = null;
+					// console.log('recharge timer:', this.timer)
+					if (res.code == '0') {
+						let item = {
+							'title': '充值成功',
+							'button_text': '继续充值',
+							'url': '/pages/recharge/walletCard', 
+							'amount': this.money,
+							'cardId': this.checkId,
+							'walletId': this.dwId,
+							'transtype': 2
+						}
+						
+						uni.redirectTo({
+							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
+						});
+					}
+					else {
+						let item = {
+							'title': '充值失败',
+							'button_text': '继续充值',
+							'url': '/pages/recharge/walletCard', 
+							'amount': this.money,
+							'err_code': res.code,
+							'transtype': 2,
+							'cardId': this.checkId,
+						}
+						
+						uni.redirectTo({
+							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+						});
+					}
+				})
+			},
+			withdraw() {
+				this.$request.cardWithdraw(this.checkId, this.dwId).then(res => {
+					clearInterval(this.timer);
+					this.timer = null;
+					// console.log('withdraw timer:', this.timer)
+					if (res.code == '0') {
+						let item = {
+							'title': '提现成功',
+							'button_text': '继续提现',
+							'url': '/pages/withdraw/walletCard', 
+							'amount': this.money,
+							'cardId': this.checkId,
+							'walletId': this.dwId,
+							'transtype': 3
+						}
+						
+						uni.redirectTo({
+							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+					else {
+						let item = {
+							'title': '提现失败',
+							'button_text': '继续提现',
+							'url': '/pages/withdraw/walletCard', 
+							'amount': this.money,
+							'err_code': res.code,
+							'transtype': 3,
+							'cardId': this.checkId,
+						}
+						
+						uni.redirectTo({
+							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+				})
+			},
+			checkCard() {
+				console.log('checked_Id:', this.checkId)
+				console.log('cardId:', this.cardId)
+				
+				if (this.checkId == this.cardId) {
+					if (this.checkType == 0) {
+						this.recharge()
+					}
+					else {
+						this.withdraw()
+					}
+				}
+				else {
+					let item = {}
+					if (this.checkType == 0) {
+						item = {
+							'title': '充值失败',
+							'button_text': '继续充值',
+							'url': '/pages/recharge/walletCard', 
+							'amount': this.money,
+							'err_code': 501,
+							'transtype': 2,
+							'cardId': this.checkId,
+						}
+					}
+					else {
+						item = {
+							'title': '提现失败',
+							'button_text': '继续提现',
+							'url': '/pages/withdraw/walletCard', 
+							'amount': this.money,
+							'err_code': 501,
+							'transtype': 3,
+							'cardId': this.checkId,
+						}
+					}
+					
+					uni.redirectTo({
+						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+					});
+				}
+			},
 			async getCardId() {
 				const id = await NFCidentify.NFCReadCard();
 				this.cardId = id
+				
+				console.log('type:', this.type)
+				console.log('checkType:', this.checkType)
 				
 				switch (this.type) {
 					case '0':
@@ -184,6 +329,9 @@
 						break;
 					case '1':
 						this.establishCard()
+						break;
+					case '2':
+						this.checkCard()
 						break;
 					default:
 						break;
