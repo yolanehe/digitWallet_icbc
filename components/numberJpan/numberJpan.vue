@@ -5,8 +5,8 @@
 			<view class="shuruTitle">
 				<view class="transfer_money_note">
 					<text class="transType_text">{{ transferType }}</text>
-					<image class="rmb_icon" src="@/static/rmb_logo_black.png" />
-					<text :class="transferType === '充值' || transferType === '转入' ? 'recharge_text' : 'withdraw_text' ">{{ parseFloat(transfer_money).toFixed(2) }}</text>
+					<!-- <image class="rmb_icon" src="@/static/rmb_logo_black.png" /> -->
+					<text :class="transferType === '充值' || transferType === '转入' ? 'recharge_text' : 'withdraw_text' ">¥{{ parseFloat(transfer_money).toFixed(2) }}</text>
 				</view>
 				<text class="input_note">{{ note }}</text>
 			</view>
@@ -251,11 +251,13 @@
 	.input_note {
 		font-weight: 900;
 		text-align: center;
-		font-size: 30upx;
+		font-size: 27upx;
 	}
 	.transType_text {
 		font-size: 34rpx;
 		font-weight: 900;
+		
+		margin-right: 14rpx;
 	}
 	.recharge_text {
 		font-weight: bold;

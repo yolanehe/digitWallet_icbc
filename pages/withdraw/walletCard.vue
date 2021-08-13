@@ -57,7 +57,7 @@
 			buttonClick() {
 				if (!this.disabled_withdraw) {
 					uni.redirectTo({
-						url: '/pages/identifyCard/identifyCard?type=2&checkType=0&Id=' + this.card.cid + '&dwId=' + this.wallet.dwId,
+						url: '/pages/identifyCard/identifyCard?type=2&checkType=1&Id=' + this.card.cid + '&dwId=' + this.wallet.dwId + '&money=' + this.card.amount,
 					})
 				}
 				else {

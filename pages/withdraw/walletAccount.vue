@@ -54,7 +54,6 @@
 				this.$refs.numberPad.open()
 			},
 			transferMoney(event) {
-				this.button_disabled = false
 				this.money = Number(event)
 			},
 			closeChange(event) {
