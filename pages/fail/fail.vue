@@ -4,11 +4,11 @@
 			<image class="img" src="@/static/fail.png" />
 		</view>
 		<text class="title_text">{{ title }}</text>
-		<text v-if="transtype != 4" class="money">{{ amount }}元</text>
+		<text v-if="transtype != 4 && transtype != 5" class="money">{{ amount }}元</text>
 		<text class="text">错误原因:{{ text }}</text>
 		<view class="view_button">
 			<button class="button-style2 button_style" @tap="navi">{{ button_text }}</button>
-			<button class="button-style1 button_style" @tap="navi_index">返回首页</button>
+			<button v-if ="showButton" class="button-style1 button_style" @tap="navi_index">返回首页</button>
 		</view>
 	</view>
 </template>
@@ -28,25 +28,34 @@
 				err_map: Config.getErrMessage(),
 				cardId: '',
 				type: 0,
+				showButton: true,
+				button_back_index_text: '返回主页'
 			};
 		},
 		onLoad(option) {
 			const item = JSON.parse(decodeURIComponent(option.item))
 			this.title = item.title
-			this.button_text = item.button_text
 			this.url = item.url
 			this.transtype = item.transtype
-			this.Id = item.Id
 			this.text = this.err_map[item.err_code]
-			this.transtype = item.transtype
+			this.button_text = item.button_text
 			
-			if (this.transtype == 2 || this.transtype == 3) {
-				this.cardId = item.cardId
+			if (this.transtype == 5) {
+				this.showButton = false
+			}
+			else {
+				this.Id = item.Id
+				
+				if (this.transtype == 2 || this.transtype == 3) {
+					this.cardId = item.cardId
+				}
+				
+				if (this.transtype != 4) {
+					this.amount = parseFloat(item.amount).toFixed(2)
+				}
 			}
 			
-			if (this.transtype != 4) {
-				this.amount = parseFloat(item.amount).toFixed(2)
-			}
+			console.log('this.transtype:', this.transtype)
 			
 			uni.setNavigationBarTitle({
 				title: this.title
@@ -59,6 +68,7 @@
 				});
 			},
 			navi() {
+				console.log('url:',this.url)
 				if (this.transtype == 2 || this.transtype == 3) {
 					this.url += '?cid=' + this.cardId
 				}

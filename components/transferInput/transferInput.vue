@@ -3,7 +3,7 @@
 		<view class="transfer_input">
 			<view class="transfer_input_title">
 				<text class="transfer_input_text">{{ input_text }}</text>
-				<text v-if="display_warning" class="transfer_input_notes">输入金额超过上限</text>
+				<text v-if="display_warning" class="transfer_input_notes">{{ warning_text }}</text>
 				</text>
 			</view>
 			<view class="transfer_input_view">
@@ -39,6 +39,7 @@
 				money: '',
 				button_disabled: true,
 				max_money: Config.getMAXMoney(),
+				warning_text: '输入金额超过最大金额上限',
 				display_warning: false
 			};
 		},
@@ -53,15 +54,22 @@
 				if (this.money != '') {
 					this.money = parseFloat(this.money).toFixed(2)
 					
+					this.button_disabled = true 
+				
+					
 					if (this.money == 0 || this.money > this.max_money) {
 						this.button_disabled = true
+						this.display_warning = false
 					}
 					else {
-						if (this.display_notes && this.money > this.card_balance) {
-							this.display_warning = true
+						if ((this.display_detail ||  this.display_notes) && (this.money > this.wallet_balance)) {
 							this.button_disabled = true
+							this.display_warning = true
+							
+							this.warning_text = '输入金额超过数字钱包余额上限'
 						}
 						else {
+							this.display_warning = false
 							this.button_disabled = false
 						}
 					}
@@ -100,7 +108,12 @@
 			},
 			totalWalletMoney() {
 				this.money = parseFloat(this.wallet_balance).toFixed(2)
-				this.button_disabled = false
+				if (this.money == 0) {
+					this.button_disabled = true
+				}
+				else {
+					this.button_disabled = false
+				}
 				this.display_warning = false
 				this.$emit('transfer_money', this.money)
 				this.$emit('button_disabled', this.button_disabled)

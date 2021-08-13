@@ -1,5 +1,8 @@
 import Config from '@/common/config.js'
-const baseUrl = 'http://10.2.1.157:8888/'
+// const baseUrl = 'http://10.2.1.157:8888/'
+const baseUrl = 'http://10.2.1.157:10001/'
+// const baseUrl = 'https://10.2.1.157:9999/'
+
 class BaseService {
 	static post(url, data = {}) {
 		return this.request({
@@ -34,12 +37,19 @@ class BaseService {
 					resolve(res.data);
 				},
 				fail: (err) => {
-					uni.showToast({
-						title: '请求出错',
-						duration: 2000,
-						icon:error
-					})
 					reject(err)
+					
+					let item = {
+						'title': '网络请求异常',
+						'url': '/pages/login/login',
+						'err_code': 502,
+						'button_text': '点击返回首页重新请求',
+						'transtype': 5
+					}
+					
+					uni.redirectTo({
+						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
+					})
 				}
 			})
 		});

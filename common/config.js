@@ -17,6 +17,13 @@ const bankCode = {
 	}
 };
 
+const transType_map = {
+	0: '充值',
+	1: '提现',
+	2: '转入',
+	3: '转出',
+}
+
 const logo_map = {
 	'wallet': {
 		'image': 'wallet_logo',
@@ -67,11 +74,17 @@ class Config {     //静态配置
 			'-216': '卡式软钱包余额达到上限',
 			
 			'500': '识别卡超时',
+			'501': '校验软卡失败',
+			'502': '网络请求异常',
 		}
 	}
 	
 	static getLogoMap() {
 		return logo_map
+	}
+	
+	static getTransTypeMap() {
+		return transType_map
 	}
 }
 
