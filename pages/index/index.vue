@@ -52,7 +52,7 @@
 			</button>
 			
 			<uni-popup class="pop_up" ref="popup" :type="type" :animation="false" :maskClick="true">
-				<view style="background-color: #fff;padding: 30px;">
+				<view style="background-color: #fff;padding: 40rpx 10rpx;">
 					<view class="text-chargeDetail">
 						<text>2021年8月</text>
 					</view>
