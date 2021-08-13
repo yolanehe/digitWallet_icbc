@@ -39,7 +39,7 @@
             return {
 				token: Config.getToken(),
 				year:"2021",
-				month:"07",
+				month:"08",
 				array:['全部','充值','提现'],
 				index:0,
 				money:'',
@@ -49,26 +49,16 @@
             }
         },
 		onLoad(option) {
-			const item = JSON.parse(decodeURIComponent(option.item))
-			this.cardid = item.cardInfo.card.cid
-			this.money = parseFloat(item.cardInfo.card.amount).toFixed(2)
-			this.productList = item.cardInfo.transFlows
+			this.cardid = option.cid
+			this.$request.getCardInfo(this.cardid, {}).then(res => {
+				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
+				this.productList = res.data.cardInfo.transFlows
+			});
 			
 			uni.setNavigationBarTitle({
 				title: '贴一贴卡片钱包'
 			})
-		},
-		// onUnload:function(){
-			// wx.reLaunch({
-			// 	url:"../index/index"
-			// })
-			// uni.navigateBack()({
-			// 	url:"../index/index"   
-			// })
-			// uni.onBackPress({
-				// delta:2
-			// })
-		// },		
+		},		
         methods: {
 			Change: function(e) {		//改变的事件名
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
@@ -128,7 +118,7 @@
 		align-items: center;
 		/*align-items: center;        //flex-start:靠上对齐, center:居中对齐, flex-end:靠下对齐 */
 		//justify-content: flex-start;  //center:整体居中排列,flex-start:靠左,flex-end:靠右, space-between,space-around
-		height: 500rpx;
+		height: 760rpx;
 		width: 100%;
 		margin: 0px auto;
 	}
@@ -164,16 +154,23 @@
 		width: 90%;
 	}
 	.button-style1{
+		border: 2upx solid #B40404;
+		background-color: white;
+		color: #B40404;
+		font-size: 34upx;
+		
 		width: 50%;
 		margin-bottom: 20rpx;
 	 }
 	 .button-style2{
+		 background-color: #B40404;
+		 color: white;
+		 font-size: 34upx;
+		 
 		 width: 50%;
 		 margin-bottom: 20rpx;
 		 display: flex;
 		 justify-content: center;
-		 background-color:  #B40404;
-		 color: white;
 	 }
 	//卡片内容
 	.text-style1 {

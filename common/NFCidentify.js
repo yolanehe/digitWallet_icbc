@@ -32,8 +32,8 @@ let aid = '';
 class NFCIdentify {
 	static async NFCReadCard() {
 		try {
-			await this._startHCE()
-			console.log('this._startHCE')
+			// await this._startHCE()
+			// console.log('this._startHCE')
 			this.adapter = wx.getNFCAdapter()
 			await this._startDiscovery()
 			const discovered = await this._onDiscovered()
