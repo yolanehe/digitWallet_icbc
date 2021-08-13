@@ -30,7 +30,7 @@
 		data() {
 			return {
 				disabled_withdraw: false,
-				button_text: '一键提现',
+				button_text: '点击进行软卡校验',
 				card: {},
 				wallet: {},
 			}
@@ -48,10 +48,6 @@
 					this.button_text = "返回软卡主页面"
 					this.disabled_withdraw = true
 				}
-				
-				console.log('card:', this.card)
-				console.log('button_text:', this.button_text)
-				console.log('disabled_withdraw:', this.disabled_withdraw)
 			});
 			this.$request.getWallet().then(res => {
 				this.wallet = res.data.userInfo
@@ -60,43 +56,8 @@
 		methods: {
 			buttonClick() {
 				if (!this.disabled_withdraw) {
-					this.$request.cardWithdraw(this.card.cid, this.wallet.dwId).then(res => {
-						if (res.code == '0') {
-							let item = {
-								'title': '提现成功',
-								'button_text': '继续提现',
-								'url': '/pages/withdraw/walletCard', 
-								'amount': this.card.amount,
-								'cardId': this.card.cid,
-								'walletId': this.wallet.dwId,
-								'transtype': 3
-							}
-							
-							uni.redirectTo({
-								url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
-								success: res => {},
-								fail: () => {},
-								complete: () => {}
-							});
-						}
-						else {
-							let item = {
-								'title': '提现失败',
-								'button_text': '继续提现',
-								'url': '/pages/withdraw/walletCard', 
-								'amount': this.money,
-								'err_code': res.code,
-								'transtype': 3,
-								'cardId': this.card.cid,
-							}
-							
-							uni.redirectTo({
-								url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-								success: res => {},
-								fail: () => {},
-								complete: () => {}
-							});
-						}
+					uni.redirectTo({
+						url: '/pages/identifyCard/identifyCard?type=2&checkType=0&Id=' + this.card.cid + '&dwId=' + this.wallet.dwId,
 					})
 				}
 				else {

@@ -3,7 +3,12 @@
 		<view class="myshuru" :style="obj" @tap.stop="flag=true">
 			<view class="gb" @tap="close()" :style="gsbstyle">×</view>
 			<view class="shuruTitle">
-				{{ note }}
+				<view class="transfer_money_note">
+					<text class="transType_text">{{ transferType }}</text>
+					<image class="rmb_icon" src="@/static/rmb_logo_black.png" />
+					<text :class="transferType === '充值' || transferType === '转入' ? 'recharge_text' : 'withdraw_text' ">{{ parseFloat(transfer_money).toFixed(2) }}</text>
+				</view>
+				<text class="input_note">{{ note }}</text>
 			</view>
 			<view class="center-x">
 				<view class="srk" :style="'width:'+100/(length||6)+'%'" v-for=" i in length||6" :id="(i-1)==xz?'numberJpanActive':''" :key="i" >
@@ -66,10 +71,9 @@
 				tsfY: {
 					'transform':'translateY(100%)'
 				},
-				bankCode_map: Config.getBankCode()
 			};
 		},
-		props:['length','showNum', 'note'],
+		props:['length','showNum', 'note', 'transferType', 'transfer_money'],
 		methods:{
 			del(){
 				if(this.xz>0){
@@ -198,10 +202,11 @@
 			border-radius: 20upx;
 			overflow: hidden;
 			.shuruTitle{
-				margin: 100upx auto;
-				font-weight: 900;
-				text-align: center;
-				font-size: 30upx;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin-top: 55rpx;
 			}
 			.center-x{
 				width: 90%;
@@ -229,6 +234,38 @@
 			}
 			
 		}
+	}
+	.transfer_money_note {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 15rpx;
+	}
+	.rmb_icon {
+		width: 40rpx;
+		height: 40rpx;
+		margin-left: 8rpx ;
+		margin-right: 4rpx;
+	}
+	.input_note {
+		font-weight: 900;
+		text-align: center;
+		font-size: 30upx;
+	}
+	.transType_text {
+		font-size: 34rpx;
+		font-weight: 900;
+	}
+	.recharge_text {
+		font-weight: bold;
+		font-size: 40rpx;
+		color: #b30000;
+	}
+	.withdraw_text {
+		font-weight: bold;
+		font-size: 40rpx;
+		color: #0e932e;
 	}
 	.gb{
 		position: absolute;

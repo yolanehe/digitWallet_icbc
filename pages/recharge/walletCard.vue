@@ -6,7 +6,7 @@
 		<view class="button_block">
 			<button class="button-style2 button_style" @click="buttonClick()" :disabled="button_disabled">下一步</button>
 		</view>
-		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数字钱包支付密码"/>
+		<number-jpan :length="6" @closeChange="closeChange($event)" :showNum="false" ref="numberPad" note="请输入数字钱包支付密码进行软卡校验" transferType="转入" :transfer_money="money"/>
 	</view>
 </template>
 
@@ -55,43 +55,9 @@
 				this.button_disabled = event
 			},
 			closeChange(event) {
-				this.$request.cardRecharge(this.card.cid, this.wallet.dwId, event, this.money).then(res => {
-					if (res.code == '0') {
-						let item = {
-							'title': '充值成功',
-							'button_text': '继续充值',
-							'url': '/pages/recharge/walletCard', 
-							'amount': this.money,
-							'cardId': this.card.cid,
-							'walletId': this.wallet.dwId,
-							'transtype': 2
-						}
-						
-						uni.redirectTo({
-							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
-						});
-					}
-					else {
-						let item = {
-							'title': '充值失败',
-							'button_text': '继续充值',
-							'url': '/pages/recharge/walletCard', 
-							'amount': this.money,
-							'err_code': res.code,
-							'transtype': 2,
-							'cardId': this.card.cid,
-						}
-						
-						uni.redirectTo({
-							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
-						});
-					}
+				this.pwd = event
+				uni.redirectTo({
+					url: '/pages/identifyCard/identifyCard?type=2&checkType=0&Id=' + this.card.cid + '&dwId=' + this.wallet.dwId + '&money=' + this.money + '&pwd=' + event,
 				})
 			}
 		}
