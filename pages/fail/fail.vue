@@ -63,9 +63,16 @@
 		},
 		methods:{
 			navi_index() {
-				uni.redirectTo({
-					url: "/pages/index/index"
-				});
+				if (this.transtype == 2 || this.transtype == 3) {
+					uni.redirectTo({
+						url: "/pages/carddetail/carddetail?cid=" + this.cardId,
+					});
+				}
+				else {
+					uni.redirectTo({
+						url: "/pages/index/index"
+					});
+				}
 			},
 			navi() {
 				console.log('url:',this.url)
