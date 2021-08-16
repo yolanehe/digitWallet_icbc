@@ -61,27 +61,15 @@
 		},		
         methods: {
 			Change: function(e) {		//改变的事件名
-				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
-				this.index = e.target.value			//将数组改变索引赋给定义的index变量
-				//this.jg=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
-				if (this.array[this.index] == '全部') {
-					console.log(this.array[this.index])
-					this.$request.getCardInfo(this.cardid, {}).then(res => {
+				
+				this.index = String(e.target.value)			//将数组改变索引赋给定义的index变量
+				
+				this.$request.getCardInfo(this.cardid, this.index, {}).then(res => {
 						console.log('data',res.data.cardInfo.transFlows)
 						this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
 						this.cardid = res.data.cardInfo.card.cid
 						this.productList = res.data.cardInfo.transFlows
 					})
-				}
-				else {
-					console.log(this.array[this.index])
-					this.$request.getCardInfoAndType(this.cardid, this.array[this.index], {}).then(res => {
-						this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
-						this.cardid = res.data.cardInfo.card.cid
-						console.log('data',res.data.cardInfo.transFlows)
-						this.productList = res.data.cardInfo.transFlows
-					})
-				}
 			},
 			recharge() {
 				uni.redirectTo({

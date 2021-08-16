@@ -75,7 +75,7 @@
 				}
 			},
 			navi() {
-				console.log('url:',this.url)
+				// console.log('url:',this.url)
 				if (this.transtype == 2 || this.transtype == 3) {
 					this.url += '?cid=' + this.cardId
 				}

@@ -68,22 +68,17 @@ class Service extends BaseService {
 		return this.post(url, data)
 	}
 
-	static getCardInfo = (cardId, data) => {
-		let url = 'card/getCardInfo?cardId=' + cardId
-
-		return this.post(url, data)
-	}
-
-	static getCardInfoAndType = (cardId, type, data) => {
-		let typeCode = 1
-		if (type == '充值') {
-			typeCode = 0
+	static getCardInfo = (cardId, typeCode='', data) => {
+		console.log("typeCode", typeCode)
+		if (typeCode == '0'){
+			typeCode = ''
+		}else{
+			typeCode = typeCode - 1
 		}
-		
 		let url = 'card/getCardInfo?type=' + typeCode + '&cardId=' + cardId
 		return this.post(url, data)
 	}
-	
+
 	static getWalletTrans = () => {
 		let url = 'digitalWallet/getTransFlow'
 		
