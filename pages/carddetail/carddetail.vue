@@ -50,7 +50,8 @@
         },
 		onLoad(option) {
 			this.cardid = option.cid
-			this.$request.getCardInfo(this.cardid, {}).then(res => {
+			this.$request.getCardInfo(this.cardid).then(res => {
+				console.log("onLoad")
 				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
 				this.productList = res.data.cardInfo.transFlows
 			});
@@ -63,7 +64,7 @@
 			Change: function(e) {		//改变的事件名
 				
 				this.index = String(e.target.value)			//将数组改变索引赋给定义的index变量
-				
+				console.log("Change")
 				this.$request.getCardInfo(this.cardid, this.index, {}).then(res => {
 						console.log('data',res.data.cardInfo.transFlows)
 						this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
@@ -74,17 +75,11 @@
 			recharge() {
 				uni.redirectTo({
 					url: "/pages/recharge/walletCard?cid=" + this.cardid,
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
 				});
 			},
 			withdraw() {
 				uni.redirectTo({
 					url: "/pages/withdraw/walletCard?cid=" + this.cardid,
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
 				});
 			}
         }

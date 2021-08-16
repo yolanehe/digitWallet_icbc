@@ -114,7 +114,8 @@
 			this.$request.getWallet().then(res => {
 				this.wallet = res.data.userInfo
 			})
-			this.$request.getWalletTrans('').then(res => {
+			this.$request.getWalletTrans(0).then(res => {
+				console.log('res:', res)
 				this.productList = res.data.transFlowList
 			})
 		},
@@ -122,7 +123,7 @@
 			radioIndexChange(index) {
 				this.selectid = index
 				
-				let typeCode = this.selectid - 1
+				let typeCode = this.selectid
 				
 				this.$request.getWalletTrans(typeCode).then(res => {
 					this.productList = res.data.transFlowList

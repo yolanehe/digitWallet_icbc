@@ -71,9 +71,6 @@
 						
 						uni.redirectTo({
 							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
 						});
 					}
 					else {
@@ -88,9 +85,6 @@
 						
 						uni.redirectTo({
 							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
 						});
 					}
 				})

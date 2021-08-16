@@ -51,7 +51,6 @@
 		align-items: center;
 		justify-content: center;
 		margin-top: 50rpx;
-		//border: 1upx solid red;
 	}
 	.login_top_title {
 		display: flex;
@@ -59,17 +58,14 @@
 		align-items: center;
 		justify-content: center;
 		position: relative;
-		//border: 1upx solid blue;
 	}
 	.image-style1{
 		margin-top:100rpx;
-		//border: 1upx solid blue;
 	}
 	.title {
 		margin-top: 100rpx;
 		font-size: 30rpx;
 		font-weight: 500;
-		//border: 1upx solid blue;
 	}
 	.note {
 		margin-top: 10rpx;
@@ -83,7 +79,6 @@
 		width: 80rpx;
 		height: 80rpx;
 		margin-right: 15rpx;
-		// border: 1rpx solid blue;
 	}
 	.text-log{
 		font-size: 50rpx;
@@ -91,7 +86,6 @@
 	}
 		
 	.foot {
-		// border: 1rpx solid red;
 		position: absolute;
 		bottom: 25rpx;
 		width: 100%;
@@ -103,7 +97,6 @@
 		align-items: center;		
 		bottom: 50rpx;
 		margin-bottom: 5rpx;
-		//border: 1rpx solid blue;
 	}
 	
 	.icon {

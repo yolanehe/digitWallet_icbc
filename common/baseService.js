@@ -22,7 +22,9 @@ class BaseService {
 
 	static request = (opts, data = {}) => {         
 		return new Promise((resolve, reject) => {
-			uni.showLoading();
+			uni.showLoading({
+				title: '请稍后',
+			})
 			uni.request({
 				method: opts.method,
 				url: baseUrl + opts.url,

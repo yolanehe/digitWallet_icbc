@@ -36,7 +36,7 @@
 			'wallet-detail': walletDetail,
 		},
 		onLoad(option) {
-			this.$request.getCardInfo(option.cid, {}).then(res => {
+			this.$request.getCardInfo(option.cid).then(res => {
 				this.card = res.data.cardInfo.card
 				this.dayDetail = res.data.cardInfo.dayDetail
 			});

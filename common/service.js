@@ -70,19 +70,20 @@ class Service extends BaseService {
 
 	static getCardInfo = (cardId, typeCode='', data) => {
 		console.log("typeCode", typeCode)
-		if (typeCode == '0'){
+		if (typeCode == '0' || typeCode == ''){
 			typeCode = ''
 		}else{
 			typeCode = typeCode - 1
 		}
 		let url = 'card/getCardInfo?type=' + typeCode + '&cardId=' + cardId
+		console.log("getCardInfo:", url)
 		return this.post(url, data)
 	}
 	
 	static getWalletTrans = (typeCode) => {
 		let url = 'digitalWallet/getTransFlow'
 		
-		if (typeCode != -1) {
+		if (typeCode != 0) {
 			typeCode = typeCode - 1
 			url += '?type=' + typeCode
 		}

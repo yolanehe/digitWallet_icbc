@@ -41,7 +41,7 @@
 			'walletdetail': walletDetail,
 		},
 		onLoad(option) {
-			this.$request.getCardInfo(option.cid, {}).then(res => {
+			this.$request.getCardInfo(option.cid).then(res => {
 				this.card = res.data.cardInfo.card
 				
 				if (this.card.amount == 0) {
@@ -63,9 +63,6 @@
 				else {
 					uni.redirectTo({
 						url: "/pages/carddetail/carddetail?cid=" + this.card.cid,
-						success: res => {},
-						fail: () => {},
-						complete: () => {}
 					})
 				}
 			},
