@@ -1,6 +1,6 @@
 import Config from '@/common/config.js'
-// const baseUrl = 'http://10.2.1.157:8888/'
-const baseUrl = 'http://10.2.1.157:10001/'
+const baseUrl = 'http://10.2.1.157:8888/'
+// const baseUrl = 'http://10.2.1.157:10001/'
 // const baseUrl = 'https://10.2.1.157:9999/'
 
 class BaseService {
@@ -22,6 +22,7 @@ class BaseService {
 
 	static request = (opts, data = {}) => {         
 		return new Promise((resolve, reject) => {
+			uni.showLoading();
 			uni.request({
 				method: opts.method,
 				url: baseUrl + opts.url,
@@ -31,9 +32,6 @@ class BaseService {
 					token: opts.token,
 				},
 				success: (res) => {
-					setTimeout(function() {
-						uni.hideLoading();
-					}, 200);
 					resolve(res.data);
 				},
 				fail: (err) => {
@@ -50,6 +48,9 @@ class BaseService {
 					uni.redirectTo({
 						url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
 					})
+				},
+				complete: () => {
+					uni.hideLoading();
 				}
 			})
 		});
