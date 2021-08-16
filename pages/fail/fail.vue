@@ -101,7 +101,6 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		
 		padding-top: 120rpx;
 		padding-bottom: 50rpx;
 	}
@@ -122,19 +121,15 @@
 	.text {
 		font-size: 30rpx;
 		font-weight: bold;
-		
 		margin-top: 50rpx;
 		margin-bottom: 20rpx;
-		
 		padding-bottom: 12rpx;
-		
 		color: #b30000;
 	}
 	.view_button{
-		width: 100%;
-		
 		position: absolute;
 		bottom: 320rpx;
+		width: 100%;
 	}
 	.button_style
 	{

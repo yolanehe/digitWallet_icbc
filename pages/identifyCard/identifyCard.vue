@@ -93,9 +93,6 @@
 								
 								uni.redirectTo({
 									url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-									success: res => {},
-									fail: () => {},
-									complete: () => {}
 								});
 							}
 							
@@ -115,21 +112,12 @@
 				}
 			},
 			identifyCard() {
-				// console.log('identifyCard')
 				this.$request.getCardInfo(this.cardId).then(res => {
-					// console.log('getCardInfo: ', res)
-					// console.log('type:', this.type)
-					
 					clearInterval(this.timer);
 					this.timer = null;
-					// console.log('identifyCard timer:', this.timer)
 					if (res.code == '0') {
-						// console.log('getCardInfo res.code=0')
 						uni.redirectTo({
 							url: "/pages/carddetail/carddetail?cid=" + res.data.cardInfo.card.cid,
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
 						})
 					}
 					else {
@@ -143,24 +131,15 @@
 						
 						uni.redirectTo({
 							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
 						});
 					}
 				})
 			},
 			establishCard() {
-				// console.log('establishCard')
 				this.$request.getCardIdentification(this.cardId).then(res => {
-					// console.log('getCardIdentification: ', res)
-					// console.log('type:', this.type)
-					
 					clearInterval(this.timer);
 					this.timer = null;
-					// console.log('establishCard timer:', this.timer)
 					if (res.code == '0') {
-						// console.log('getCardIdentification res.code=0')
 						let item = {
 							'title': '开立卡成功',
 							'button_text': '继续开立',
@@ -170,13 +149,9 @@
 						
 						uni.redirectTo({
 							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
 						});
 					}
 					else {
-						// console.log('getCardIdentification res.code=', res.code)
 						let item = {
 							'title': '开立卡失败',
 							'button_text': '换卡开立',
@@ -187,9 +162,6 @@
 						
 						uni.redirectTo({
 							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
 						});
 					}
 				})
@@ -198,7 +170,6 @@
 				this.$request.cardRecharge(this.checkId, this.dwId, this.pwd, this.money).then(res => {
 					clearInterval(this.timer);
 					this.timer = null;
-					// console.log('recharge timer:', this.timer)
 					if (res.code == '0') {
 						let item = {
 							'title': '充值成功',
@@ -235,7 +206,6 @@
 				this.$request.cardWithdraw(this.checkId, this.dwId).then(res => {
 					clearInterval(this.timer);
 					this.timer = null;
-					// console.log('withdraw timer:', this.timer)
 					if (res.code == '0') {
 						let item = {
 							'title': '提现成功',
@@ -249,9 +219,6 @@
 						
 						uni.redirectTo({
 							url: "/pages/success/success?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
 						});
 					}
 					else {
@@ -267,17 +234,11 @@
 						
 						uni.redirectTo({
 							url: "/pages/fail/fail?item=" + encodeURIComponent(JSON.stringify(item)),
-							success: res => {},
-							fail: () => {},
-							complete: () => {}
 						});
 					}
 				})
 			},
 			checkCard() {
-				console.log('checked_Id:', this.checkId)
-				console.log('cardId:', this.cardId)
-				
 				if (this.checkId == this.cardId) {
 					if (this.checkType == 0) {
 						this.recharge()
@@ -319,9 +280,6 @@
 			async getCardId() {
 				const id = await NFCidentify.NFCReadCard();
 				this.cardId = id
-				
-				console.log('type:', this.type)
-				console.log('checkType:', this.checkType)
 				
 				switch (this.type) {
 					case '0':

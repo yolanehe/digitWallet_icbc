@@ -78,9 +78,14 @@ class Service extends BaseService {
 		let url = 'card/getCardInfo?type=' + typeCode + '&cardId=' + cardId
 		return this.post(url, data)
 	}
-
-	static getWalletTrans = () => {
+	
+	static getWalletTrans = (typeCode) => {
 		let url = 'digitalWallet/getTransFlow'
+		
+		if (typeCode != -1) {
+			typeCode = typeCode - 1
+			url += '?type=' + typeCode
+		}
 		
 		return this.get(url, {})
 	}

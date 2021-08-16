@@ -4,7 +4,7 @@
 			<view class="walletMoney">
 				<view style="display: flex;">
 					<text class="text-style">余额</text>
-					<image class="displayImg" @click="displayDetail" :src="displayImgSrc()" />
+					<image class="displayImg" @click="displayDetail" :src="imageSrc" />
 				</view>
 				<text class="text-style" style="font-weight: bold; font-size: 50upx;">{{ money }}</text>
 			</view>
@@ -52,9 +52,23 @@
 			</button>
 			
 			<uni-popup class="pop_up" ref="popup" :type="type" :animation="false" :maskClick="true">
-				<view style="background-color: #fff;padding: 40rpx 10rpx;">
-					<view class="text-chargeDetail">
-						<text>2021年8月</text>
+				<view class="popup_view">
+					<view class="click-style" @click="ShowHidden = !ShowHidden">
+						<text class="charge">交易记录</text>
+						<label class="select">{{array[selectid]}}</label>
+						<image class="image-down" :src="selectImgSrc" mode="aspectFit"></image>
+					</view>
+					<view class="arrivalNavigation" v-if="ShowHidden">
+						<view class="sideNavigation">
+							<nav>
+								<ul>
+									<view v-for="(item,index) in array" :key="index" :checked="index ==selectid"
+										@click="radioIndexChange(index)">
+										<li class="liBottomBorder">{{ item}}</li>
+									</view>
+								</ul>
+							</nav>
+						</view>
 					</view>
 					<scroll-view class="popWindow" scroll-y="true">
 						<detail_list :productList="productList"></detail_list>
@@ -77,33 +91,45 @@
 			return {
 				type: 'bottom',
 				display: true,
-				imageSrc: imageSrc,
 				wallet: {},
-				money: '***',
-				productList:[]
+				productList:[],
+				
+				array: ['全部', '充值', '提现', '转入', '转出'],
+				ShowHidden: false,
+				selectid: 0,
+			}
+		},
+		computed: {
+			money() {
+				return this.display ? '***' : parseFloat(this.wallet.amount).toFixed(2)
+			},
+			imageSrc() {
+				return this.display ? require("@/static/2.png") : require("@/static/1.png")
+			},
+			selectImgSrc() {
+				return this.ShowHidden ? require('@/static/up_v2.png') : require('@/static/down_v2.png') 
 			}
 		},
 		onShow() {
 			this.$request.getWallet().then(res => {
 				this.wallet = res.data.userInfo
 			})
-			this.$request.getWalletTrans().then(res => {
+			this.$request.getWalletTrans('').then(res => {
 				this.productList = res.data.transFlowList
 			})
 		},
 		methods: {
+			radioIndexChange(index) {
+				this.selectid = index
+				
+				let typeCode = this.selectid - 1
+				
+				this.$request.getWalletTrans(typeCode).then(res => {
+					this.productList = res.data.transFlowList
+				})
+			},
 			displayDetail() {
 				this.display = !this.display
-				if (this.display) {
-					this.imageSrc = require("@/static/2.png")
-					this.money = "***"
-				} else {
-					this.imageSrc = require("@/static/1.png")
-					this.money = parseFloat(this.wallet.amount).toFixed(2)
-				}
-			},
-			displayImgSrc() {
-				return this.imageSrc
 			},
 			clipContent() {
 				uni.setClipboardData({
@@ -165,21 +191,90 @@
 	.popWindow {
 		margin: 0 auto;
 		display: flex;
-		//overflow-y: scroll;           //设置滚动条
-		flex-direction: row; //column:让元素沿垂直主轴从上到下垂直排列,row: 沿水平主轴让元素从左向右排列,row-reverse:沿水平主轴让元素从右向左排列
+		flex-direction: row; 
 		align-items: center;
-		/*align-items: center;        //flex-start:靠上对齐, center:居中对齐, flex-end:靠下对齐 */
-		//justify-content: flex-start;  //center:整体居中排列,flex-start:靠左,flex-end:靠右, space-between,space-around
 		height: 650rpx;
 		width: 100%;
 		margin: 0px auto;
-		}
+	}
 	.text-chargeDetail {
 		display: flex;
 		margin: 0 auto;
 		height: 70rpx;
 		width: 90%;
 		align-items: flex-start;
-		//border: 1upx solid blue;
+	}
+	.popup_view {
+		background-color: #fff;
+		padding: 40rpx 10rpx;
+	}
+	
+	.text-chargeDetail {
+		display: flex;
+		margin: 0 auto;
+		height: 70rpx;
+		width: 90%;
+		align-items: flex-start;
+	}
+	
+	.click-style {
+		margin: 0 auto;
+		margin-top: 20rpx;
+		margin-bottom: 35rpx;
+		height: 30rpx;
+		position: relative;
+		align-items: flex-end; 
+		width: 90%;
+		flex-direction: row;
+	}
+	
+	.charge {
+		font-size: 38upx;
+		position: absolute;
+		left: 0rpx;
+		bottom: 0rpx;
+		
+		font-weight: bold;
+	}
+	
+	.select {
+		position: absolute;
+		right: 45rpx;
+		bottom: 0rpx;
+		font-size: 30rpx;
+		line-height: 48rpx;
+	}
+	
+	.image-down {
+		position: absolute;
+		height: 20rpx;
+		width: 20rpx;
+		bottom: 15rpx;
+		right: 10rpx;
+	}
+	
+	.arrivalNavigation {
+		width: 250rpx;
+		position: absolute;
+		right: 20rpx;
+		z-index: 99;
+	
+		.sideNavigation {
+			width: 248rpx;
+			background-color: #202020;
+			color: #eee;
+			border-radius: 10rpx;
+	
+			li {
+				height: 85rpx;
+				text-align: center;
+				line-height: 85rpx;
+				font-size: 25rpx;
+			}
+	
+			.liBottomBorder {
+				border: 0.1rpx solid #373737;
+			}
+		}
 	}
 </style>
