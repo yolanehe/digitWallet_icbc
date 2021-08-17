@@ -43,6 +43,10 @@
 			this.$request.getWallet().then(res => {
 				this.wallet = res.data.userInfo
 			});
+			
+			if (this.dayDetail.cardTimes == 0) {
+				this.button_disabled = true
+			}
 		},
 		methods: {
 			buttonClick() {
