@@ -4,7 +4,7 @@
 		<view class="wallet_info_block">
 			<view class="wallet_info">
 				<image class="wallet_info_logo" src="@/static/digitwallet_logo.png" />
-				<text class="wallet_info_text">数字人民币钱包(尾号:{{ wallet.dwId.substr(wallet.dwId.length - 4, 4) }})</text>
+				<text class="wallet_info_text">数字人民币钱包(尾号:{{ wallet.dwId.toString().substr(wallet.dwId.length - 4, 4) }})</text>
 			</view>
 			<text class="wallet_amount">可用余额: {{ parseFloat(wallet.amount).toFixed(2) }} 元</text>
 		</view>

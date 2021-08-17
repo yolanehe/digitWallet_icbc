@@ -8,7 +8,7 @@
 			</view>
 			<view class="transfer_input_view">
 				<image class="icon" src="@/static/rmb_logo_black.png" mode="aspectFill" />
-				<input class="transfer_input_style" placeholder="请输入金额"
+				<input :disabled="input_disabled" class="transfer_input_style" placeholder="请输入金额"
 					placeholder-style="font-size: 40rpx; margin-bottom: 30rpx;" confirm-type="done"
 					@blur="formatInput" @input="checkInput" :value="money"/>
 				<image class="icon" src="@/static/delete.png" mode="aspectFit" @click="deleteMoney" />
@@ -40,7 +40,8 @@
 				button_disabled: true,
 				max_money: Config.getMAXMoney(),
 				warning_text: '输入金额超过最大金额上限',
-				display_warning: false
+				display_warning: false,
+				input_disabled: false
 			};
 		},
 		props: ['input_text', 'display_detail', 'card_balance', 'display_button', 'transfer_amount', 'wallet_balance','display_notes'],
@@ -48,6 +49,14 @@
 			if (this.display_notes) {
 				this.max_money = 500
 			}
+			
+			console.log('this.transfer_amount:', this.transfer_amount)
+			if (this.transfer_amount == "0") {
+				this.display_warning = true
+				this.warning_text = '已达到当日充值次数，不可继续充值'
+				this.input_disabled = true
+			}
+			console.log(this.display_warning)
 		},
 		methods: {
 			formatInput(event) {

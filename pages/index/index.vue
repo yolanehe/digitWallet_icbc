@@ -64,7 +64,7 @@
 								<ul>
 									<view v-for="(item,index) in array" :key="index" :checked="index ==selectid"
 										@click="radioIndexChange(index)">
-										<li class="liBottomBorder">{{ item}}</li>
+										<li class="liBottomBorder">{{item}}</li>
 									</view>
 								</ul>
 							</nav>
