@@ -37,6 +37,7 @@
 		data() {
 			return {
 				money: '',
+				old_val: '',
 				button_disabled: true,
 				max_money: Config.getMAXMoney(),
 				warning_text: '输入金额超过最大金额上限',
@@ -93,21 +94,23 @@
 			},
 			checkInput(event) {
 				let curr = event.detail.value
+				console.log('event.detail.value:', event.detail.value)
 				
 				if(/^([1-9]\d{0,7}|0)([.]?|(\.\d{1,2})?)$/.test(curr) && curr <= this.max_money) {
 					this.display_warning = false
 					this.button_disabled = false
-					this.money = curr
+					this.old_val = curr
 				}
 				else {
 					if (curr > this.max_money) {
 						this.display_warning = true
 					}
 					this.button_disabled = true
-					this.money = curr.substr(0, curr.length - 1)
+					curr = this.old_val
 				}
 				this.$emit('button_disabled', this.button_disabled)
-				return this.money
+				console.log('this.money:', this.money)
+				return curr
 			},
 			deleteMoney() {
 				this.money = ''
