@@ -8,7 +8,7 @@
 			<view class="picker_unit_right">
 				<view class="default_account">
 					<image class="account_icon" :src="getAccountIcon(selected_account.bankCode)" mode="aspectFit" />
-					<text class="picker_text">{{ selected_account.accId.substr(0, 4) + '****' + selected_account.accId.substr(15, 4) }}</text>
+					<text class="picker_text">{{ getAccountName(selected_account.bankCode) + ' (' + selected_account.accId.substr(15, 4) + ')'}}</text>
 				</view>
 				<image class="icon" :src="getImageSrc()" />
 			</view>
@@ -19,7 +19,7 @@
 				<radio-group class="account_list" v-for="(item,index) in accounts" :key="index">
 					<view style="display: flex; align-items: center;">
 						<image class="account_icon" :src="getAccountIcon(item.bankCode)" mode="aspectFit" />
-						<text class="picker_text">{{ item.accId.substr(0, 4) + ' **** ' +  item.accId.substr(15, 4)}}</text>
+						<text class="picker_text">{{ getAccountName(item.bankCode) + ' (' + item.accId.substr(15, 4) + ')'}}</text>
 					</view>
 					<view>
 						<radio color="#b30000" :value="item.accId" :checked="index == account_index" @click="radioIndexChange(index)"/>
@@ -56,6 +56,9 @@
 			},
 			getAccountIcon(src) {
 				return require('@/static/' + this.bankCode[src]['short'] + '.png')
+			},
+			getAccountName(src) {
+				return this.bankCode[src]['name']
 			},
 			radioIndexChange(index) {
 				this.account_index = index

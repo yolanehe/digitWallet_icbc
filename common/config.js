@@ -1,10 +1,10 @@
 const bankCode = {   
 	'102': {
-		name: '中国工商银行',
+		name: '工商银行',
 		short: 'icbc'
 	},
 	'103': {
-		name: '中国农业银行',
+		name: '农业银行',
 		short: 'abc'
 	},
 	'104': {
@@ -12,7 +12,7 @@ const bankCode = {
 		short: 'boc'
 	},
 	'105': {
-		name: '中国建设银行',
+		name: '建设银行',
 		short: 'ccb'
 	}
 };
