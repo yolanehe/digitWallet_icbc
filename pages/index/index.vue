@@ -136,11 +136,12 @@
 				uni.setClipboardData({
 					data: this.wallet.dwId,
 					success: function() {
-						uni.getClipboardData({
-							success: function(res) {
-								console.log(res.data);
-							}
-						});
+						wx.hideToast();
+						wx.showToast({
+							title: '已成功复制钱包ID至剪贴板',
+							icon: 'none',
+							duration: 2000
+						})
 					},
 					fail: (err) => {
 						console.log('failed: ', err)
