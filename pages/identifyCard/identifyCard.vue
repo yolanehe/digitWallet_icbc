@@ -29,8 +29,9 @@
 				type: '0', // 0: 识别卡, 1: 开立卡
 			}
 		},
-		destroyed() {
+		onUnload() {
 			clearInterval(this.timer);
+			this.timer = null;
 		},
 		onLoad(option) {
 			if (uni.getSystemInfoSync().platform == 'ios') {
@@ -98,7 +99,7 @@
 							
 							if (this.count == 20) {
 								uni.showToast({
-									title: '请检查手机NFC功能是否打开',
+									title: '本次识别软卡时间仅剩10秒,请尽快贴卡',
 									icon: 'none',
 									mask: true,
 									duration: 3000
@@ -278,21 +279,24 @@
 				}
 			},
 			async getCardId() {
-				const id = await NFCidentify.NFCReadCard();
+				const id = await NFCidentify.NFCReadCard()
+				
 				this.cardId = id
 				
-				switch (this.type) {
-					case '0':
-						this.identifyCard()
-						break;
-					case '1':
-						this.establishCard()
-						break;
-					case '2':
-						this.checkCard()
-						break;
-					default:
-						break;
+				if(this.cardId) {
+					switch (this.type) {
+						case '0':
+							this.identifyCard()
+							break;
+						case '1':
+							this.establishCard()
+							break;
+						case '2':
+							this.checkCard()
+							break;
+						default:
+							break;
+					}
 				}
 			},
 		},

@@ -58,11 +58,6 @@ class Service extends BaseService {
 	static cardWithdraw = (cardId, walletId) =>  {
 		let url = 'card/withDraw?cid=' + cardId + '&wid=' + walletId
 		
-		// let data = {
-		// 	'cid': cardId,
-		// 	'wid': walletId
-		// }
-		
 		let data = {}
 		
 		return this.post(url, data)
