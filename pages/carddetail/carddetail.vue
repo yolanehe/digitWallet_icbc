@@ -46,10 +46,24 @@
 				cardid:'',
 				productList:[],
 				
+				option: {}
             }
         },
 		onLoad(option) {
-			this.cardid = option.cid
+			this.option = option
+			/*this.cardid = option.cid
+			this.$request.getCardInfo(this.cardid).then(res => {
+				console.log("onLoad")
+				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
+				this.productList = res.data.cardInfo.transFlows
+			});
+			
+			uni.setNavigationBarTitle({
+				title: '贴一贴卡片钱包'
+			})*/
+		},
+		onShow() {
+			this.cardid = this.option.cid
 			this.$request.getCardInfo(this.cardid).then(res => {
 				console.log("onLoad")
 				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
@@ -59,7 +73,7 @@
 			uni.setNavigationBarTitle({
 				title: '贴一贴卡片钱包'
 			})
-		},		
+		},
         methods: {
 			Change: function(e) {		//改变的事件名
 				
@@ -73,14 +87,20 @@
 					})
 			},
 			recharge() {
-				uni.redirectTo({
+				/*uni.redirectTo({
 					url: "/pages/recharge/walletCard?cid=" + this.cardid,
-				});
+				});*/
+				uni.navigateTo({
+					url: "/pages/recharge/walletCard?cid=" + this.cardid
+				})
 			},
 			withdraw() {
-				uni.redirectTo({
+				// uni.redirectTo({
+				// 	url: "/pages/withdraw/walletCard?cid=" + this.cardid,
+				// });
+				uni.navigateTo({
 					url: "/pages/withdraw/walletCard?cid=" + this.cardid,
-				});
+				})
 			}
         }
     }   

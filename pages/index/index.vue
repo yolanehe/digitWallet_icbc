@@ -122,6 +122,7 @@
 		methods: {
 			radioIndexChange(index) {
 				this.selectid = index
+				this.ShowHidden = false
 				
 				let typeCode = this.selectid
 				

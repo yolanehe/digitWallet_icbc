@@ -115,6 +115,7 @@
 					}
 					else {
 						curr = this.old_val
+						
 						if(curr == 0.00){
 							this.button_disabled = true
 						}
