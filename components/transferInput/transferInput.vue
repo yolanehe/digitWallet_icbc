@@ -95,11 +95,15 @@
 			checkInput(event) {
 				let curr = event.detail.value
 				console.log('event.detail.value:', event.detail.value)
-				
 				if(/^([1-9]\d{0,7}|0)([.]?|(\.\d{1,2})?)$/.test(curr) && curr <= this.max_money) {
-					this.display_warning = false
-					this.button_disabled = false
-					this.old_val = curr
+					if (curr == 0 || curr == 0.0 || curr == 0.00){
+						this.button_disabled = true
+						this.old_val = curr
+					}else{
+						this.display_warning = false
+						this.button_disabled = false
+						this.old_val = curr
+					}
 				}
 				else {
 					if (curr > this.max_money) {
@@ -111,6 +115,12 @@
 					}
 					else {
 						curr = this.old_val
+						if(curr == 0.00){
+							this.button_disabled = true
+						}
+						else{
+							this.button_disabled = false
+						}
 					}
 				}
 				this.$emit('button_disabled', this.button_disabled)
