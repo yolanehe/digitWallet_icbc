@@ -106,14 +106,20 @@
 						this.display_warning = true
 					}
 					this.button_disabled = true
-					curr = this.old_val
+					if (curr == '') {
+						this.old_val = curr
+					}
+					else {
+						curr = this.old_val
+					}
 				}
 				this.$emit('button_disabled', this.button_disabled)
-				console.log('this.money:', this.money)
+				this.money = curr
 				return curr
 			},
 			deleteMoney() {
 				this.money = ''
+				this.old_val = ''
 				this.button_disabled = true
 				this.display_warning = false
 				this.$emit('button_disabled', this.button_disabled)
