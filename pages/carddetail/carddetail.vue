@@ -51,16 +51,6 @@
         },
 		onLoad(option) {
 			this.option = option
-			/*this.cardid = option.cid
-			this.$request.getCardInfo(this.cardid).then(res => {
-				console.log("onLoad")
-				this.money = parseFloat(res.data.cardInfo.card.amount).toFixed(2)
-				this.productList = res.data.cardInfo.transFlows
-			});
-			
-			uni.setNavigationBarTitle({
-				title: '贴一贴卡片钱包'
-			})*/
 		},
 		onShow() {
 			this.cardid = this.option.cid
@@ -87,17 +77,11 @@
 					})
 			},
 			recharge() {
-				/*uni.redirectTo({
-					url: "/pages/recharge/walletCard?cid=" + this.cardid,
-				});*/
 				uni.navigateTo({
 					url: "/pages/recharge/walletCard?cid=" + this.cardid
 				})
 			},
 			withdraw() {
-				// uni.redirectTo({
-				// 	url: "/pages/withdraw/walletCard?cid=" + this.cardid,
-				// });
 				uni.navigateTo({
 					url: "/pages/withdraw/walletCard?cid=" + this.cardid,
 				})
