@@ -32,8 +32,6 @@ let aid = '';
 class NFCIdentify {
 	static async NFCReadCard() {
 		try {
-			// await this._startHCE()
-			// console.log('this._startHCE')
 			this.adapter = wx.getNFCAdapter()
 			await this._startDiscovery()
 			const discovered = await this._onDiscovered()
@@ -41,15 +39,23 @@ class NFCIdentify {
 			
 			return aid
 		} catch (e) {
-			await this._shutDown()
+			console.log('try catch:', e)
 			
-			console.log(e)
+			await this._shutDown()
 
 			const content = HCECode[e.errCode]
-			uni.showToast({
-				title: content || e.errMsg,
-				icon: 'none',
-				duration: 2000
+			uni.showModal({
+				title: '提示',
+				content: content,
+				confirmText: '返回主页',
+				showCancel: false,
+				success: (res) => {
+					if (res.confirm) {
+						uni.redirectTo({
+							'url': '/pages/index/index',
+						})
+					}
+				}
 			})
 		}
 	}
@@ -59,11 +65,9 @@ class NFCIdentify {
 			wx.startHCE({
 				aid_list: ['F00000000A0101'],
 				success: e => {
-					console.log('_startHCE')
 					resolve(e)
 				},
 				fail: err => {
-					console.log('startHCE:', err)
 					uni.showToast({
 						title: HCECode[err.errCode],
 						icon: 'none',
@@ -79,16 +83,11 @@ class NFCIdentify {
 		return new Promise((resolve, reject) => {
 			this.adapter.startDiscovery({
 				success: e => {
-					console.log('_startDiscovery')
 					resolve(e)
 				},
 				fail: err => {
-					uni.showToast({
-						title: HCECode[err.errCode],
-						icon: 'none',
-						mask: true,
-						duration: 5000
-					})
+					reject(err)
+					const content = HCECode[err.errCode]
 				}
 			})
 		})
@@ -99,8 +98,6 @@ class NFCIdentify {
 			this.adapter.onDiscovered(
 				(this.onDiscoveredCallback = res => {
 					aid = ab2hex(res.id);
-					
-					console.log('_onDiscovered')
 
 					resolve(res)
 				})
