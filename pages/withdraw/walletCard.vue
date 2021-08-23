@@ -64,6 +64,7 @@
 					uni.redirectTo({
 						url: "/pages/carddetail/carddetail?cid=" + this.card.cid,
 					})
+					uni.navigateBack()
 				}
 			},
 		}

@@ -60,6 +60,8 @@
 				this.productList = res.data.cardInfo.transFlows
 			});
 			
+			console.log('current pages:', getCurrentPages())
+			
 			uni.setNavigationBarTitle({
 				title: '贴一贴卡片钱包'
 			})

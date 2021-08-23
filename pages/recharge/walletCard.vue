@@ -55,9 +55,11 @@
 		methods: {
 			buttonClick() {
 				if (this.dayDetail.cardTimes == "0") {
-					uni.redirectTo({
+					/*uni.redirectTo({
 						url: "/pages/carddetail/carddetail?cid=" + this.card.cid,
-					})
+					})*/
+					getCurrentPages();
+					uni.navigateBack()
 				}
 				else {
 					this.$refs.numberPad.open()
