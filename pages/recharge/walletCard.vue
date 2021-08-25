@@ -58,7 +58,6 @@
 					/*uni.redirectTo({
 						url: "/pages/carddetail/carddetail?cid=" + this.card.cid,
 					})*/
-					getCurrentPages();
 					uni.navigateBack()
 				}
 				else {

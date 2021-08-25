@@ -61,9 +61,9 @@
 					})
 				}
 				else {
-					uni.redirectTo({
-						url: "/pages/carddetail/carddetail?cid=" + this.card.cid,
-					})
+					// uni.redirectTo({
+					// 	url: "/pages/carddetail/carddetail?cid=" + this.card.cid,
+					// })
 					uni.navigateBack()
 				}
 			},

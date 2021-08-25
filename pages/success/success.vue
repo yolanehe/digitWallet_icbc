@@ -63,9 +63,10 @@
 		methods:{
 			navi_index() {
 				if (this.transtype == 2 || this.transtype == 3) {
-					uni.redirectTo({
-						url: "/pages/carddetail/carddetail?cid=" + this.cardId,
-					});
+					// uni.redirectTo({
+					// 	url: "/pages/carddetail/carddetail?cid=" + this.cardId,
+					// });
+					uni.navigateBack()
 				}
 				else {
 					uni.redirectTo({
